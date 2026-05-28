@@ -280,16 +280,22 @@
                         <div class="space-y-4">
                             <?php foreach ($announcements as $announcement): ?>
                             <div class="border-b pb-3 last:border-0">
-                                <div class="flex items-center space-x-2 mb-2">
-                                    <?php if ($announcement['priority'] == 'urgent'): ?>
-                                        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">URGENT</span>
-                                    <?php elseif ($announcement['priority'] == 'high'): ?>
-                                        <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded">HIGH PRIORITY</span>
-                                    <?php endif; ?>
-                                    <span class="text-xs text-gray-500"><?php echo date('M d, Y', strtotime($announcement['published_date'])); ?></span>
-                                </div>
-                                <h4 class="font-semibold text-gray-800 mb-1"><?php echo $announcement['title']; ?></h4>
-                                <p class="text-sm text-gray-600"><?php echo substr($announcement['content'], 0, 150); ?>...</p>
+                                <button type="button" onclick="openAnnouncement(this)" class="w-full text-left" 
+                                    data-title="<?php echo e($announcement['title']); ?>" 
+                                    data-content="<?php echo e($announcement['content']); ?>" 
+                                    data-date="<?php echo date('M d, Y', strtotime($announcement['published_date'])); ?>" 
+                                    data-priority="<?php echo e($announcement['priority']); ?>">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <?php if ($announcement['priority'] == 'urgent'): ?>
+                                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">URGENT</span>
+                                        <?php elseif ($announcement['priority'] == 'high'): ?>
+                                            <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded">HIGH PRIORITY</span>
+                                        <?php endif; ?>
+                                        <span class="text-xs text-gray-500"><?php echo date('M d, Y', strtotime($announcement['published_date'])); ?></span>
+                                    </div>
+                                    <h4 class="font-semibold text-gray-800 mb-1"><?php echo e($announcement['title']); ?></h4>
+                                    <p class="text-sm text-gray-600"><?php echo e(substr($announcement['content'], 0, 150)); ?>...</p>
+                                </button>
                             </div>
                             <?php endforeach; ?>
                         </div>
@@ -299,4 +305,6 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Announcement popup removed -->
 <?php residentFooter(); ?>

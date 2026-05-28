@@ -93,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             .login-card .px-8 { padding-left: 1rem; padding-right: 1rem; }
             .login-card input { font-size: 0.95rem; padding-top: 0.75rem; padding-bottom: 0.75rem; }
             .login-card .rounded-xl { border-radius: 14px; }
-            .login-card .shadow-[0_24px_80px_rgba(15,23,42,0.28)] { box-shadow: 0 12px 30px rgba(15,23,42,0.18); }
             .login-card .mx-auto.mb-3 { margin-bottom: 8px; }
             .login-card img, .login-card i { max-width: 100%; }
             #togglePassword { right: 10px; }

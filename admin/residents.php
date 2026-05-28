@@ -24,6 +24,23 @@ if (isset($_GET['toggle'])) {
     }
 }
 
+// Handle resident deletion (allow barangay captain or users with permission)
+if (isset($_GET['delete'])) {
+    $userId = (int)$_GET['delete'];
+    if (hasRole('barangay_captain') || hasPermission('delete_residents')) {
+        updateSubset('users', [
+            'is_active' => 0,
+            'deleted_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ], 'user_id', $userId);
+        // deactivate any role assignments
+        $stmt = $pdo->prepare("UPDATE user_role_assignments SET is_active = 0 WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        logActivity($_SESSION['user_id'], 'Deleted resident', 'users', $userId);
+        redirect('residents.php?msg=deleted');
+    }
+}
+
 if (isset($_GET['msg']) && $_GET['msg'] == 'status') {
     $message = 'Resident status updated.';
 }
@@ -115,9 +132,14 @@ adminHeader('Residents', 'residents');
                         </span>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="residents.php?toggle=<?php echo (int)$resident['user_id']; ?>" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
+                        <a href="residents.php?toggle=<?php echo (int)$resident['user_id']; ?>" class="text-blue-600 hover:text-blue-800 text-sm font-semibold mr-3">
                             <?php echo !empty($resident['is_active']) ? 'Deactivate' : 'Activate'; ?>
                         </a>
+                        <?php if (hasRole('barangay_captain') || hasPermission('delete_residents')): ?>
+                        <a href="#" onclick="if(confirm('Delete this resident account? This cannot be undone.')){ window.location='residents.php?delete=<?php echo (int)$resident['user_id']; ?>'; } return false;" class="text-red-600 hover:text-red-800 text-sm font-semibold">
+                            Delete
+                        </a>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -157,9 +179,16 @@ adminHeader('Residents', 'residents');
                 <div class="text-sm text-gray-600 mt-2">Documents: <?php echo (int)($resident['total_requests'] ?? 0); ?> • Complaints: <?php echo (int)($resident['total_complaints'] ?? 0); ?> • Appointments: <?php echo (int)($resident['total_appointments'] ?? 0); ?></div>
             </div>
             <div class="mt-3">
-                <a href="residents.php?toggle=<?php echo (int)$resident['user_id']; ?>" class="block w-full text-center px-3 py-2 rounded-lg <?php echo !empty($resident['is_active']) ? 'border border-red-600 text-red-600' : 'border border-green-600 text-green-600'; ?>">
-                    <?php echo !empty($resident['is_active']) ? 'Deactivate' : 'Activate'; ?>
-                </a>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="residents.php?toggle=<?php echo (int)$resident['user_id']; ?>" class="block text-center px-3 py-2 rounded-lg border <?php echo !empty($resident['is_active']) ? 'border-red-600 text-red-600' : 'border-green-600 text-green-600'; ?>">
+                                <?php echo !empty($resident['is_active']) ? 'Deactivate' : 'Activate'; ?>
+                            </a>
+                            <?php if (hasRole('barangay_captain') || hasPermission('delete_residents')): ?>
+                            <a href="#" onclick="if(confirm('Delete this resident account? This cannot be undone.')){ window.location='residents.php?delete=<?php echo (int)$resident['user_id']; ?>'; } return false;" class="block text-center px-3 py-2 rounded-lg border border-red-600 text-red-600">
+                                Delete
+                            </a>
+                            <?php endif; ?>
+                        </div>
             </div>
         </div>
         <?php endforeach; ?>
