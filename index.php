@@ -51,6 +51,15 @@ if (isset($_SESSION['user_id'])) {
         * {
             font-family: 'Poppins', sans-serif;
         }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        section {
+            scroll-margin-top: 96px;
+        }
         .hero-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
@@ -162,55 +171,121 @@ if (isset($_SESSION['user_id'])) {
         .site-header .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 
         @media (max-width: 768px) {
-            .site-header { position: sticky; top: 0; z-index: 60; padding-top: 6px; padding-bottom: 6px; }
-            /* Reduce inner container padding to make header visually smaller on mobile */
-            .site-header .container > div { padding-top: 4px; padding-bottom: 4px; }
-            .site-header .container { position: relative; }
-            /* Pin the toggle to the top-right corner on mobile so it doesn't overlap content */
-            .mobile-toggle-anchor { position: absolute; z-index: 90; right: 1rem; top: 8px; margin-right: 0; }
-            /* Slightly smaller floating toggle to reduce header footprint */
-            .mobile-toggle-anchor { width: 44px; height: 44px; border-radius: 12px; }
-            .mobile-toggle-anchor i { display: inline-flex; align-items: center; justify-content: center; width: 1em; line-height: 1; font-size: 17px; }
-            .brand-mark { width: 40px; height: 40px; }
-            .brand-mark i { font-size: 18px; }
+            .site-header { position: sticky; top: 0; z-index: 60; padding-top: 8px; padding-bottom: 8px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
+            .site-header .container { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.5rem; padding-right: 0.5rem; }
+            .site-header .container > div { padding-top: 0; padding-bottom: 0; }
+            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 54px); gap: 0.65rem; overflow: hidden; }
+            .site-header .container > a > span { min-width: 0; }
+            .site-header .container > a > span:last-child { min-width: 0; overflow: hidden; }
+            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 14px; z-index: 90; }
+            .mobile-toggle-anchor:hover { transform: translateY(-1px); }
+            .mobile-toggle-anchor i { display: inline-flex; align-items: center; justify-content: center; width: 1em; line-height: 1; font-size: 16px; }
+            .brand-mark { width: 38px; height: 38px; }
+            .brand-mark i { font-size: 17px; }
+            .site-header .container > a > span:last-child > span:first-child { font-size: 0.92rem; line-height: 1.05; }
+            .site-header .container > a > span:last-child > span:last-child { display: none; }
             .header-cta-group { margin-left: 0; }
-            .hero-gradient { padding-top: 18px; padding-bottom: 12px; }
-            .hero-gradient h1 { font-size: 1.75rem; line-height: 1.1; }
-            .hero-gradient p { font-size: 0.95rem; }
+            .hero-gradient { padding-top: 22px; padding-bottom: 22px; }
+            .hero-gradient h1 { font-size: 1.75rem; line-height: 1.08; letter-spacing: -0.02em; }
+            .hero-gradient p { font-size: 0.98rem; line-height: 1.65; opacity: 0.95; }
+            .hero-gradient .flex.space-x-4 { flex-direction: column; gap: 0.75rem; }
+            .hero-gradient .flex.space-x-4 a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                border-radius: 16px;
+                padding-top: 0.9rem;
+                padding-bottom: 0.9rem;
+            }
             .container { padding-left: 1rem; padding-right: 1rem; }
-            .service-card { padding: 1rem; }
-            .service-icon { width: 48px; height: 48px; }
+            .service-card { padding: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 18px 34px rgba(15, 23, 42, 0.06); border-radius: 20px; }
+            .service-card h3 { font-size: 1.05rem; }
+            .service-card p, .service-card li { font-size: 0.94rem; line-height: 1.55; }
+            .service-icon { width: 48px; height: 48px; border-radius: 16px; }
             .service-icon i { font-size: 18px; }
             .stats-number { font-size: 1.6rem; }
+            .stats-number + div { font-size: 0.92rem; }
+            .bg-white.py-12 .grid { gap: 1rem; }
+            .bg-white.py-12 .grid > div {
+                padding: 0.9rem 0.75rem;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 18px;
+            }
+            .bg-white.py-12 .grid,
+            #services .grid,
+            #features .grid,
+            footer .grid { grid-template-columns: 1fr; }
             #mobileMenu { position: relative; left: auto; right: auto; top: auto; z-index: 65; width: 100%; }
             .mobile-panel { width: 100%; }
             .mobile-panel .rounded-2xl {
                 border-radius: 18px;
                 background: rgba(255, 255, 255, 0.98);
-                box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
                 overflow: hidden;
             }
             .mobile-panel .grid.gap-2 { padding-bottom: 0.25rem; }
             .mobile-panel .grid.gap-2 .mobile-menu-link {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
                 border-radius: 14px;
                 background: #f8fafc;
                 border: 1px solid #e2e8f0;
                 color: #0f172a;
                 font-weight: 600;
                 padding: 0.9rem 1rem;
+                transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             }
             .mobile-panel .grid.gap-2 .mobile-menu-link:hover {
                 background: #eff6ff;
                 border-color: #bfdbfe;
                 color: #1d4ed8;
+                transform: translateX(2px);
+            }
+            .mobile-panel .grid.gap-2 .mobile-menu-link.is-active {
+                background: linear-gradient(135deg, #1e40af, #0f766e);
+                border-color: transparent;
+                color: #fff;
+                box-shadow: 0 14px 28px rgba(30, 64, 175, 0.18);
+            }
+            .mobile-panel .grid.gap-2 .mobile-menu-link .menu-link-icon {
+                width: 2rem;
+                height: 2rem;
+                flex: 0 0 2rem;
+                border-radius: 12px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: #eff6ff;
+                color: #1d4ed8;
+                transition: inherit;
+            }
+            .mobile-panel .grid.gap-2 .mobile-menu-link.is-active .menu-link-icon {
+                background: rgba(255, 255, 255, 0.18);
+                color: #fff;
+            }
+            .mobile-panel .grid.gap-2 .mobile-menu-link .menu-link-label {
+                flex: 1 1 auto;
             }
             .mobile-panel .mt-3 a {
                 border-radius: 14px;
             }
             .nav-link { display: none; }
             .mobile-menu-link { display: flex !important; }
-            .header-login { padding: 0.6rem 0.9rem; }
-            .hero-gradient img { max-width: 220px; }
+            .header-cta-group { display: none !important; }
+            .header-login { padding: 0.75rem 0.9rem; }
+            .hero-gradient img { max-width: 220px; width: 100%; margin-top: 0.5rem; filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.14)); }
+            .hero-gradient .lg\:w-1\/2 { margin-bottom: 0; }
+            .hero-gradient .lg\:w-1\/2:first-child { order: 2; }
+            .hero-gradient .lg\:w-1\/2:last-child { order: 1; }
+            .hero-gradient .container > .flex { align-items: flex-start; }
+            .hero-gradient .container > .flex > div { width: 100%; }
+            .hero-gradient .container > .flex > div:first-child { background: rgba(15, 23, 42, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 24px; padding: 1rem; backdrop-filter: blur(8px); }
+            .hero-gradient .container > .flex > div:last-child { display: flex; justify-content: center; }
+            #about .container { padding-top: 1rem; padding-bottom: 1rem; }
+            #about h2 { font-size: 1.65rem; line-height: 1.15; }
+            #about p { font-size: 0.98rem; }
             footer .grid { grid-template-columns: 1fr; }
             footer .container { padding-left: 1rem; padding-right: 1rem; }
             .footer-contact li { display: flex; align-items: center; gap: 8px; }
@@ -218,8 +293,49 @@ if (isset($_SESSION['user_id'])) {
             .lg\:w-1\/2 img { margin-top: 12px; }
         }
 
+        /* Tablet and wide-mobile layout */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .site-header { position: sticky; top: 0; z-index: 60; padding-top: 8px; padding-bottom: 8px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
+            .site-header .container { position: relative; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.5rem; padding-right: 0.75rem; }
+            .site-header .container > div { padding-top: 0; padding-bottom: 0; }
+            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 58px); }
+            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; z-index: 90; }
+            .mobile-toggle-anchor:hover { transform: translateY(-1px); }
+            .brand-mark { width: 40px; height: 40px; }
+            .brand-mark i { font-size: 18px; }
+            .nav-links,
+            .header-cta-group { display: none !important; }
+            .hero-gradient { padding-top: 28px; padding-bottom: 28px; }
+            .hero-gradient h1 { font-size: 2.05rem; line-height: 1.08; letter-spacing: -0.02em; }
+            .hero-gradient p { font-size: 1rem; line-height: 1.65; }
+            .hero-gradient .flex.space-x-4 { flex-direction: column; gap: 0.75rem; }
+            .hero-gradient .flex.space-x-4 a { width: 100%; text-align: center; justify-content: center; border-radius: 16px; padding-top: 0.9rem; padding-bottom: 0.9rem; }
+            .hero-gradient .container > .flex { align-items: flex-start; }
+            .hero-gradient .container > .flex > div { width: 100%; }
+            .hero-gradient .container > .flex > div:first-child { background: rgba(15, 23, 42, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 24px; padding: 1rem; backdrop-filter: blur(8px); }
+            .hero-gradient .container > .flex > div:last-child { display: flex; justify-content: center; }
+            .hero-gradient .lg\:w-1\/2 { margin-bottom: 0; width: 100%; }
+            .hero-gradient .lg\:w-1\/2:first-child { order: 2; }
+            .hero-gradient .lg\:w-1\/2:last-child { order: 1; }
+            .hero-gradient img { max-width: 260px; width: 100%; margin-top: 0.5rem; filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.14)); }
+            .container { padding-left: 1rem; padding-right: 1rem; }
+            .stats-number { font-size: 1.65rem; }
+            .bg-white.py-12 .grid,
+            footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #services .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #features .grid { grid-template-columns: 1fr; }
+            .service-card { padding: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 18px 34px rgba(15, 23, 42, 0.06); border-radius: 20px; }
+            .service-card h3 { font-size: 1.05rem; }
+            .service-card p, .service-card li { font-size: 0.94rem; line-height: 1.55; }
+            .service-icon { width: 48px; height: 48px; border-radius: 16px; }
+            .service-icon i { font-size: 18px; }
+            #mobileMenu { position: relative; left: auto; right: auto; top: auto; z-index: 65; width: 100%; }
+            .mobile-panel { width: 100%; }
+            .mobile-panel .rounded-2xl { border-radius: 18px; background: rgba(255, 255, 255, 0.98); box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12); overflow: hidden; }
+        }
+
         /* Desktop header alignment tweaks */
-        @media (min-width: 769px) {
+        @media (min-width: 1025px) {
             .site-header { padding-top: 8px; padding-bottom: 8px; }
             /* ensure container is positioned so we can absolutely place CTAs */
             .site-header .container { align-items: center; position: relative; }
@@ -234,11 +350,21 @@ if (isset($_SESSION['user_id'])) {
 
         /* Extra small devices - ensure no overlaps */
         @media (max-width: 420px) {
+            .site-header .container { align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.3rem; padding-right: 0.35rem; }
+            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 50px); }
             .brand-mark { width: 36px; height: 36px; }
-            .hero-gradient h1 { font-size: 1.5rem; }
-            .service-card { padding: 0.75rem; }
+            .brand-mark i { font-size: 16px; }
+            .site-header .container > a > span:last-child > span:first-child { font-size: 0.88rem; line-height: 1.05; }
+            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; z-index: 90; }
+            .mobile-toggle-anchor:hover { transform: translateY(-1px); }
+            .mobile-toggle-anchor i { font-size: 16px; }
+            .hero-gradient { padding-top: 20px; padding-bottom: 20px; }
+            .hero-gradient h1 { font-size: 1.45rem; }
+            .hero-gradient p { font-size: 0.92rem; }
+            .service-card { padding: 0.85rem; }
             .service-icon { width: 44px; height: 44px; }
-            .stats-number { font-size: 1.4rem; }
+            .stats-number { font-size: 1.35rem; }
+            .bg-white.py-12 { padding-top: 2.25rem; padding-bottom: 2.25rem; }
         }
     </style>
 </head>
@@ -252,7 +378,7 @@ if (isset($_SESSION['user_id'])) {
                         <i class="fas fa-home text-xl"></i>
                     </span>
                     <span class="min-w-0">
-                        <span class="block text-lg font-bold leading-tight text-slate-900 sm:text-xl">MyBalai</span>
+                        <span class="block text-base font-bold leading-tight tracking-tight text-slate-900 sm:text-xl">MyBalai</span>
                         <span class="hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:block">Smart Barangay Services</span>
                     </span>
                 </a>
@@ -284,11 +410,26 @@ if (isset($_SESSION['user_id'])) {
             <div id="mobileMenu" class="mobile-panel pb-4 md:hidden mt-2">
                 <div class="rounded-2xl border border-slate-200 bg-white p-3 shadow-lg">
                     <div class="grid gap-2">
-                        <a href="#home" class="nav-link mobile-menu-link">Home</a>
-                        <a href="#services" class="nav-link mobile-menu-link">Services</a>
-                        <a href="#features" class="nav-link mobile-menu-link">Features</a>
-                        <a href="#about" class="nav-link mobile-menu-link">About</a>
-                        <a href="#contact" class="nav-link mobile-menu-link">Contact</a>
+                        <a href="#home" class="nav-link mobile-menu-link">
+                            <span class="menu-link-icon"><i class="fas fa-house"></i></span>
+                            <span class="menu-link-label">Home</span>
+                        </a>
+                        <a href="#services" class="nav-link mobile-menu-link">
+                            <span class="menu-link-icon"><i class="fas fa-grid-2"></i></span>
+                            <span class="menu-link-label">Services</span>
+                        </a>
+                        <a href="#features" class="nav-link mobile-menu-link">
+                            <span class="menu-link-icon"><i class="fas fa-star"></i></span>
+                            <span class="menu-link-label">Features</span>
+                        </a>
+                        <a href="#about" class="nav-link mobile-menu-link">
+                            <span class="menu-link-icon"><i class="fas fa-circle-info"></i></span>
+                            <span class="menu-link-label">About</span>
+                        </a>
+                        <a href="#contact" class="nav-link mobile-menu-link">
+                            <span class="menu-link-icon"><i class="fas fa-phone"></i></span>
+                            <span class="menu-link-label">Contact</span>
+                        </a>
                     </div>
                     <div class="mt-3 grid gap-2">
                         <a href="login.php" class="header-login flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold text-white">
@@ -593,6 +734,7 @@ if (isset($_SESSION['user_id'])) {
 
         document.querySelectorAll('.mobile-menu-link').forEach(link => {
             link.addEventListener('click', () => {
+                setActiveMobileLink(link.getAttribute('href'));
                 mobileMenu.classList.remove('is-open');
                 mobileMenuButton?.setAttribute('aria-expanded', 'false');
                 mobileMenuButton?.classList.remove('is-open');
@@ -601,6 +743,41 @@ if (isset($_SESSION['user_id'])) {
                 }
             });
         });
+
+        const mobileMenuLinks = Array.from(document.querySelectorAll('.mobile-menu-link'));
+        const sectionIds = mobileMenuLinks
+            .map(link => link.getAttribute('href'))
+            .filter(href => href && href.startsWith('#'))
+            .map(href => href.slice(1));
+
+        const setActiveMobileLink = (href) => {
+            mobileMenuLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === href;
+                link.classList.toggle('is-active', isActive);
+                link.setAttribute('aria-current', isActive ? 'page' : 'false');
+            });
+        };
+
+        const updateActiveMobileLink = () => {
+            const headerOffset = 120;
+            let currentHref = '#home';
+
+            sectionIds.forEach(id => {
+                const section = document.getElementById(id);
+                if (!section) return;
+                const rect = section.getBoundingClientRect();
+                if (rect.top - headerOffset <= 0) {
+                    currentHref = `#${id}`;
+                }
+            });
+
+            setActiveMobileLink(currentHref);
+        };
+
+        updateActiveMobileLink();
+        window.addEventListener('scroll', () => {
+            window.requestAnimationFrame(updateActiveMobileLink);
+        }, { passive: true });
 
         document.addEventListener('click', (event) => {
             if (!mobileMenu.classList.contains('is-open')) return;
