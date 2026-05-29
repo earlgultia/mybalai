@@ -28,16 +28,11 @@ if (isset($_GET['toggle'])) {
 if (isset($_GET['delete'])) {
     $userId = (int)$_GET['delete'];
     if (hasRole('barangay_captain') || hasPermission('delete_residents')) {
-        updateSubset('users', [
-            'is_active' => 0,
-            'deleted_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ], 'user_id', $userId);
-        // deactivate any role assignments
-        $stmt = $pdo->prepare("UPDATE user_role_assignments SET is_active = 0 WHERE user_id = ?");
-        $stmt->execute([$userId]);
-        logActivity($_SESSION['user_id'], 'Deleted resident', 'users', $userId);
-        redirect('residents.php?msg=deleted');
+        if (hardDeleteUserAccount($userId, 'resident')) {
+            logActivity($_SESSION['user_id'], 'Deleted resident', 'users', $userId);
+            redirect('residents.php?msg=deleted');
+        }
+        redirect('residents.php?msg=delete_failed');
     }
 }
 
@@ -54,7 +49,7 @@ $stmt = $pdo->query("
     LEFT JOIN resident_profiles rp ON u.user_id = rp.user_id
     JOIN user_role_assignments ura ON ura.user_id = u.user_id AND ura.is_active = 1
     JOIN roles r ON r.role_id = ura.role_id
-    WHERE r.role_name = 'resident' AND (u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00')
+    WHERE r.role_name = 'resident'
     ORDER BY u.created_at DESC
 ");
 $residents = $stmt->fetchAll();

@@ -188,7 +188,7 @@
                                 <?php foreach ($documentRequests as $request): ?>
                                 <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                                     <div>
-                                        <p class="font-semibold"><?php echo str_replace('_', ' ', ucfirst($request['document_type'])); ?></p>
+                                        <p class="font-semibold"><?php echo e(documentTypeLabel($request['document_type'] ?? 'Document')); ?></p>
                                         <p class="text-sm text-gray-500">Requested: <?php echo date('M d, Y', strtotime($request['requested_at'])); ?></p>
                                     </div>
                                     <div>
@@ -280,18 +280,21 @@
                         <div class="space-y-4">
                             <?php foreach ($announcements as $announcement): ?>
                             <div class="border-b pb-3 last:border-0">
-                                <button type="button" onclick="openAnnouncement(this)" class="w-full text-left" 
+                                <button type="button" onclick="openAnnouncement(this)" class="w-full text-left group" 
                                     data-title="<?php echo e($announcement['title']); ?>" 
                                     data-content="<?php echo e($announcement['content']); ?>" 
                                     data-date="<?php echo date('M d, Y', strtotime($announcement['published_date'])); ?>" 
                                     data-priority="<?php echo e($announcement['priority']); ?>">
-                                    <div class="flex items-center space-x-2 mb-2">
-                                        <?php if ($announcement['priority'] == 'urgent'): ?>
-                                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">URGENT</span>
-                                        <?php elseif ($announcement['priority'] == 'high'): ?>
-                                            <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded">HIGH PRIORITY</span>
-                                        <?php endif; ?>
-                                        <span class="text-xs text-gray-500"><?php echo date('M d, Y', strtotime($announcement['published_date'])); ?></span>
+                                    <div class="flex items-center justify-between gap-3 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <?php if ($announcement['priority'] == 'urgent'): ?>
+                                                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">URGENT</span>
+                                            <?php elseif ($announcement['priority'] == 'high'): ?>
+                                                <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded">HIGH PRIORITY</span>
+                                            <?php endif; ?>
+                                            <span class="text-xs text-gray-500"><?php echo date('M d, Y', strtotime($announcement['published_date'])); ?></span>
+                                        </div>
+                                        <span class="text-xs font-semibold text-blue-600 opacity-0 transition group-hover:opacity-100">View full</span>
                                     </div>
                                     <h4 class="font-semibold text-gray-800 mb-1"><?php echo e($announcement['title']); ?></h4>
                                     <p class="text-sm text-gray-600"><?php echo e(substr($announcement['content'], 0, 150)); ?>...</p>
@@ -306,5 +309,41 @@
             </div>
         </div>
         
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function openAnnouncement(el) {
+                var title = el.dataset.title || '';
+                var content = el.dataset.content || '';
+                var date = el.dataset.date || '';
+                var priority = (el.dataset.priority || '').toLowerCase();
+                var badge = '';
+                if (priority === 'urgent') {
+                    badge = '<span class="inline-block mb-3 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white">URGENT</span>';
+                } else if (priority === 'high') {
+                    badge = '<span class="inline-block mb-3 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white">HIGH PRIORITY</span>';
+                }
+
+                var html = badge + '<div class="text-sm text-gray-500 mb-3">' + date + '</div>' +
+                    '<div style="text-align:left; white-space:pre-line; line-height:1.65; color:#374151;">' +
+                    content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+                    '</div>';
+
+                if (window.Swal) {
+                    Swal.fire({
+                        title: title,
+                        html: html,
+                        width: 760,
+                        confirmButtonText: 'Close',
+                        showCloseButton: true,
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            confirmButton: 'bg-blue-600 px-4 py-2 rounded-lg'
+                        }
+                    });
+                } else {
+                    alert(title + '\n\n' + content);
+                }
+            }
+        </script>
         <!-- Announcement popup removed -->
 <?php residentFooter(); ?>

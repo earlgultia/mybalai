@@ -10,7 +10,24 @@ function e($value) {
 }
 
 function labelize($value) {
-    return ucwords(str_replace('_', ' ', (string)$value));
+    return ucwords(str_replace('_', ' ', trim((string)$value)));
+}
+
+function documentTypeLabel($type) {
+    $map = [
+        'barangay_clearance' => 'Barangay Clearance',
+        'certificate_of_residency' => 'Certificate of Residency',
+        'certificate_of_indigency' => 'Certificate of Indigency',
+        'business_clearance' => 'Business Clearance',
+        'business_permit' => 'Business Clearance',
+        'sedula' => 'Sedula',
+        'cedula' => 'Sedula',
+    ];
+    $type = trim((string)$type);
+    if ($type === '') {
+        return 'Document';
+    }
+    return $map[$type] ?? labelize($type);
 }
 
 function peso($amount) {
@@ -103,6 +120,7 @@ function adminHeader($title, $active) {
             ['dashboard.php', 'tachometer-alt', 'Dashboard', 'dashboard'],
             ['finance.php', 'coins', 'Document Payments', 'finance'],
             ['reports.php', 'chart-bar', 'Finance Report', 'reports'],
+            ['settings.php', 'cog', 'Settings', 'settings'],
         ];
     } else {
         $items = [
@@ -141,6 +159,47 @@ function adminHeader($title, $active) {
                     $items[] = ['scan_qr.php', 'qrcode', 'QR Scanner', 'qr_scanner'];
                 }
             }
+        }
+    }
+
+    // Admin-wide request notifications for document and related approvals
+    $notificationCount = 0;
+    $notificationLabel = '';
+    $notificationHref = 'dashboard.php';
+
+    if (isset($GLOBALS['pdo'])) {
+        try {
+            $pendingDocRequests = (int) $GLOBALS['pdo']->query("SELECT COUNT(*) FROM document_requests WHERE status = 'pending'")->fetchColumn();
+            $pendingAppointments = (int) $GLOBALS['pdo']->query("SELECT COUNT(*) FROM appointments WHERE status = 'pending'")->fetchColumn();
+            $pendingComplaints = (int) $GLOBALS['pdo']->query("SELECT COUNT(*) FROM complaints WHERE status = 'submitted'")->fetchColumn();
+
+            $requestTypeCount = 0;
+            if ($pendingDocRequests > 0) { $requestTypeCount++; }
+            if ($pendingAppointments > 0) { $requestTypeCount++; }
+            if ($pendingComplaints > 0) { $requestTypeCount++; }
+
+            if ($pendingDocRequests > 0 || $pendingAppointments > 0 || $pendingComplaints > 0) {
+                $notificationCount = $pendingDocRequests + $pendingAppointments + $pendingComplaints;
+                if ($requestTypeCount === 1) {
+                    if ($pendingDocRequests > 0) {
+                        $notificationLabel = $pendingDocRequests . ' New Document Request' . ($pendingDocRequests === 1 ? '' : 's');
+                        $notificationHref = 'requests.php';
+                    } elseif ($pendingAppointments > 0) {
+                        $notificationLabel = $pendingAppointments . ' New Appointment Request' . ($pendingAppointments === 1 ? '' : 's');
+                        $notificationHref = 'appointments.php';
+                    } else {
+                        $notificationLabel = $pendingComplaints . ' New Complaint' . ($pendingComplaints === 1 ? '' : 's');
+                        $notificationHref = 'complaints.php';
+                    }
+                } else {
+                    $notificationLabel = $notificationCount . ' Pending Requests';
+                    $notificationHref = 'dashboard.php';
+                }
+            }
+        } catch (Throwable $e) {
+            $notificationCount = 0;
+            $notificationLabel = '';
+            $notificationHref = 'dashboard.php';
         }
     }
     ?>
@@ -568,7 +627,15 @@ function adminHeader($title, $active) {
                         </button>
                         <h2 class="page-title min-w-0 text-2xl font-bold text-gray-800"><?php echo e($title); ?></h2>
                     </div>
-                    <div class="admin-topbar-right flex items-center text-sm text-gray-600"><?php echo date('F j, Y'); ?></div>
+                    <div class="admin-topbar-right flex items-center text-sm text-gray-600">
+                        <?php if (!empty($notificationLabel)): ?>
+                            <a href="<?php echo e($notificationHref); ?>" class="inline-flex items-center rounded-full bg-blue-50 px-3 py-2 text-blue-700 hover:bg-blue-100 mr-3">
+                                <i class="fas fa-bell mr-2"></i>
+                                <?php echo e($notificationLabel); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php echo date('F j, Y'); ?>
+                    </div>
                 </div>
             </div>
             <div class="admin-content p-6">

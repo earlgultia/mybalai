@@ -5,9 +5,78 @@ if (!hasRole(['super_admin', 'barangay_captain', 'barangay_treasurer'])) {
     redirect('dashboard.php');
 }
 
+ensureDocumentRequestPaymentColumns();
+ensureTransactionDocumentTypeColumn();
+
 $message = '';
 $error = '';
 $selectedRequestId = (int)($_GET['request_id'] ?? 0);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['proof_request_id'])) {
+    $requestId = (int)$_POST['proof_request_id'];
+    $proofAction = sanitize($_POST['proof_action'] ?? '');
+
+    $stmt = $pdo->prepare("
+        SELECT dr.request_id, dr.user_id, dr.reference_number, dr.document_type, dr.amount, dr.status, dr.payment_status,
+               dr.payment_method, dr.payment_proof, dr.payment_proof_status,
+               u.first_name, u.last_name
+        FROM document_requests dr
+        JOIN users u ON u.user_id = dr.user_id
+        WHERE dr.request_id = ?
+        LIMIT 1
+    ");
+    $stmt->execute([$requestId]);
+    $request = $stmt->fetch();
+
+    if (!$request) {
+        $error = 'Document request not found.';
+    } elseif (($request['payment_method'] ?? '') !== 'gcash') {
+        $error = 'This proof review is only for GCash payments.';
+    } elseif (($request['payment_proof_status'] ?? 'none') !== 'submitted') {
+        $error = 'No submitted proof is waiting for review.';
+    } else {
+        try {
+            if ($proofAction === 'reject') {
+                $update = $pdo->prepare("UPDATE document_requests SET payment_proof_status = 'rejected', payment_proof_reviewed_at = NOW(), payment_proof_reviewed_by = ? WHERE request_id = ?");
+                $update->execute([$_SESSION['user_id'], $requestId]);
+                logActivity($_SESSION['user_id'], 'Rejected payment proof', 'document_requests', $requestId, $request['reference_number'] ?? 'N/A');
+                $message = 'Payment proof rejected.';
+            } else {
+                $pdo->beginTransaction();
+
+                $orNumber = generateReferenceNumber('OR');
+                $documentFee = (float)($request['amount'] ?? 0);
+                if ($documentFee <= 0) {
+                    $documentFee = getDocumentRequestFee($request['document_type'] ?? '');
+                }
+                $stmt = $pdo->prepare("INSERT INTO transactions (\n                    user_id, transaction_type, document_type, reference_id, amount, payment_method,\n                    payment_reference, or_number, status, collected_by, notes\n                ) VALUES (?, 'document_fee', ?, ?, ?, 'gcash', ?, ?, 'completed', ?, ?)");
+                $stmt->execute([
+                    (int)$request['user_id'],
+                    $request['document_type'] ?? null,
+                    $requestId,
+                    $documentFee,
+                    ($request['reference_number'] ?? 'GCASH') . ' / ' . basename((string)($request['payment_proof'] ?? '')),
+                    $orNumber,
+                    $_SESSION['user_id'],
+                    'GCash proof verified for ' . ($request['reference_number'] ?? 'document request'),
+                ]);
+
+                $update = $pdo->prepare("UPDATE document_requests SET payment_status = 'paid', payment_proof_status = 'verified', payment_proof_reviewed_at = NOW(), payment_proof_reviewed_by = ? WHERE request_id = ?");
+                $update->execute([$_SESSION['user_id'], $requestId]);
+                $pdo->commit();
+
+                logActivity($_SESSION['user_id'], 'Verified payment proof', 'document_requests', $requestId, $request['reference_number'] ?? 'N/A');
+                $message = 'GCash proof verified and payment recorded.';
+            }
+            $selectedRequestId = $requestId;
+        } catch (Exception $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            $error = 'Unable to process payment proof.';
+        }
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'])) {
     $requestId = (int)$_POST['request_id'];
@@ -48,21 +117,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'])) {
                 $orNumber = generateReferenceNumber('OR');
                 $stmt = $pdo->prepare("
                     INSERT INTO transactions (
-                        user_id, transaction_type, reference_id, amount, payment_method,
+                        user_id, transaction_type, document_type, reference_id, amount, payment_method,
                         payment_reference, or_number, status, collected_by, notes
-                    ) VALUES (?, 'document_fee', ?, ?, ?, ?, ?, 'completed', ?, ?)
+                    ) VALUES (?, 'document_fee', ?, ?, ?, ?, ?, ?, 'completed', ?, ?)
                 ");
                 $stmt->execute([
                     (int)$request['user_id'],
+                    $request['document_type'] ?? null,
                     $requestId,
-                        $documentFee,
+                    $documentFee,
                     $paymentMethod,
                     $paymentReference !== '' ? $paymentReference : null,
                     $orNumber,
                     $_SESSION['user_id'],
                     $notes !== '' ? $notes : 'Payment for ' . ($request['reference_number'] ?? 'document request'),
                 ]);
-
                 $stmt = $pdo->prepare("UPDATE document_requests SET payment_status = 'paid' WHERE request_id = ?");
                 $stmt->execute([$requestId]);
 
@@ -140,7 +209,8 @@ $stmt = $pdo->query("
 $documentPaymentTotal = (float)$stmt->fetchColumn();
 
 $stmt = $pdo->query("
-    SELECT t.*, u.first_name, u.last_name, dr.reference_number, dr.document_type
+    SELECT t.*, u.first_name, u.last_name, dr.reference_number,
+           COALESCE(NULLIF(t.document_type, ''), dr.document_type) AS document_type
     FROM transactions t
     JOIN users u ON u.user_id = t.user_id
     LEFT JOIN document_requests dr ON dr.request_id = t.reference_id AND t.transaction_type = 'document_fee'
@@ -190,7 +260,7 @@ adminHeader('Document Payments', 'finance');
                     <?php foreach ($paymentQueue as $queueItem): ?>
                     <tr>
                         <td class="px-4 py-3">
-                            <p class="font-semibold"><?php echo e(labelize($queueItem['document_type'] ?? 'Document')); ?></p>
+                            <p class="font-semibold"><?php echo e(documentTypeLabel($queueItem['document_type'] ?? 'Document')); ?></p>
                             <p class="text-xs text-gray-400"><?php echo e($queueItem['reference_number'] ?? 'N/A'); ?></p>
                         </td>
                         <td class="px-4 py-3"><?php echo e($queueItem['first_name'] . ' ' . $queueItem['last_name']); ?></td>
@@ -218,7 +288,7 @@ adminHeader('Document Payments', 'finance');
             <div class="bg-white rounded-lg shadow p-3">
                 <div class="flex items-start justify-between">
                     <div>
-                        <div class="font-semibold text-gray-900"><?php echo e(labelize($queueItem['document_type'] ?? 'Document')); ?></div>
+                        <div class="font-semibold text-gray-900"><?php echo e(documentTypeLabel($queueItem['document_type'] ?? 'Document')); ?></div>
                         <div class="text-xs text-gray-400"><?php echo e($queueItem['reference_number'] ?? 'N/A'); ?></div>
                         <div class="text-sm text-gray-700 mt-1"><?php echo e($queueItem['first_name'] . ' ' . $queueItem['last_name']); ?></div>
                         <div class="text-sm font-semibold mt-1"><?php echo peso($queueItem['amount']); ?></div>
@@ -245,7 +315,7 @@ adminHeader('Document Payments', 'finance');
         </div>
         <?php if ($selectedRequest): ?>
         <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-900">
-            <p class="font-semibold"><?php echo e(labelize($selectedRequest['document_type'] ?? 'Document')); ?></p>
+            <p class="font-semibold"><?php echo e(documentTypeLabel($selectedRequest['document_type'] ?? 'Document')); ?></p>
             <p>Resident: <?php echo e($selectedRequest['first_name'] . ' ' . $selectedRequest['last_name']); ?></p>
             <p>Reference: <?php echo e($selectedRequest['reference_number'] ?? 'N/A'); ?></p>
             <p>Amount: <?php echo peso($selectedRequest['amount']); ?></p>
@@ -310,7 +380,7 @@ adminHeader('Document Payments', 'finance');
                     <td class="px-4 py-3"><?php echo !empty($payment['transaction_date']) ? date('M d, Y', strtotime($payment['transaction_date'])) : 'N/A'; ?></td>
                     <td class="px-4 py-3"><?php echo e($payment['first_name'] . ' ' . $payment['last_name']); ?></td>
                     <td class="px-4 py-3">
-                        <p class="font-semibold"><?php echo e(labelize($payment['document_type'] ?? 'Document')); ?></p>
+                        <p class="font-semibold"><?php echo e(documentTypeLabel($payment['document_type'] ?? 'Document')); ?></p>
                         <p class="text-xs text-gray-400"><?php echo e($payment['reference_number'] ?? 'N/A'); ?></p>
                     </td>
                     <td class="px-4 py-3 font-semibold"><?php echo peso($payment['amount']); ?></td>
@@ -338,7 +408,7 @@ adminHeader('Document Payments', 'finance');
                 <div>
                     <div class="text-sm text-gray-700"><?php echo !empty($payment['transaction_date']) ? date('M d, Y', strtotime($payment['transaction_date'])) : 'N/A'; ?></div>
                     <div class="font-medium text-gray-900"><?php echo e($payment['first_name'] . ' ' . $payment['last_name']); ?></div>
-                    <div class="text-sm text-gray-700"><?php echo e(labelize($payment['document_type'] ?? 'Document')); ?> <span class="text-xs text-gray-400"><?php echo e($payment['reference_number'] ?? 'N/A'); ?></span></div>
+                    <div class="text-sm text-gray-700"><?php echo e(documentTypeLabel($payment['document_type'] ?? 'Document')); ?> <span class="text-xs text-gray-400"><?php echo e($payment['reference_number'] ?? 'N/A'); ?></span></div>
                 </div>
                 <div class="text-right">
                     <div class="font-semibold"><?php echo peso($payment['amount']); ?></div>
@@ -351,3 +421,5 @@ adminHeader('Document Payments', 'finance');
     </div>
 </div>
 <?php adminFooter(); ?>
+
+

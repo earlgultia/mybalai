@@ -67,8 +67,9 @@ if (!isset($_SESSION['user_id'])) {
                 return;
             }
 
-            if (window.history.length > 1) {
-                window.history.back();
+            const referrer = document.referrer;
+            if (referrer && referrer !== window.location.href) {
+                window.location.replace(referrer);
             } else {
                 window.location.replace('index.php');
             }

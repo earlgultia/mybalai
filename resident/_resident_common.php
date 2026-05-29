@@ -10,7 +10,24 @@ function e($value) {
 }
 
 function labelize($value) {
-    return ucwords(str_replace('_', ' ', (string)$value));
+    return ucwords(str_replace('_', ' ', trim((string)$value)));
+}
+
+function documentTypeLabel($type) {
+    $map = [
+        'barangay_clearance' => 'Barangay Clearance',
+        'certificate_of_residency' => 'Certificate of Residency',
+        'certificate_of_indigency' => 'Certificate of Indigency',
+        'business_clearance' => 'Business Clearance',
+        'business_permit' => 'Business Clearance',
+        'sedula' => 'Sedula',
+        'cedula' => 'Sedula',
+    ];
+    $type = trim((string)$type);
+    if ($type === '') {
+        return 'Document';
+    }
+    return $map[$type] ?? labelize($type);
 }
 
 function peso($amount) {

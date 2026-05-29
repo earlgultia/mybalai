@@ -51,26 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error = 'Only ' . $managedLabel . ' accounts can be deleted here.';
             } else {
                 try {
-                    $pdo->beginTransaction();
-
-                    $stmt = $pdo->prepare("UPDATE users SET is_active = 0, deleted_at = NOW() WHERE user_id = ?");
-                    $stmt->execute([$staffId]);
-
-                    $stmt = $pdo->prepare("
-                        UPDATE user_role_assignments ura
-                        JOIN roles r ON r.role_id = ura.role_id
-                        SET ura.is_active = 0
-                        WHERE ura.user_id = ? AND r.role_name = ?
-                    ");
-                    $stmt->execute([$staffId, $managedRole]);
-
-                    logActivity($_SESSION['user_id'], 'Deleted ' . $managedLabel . ' account', 'users', $staffId, $staff['first_name'] . ' ' . $staff['last_name']);
-                    $pdo->commit();
-                    $message = $managedLabel . ' account deleted successfully.';
-                } catch (Exception $e) {
-                    if ($pdo->inTransaction()) {
-                        $pdo->rollBack();
+                    if (hardDeleteUserAccount($staffId, 'staff')) {
+                        logActivity($_SESSION['user_id'], 'Deleted ' . $managedLabel . ' account', 'users', $staffId, $staff['first_name'] . ' ' . $staff['last_name']);
+                        $message = $managedLabel . ' account deleted successfully.';
+                    } else {
+                        $error = $managedLabel . ' account could not be deleted. Please try again.';
                     }
+                } catch (Exception $e) {
                     $error = $managedLabel . ' account could not be deleted. Please try again.';
                 }
             }
@@ -100,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($password !== $confirmPassword) {
         $error = 'Passwords do not match.';
     } else {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ? OR username = ?");
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00') AND (email = ? OR username = ?)");
         $stmt->execute([$email, $username]);
         if ($stmt->fetchColumn() > 0) {
             $error = 'Email or username is already registered.';

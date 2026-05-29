@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($password !== $confirmPassword) {
         $error = 'Passwords do not match.';
     } else {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ? OR username = ?");
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00') AND (email = ? OR username = ?)");
         $stmt->execute([$email, $username]);
         if ($stmt->fetchColumn() > 0) {
             $error = 'Email or username is already registered.';

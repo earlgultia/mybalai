@@ -20,6 +20,8 @@ function dashboardEscape($value) {
     return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
 }
 
+ensureDocumentRequestPaymentColumns();
+
 // Super Admin dashboard statistics
 $stmt = $pdo->query("SELECT COUNT(*) FROM users WHERE is_active = 1 AND (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00')");
 $totalActiveUsers = (int)$stmt->fetchColumn();
@@ -77,6 +79,12 @@ $totalFunds = $funds['cash_total'] + $funds['gcash_total'];
 $stmt = $pdo->query("SELECT COUNT(*) as pending FROM document_requests WHERE status = 'pending'");
 $pendingRequests = $stmt->fetch()['pending'];
 
+$stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid' AND payment_method = 'cash'");
+$cashPaymentsAwaiting = (int)$stmt->fetchColumn();
+
+$stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid' AND payment_method = 'gcash' AND payment_proof_status = 'submitted'");
+$gcashProofsAwaiting = (int)$stmt->fetchColumn();
+
 // Pending complaints
 $stmt = $pdo->query("SELECT COUNT(*) as pending FROM complaints WHERE status = 'submitted'");
 $pendingComplaints = $stmt->fetch()['pending'];
@@ -98,7 +106,7 @@ $stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'read
 $readyForPickupRequests = (int)$stmt->fetchColumn();
 
 // Recent document payment records
-$stmt = $pdo->query("\n    SELECT t.*, u.first_name, u.last_name, dr.reference_number, dr.document_type\n    FROM transactions t\n    JOIN users u ON t.user_id = u.user_id\n    LEFT JOIN document_requests dr ON dr.request_id = t.reference_id AND t.transaction_type = 'document_fee'\n    WHERE t.transaction_type = 'document_fee'\n    ORDER BY t.transaction_date DESC\n    LIMIT 5\n");
+$stmt = $pdo->query("\n    SELECT t.*, u.first_name, u.last_name, dr.reference_number, COALESCE(t.document_type, dr.document_type) AS document_type\n    FROM transactions t\n    JOIN users u ON t.user_id = u.user_id\n    LEFT JOIN document_requests dr ON dr.request_id = t.reference_id AND t.transaction_type = 'document_fee'\n    WHERE t.transaction_type = 'document_fee'\n    ORDER BY t.transaction_date DESC\n    LIMIT 5\n");
 $recentDocumentPayments = $stmt->fetchAll();
 
 // Total document payments collected
@@ -144,6 +152,25 @@ if ($dueReminder) {
         'href' => 'finance.php',
         'icon' => 'fa-coins',
         'tone' => 'bg-emerald-50 text-emerald-600',
+    ];
+}
+$ifTreasurerNeedsCash = $isTreasurer && $cashPaymentsAwaiting > 0;
+if ($ifTreasurerNeedsCash) {
+    $notificationItems[] = [
+        'title' => 'Cash Payments Awaiting',
+        'message' => $cashPaymentsAwaiting . ' approved request' . ($cashPaymentsAwaiting === 1 ? '' : 's') . ' are waiting for cash payment recording.',
+        'href' => 'finance.php',
+        'icon' => 'fa-money-bill-wave',
+        'tone' => 'bg-amber-50 text-amber-600',
+    ];
+}
+if ($isTreasurer && $gcashProofsAwaiting > 0) {
+    $notificationItems[] = [
+        'title' => 'GCash Proofs Ready',
+        'message' => $gcashProofsAwaiting . ' uploaded proof' . ($gcashProofsAwaiting === 1 ? '' : 's') . ' need review.',
+        'href' => 'finance.php',
+        'icon' => 'fa-receipt',
+        'tone' => 'bg-purple-50 text-purple-600',
     ];
 }
 $notificationCount = count($notificationItems);
@@ -353,7 +380,7 @@ adminHeader($dashboardTitle, 'dashboard');
             <?php foreach ($recentRequests as $request): ?>
             <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div>
-                    <p class="font-semibold"><?php echo dashboardEscape(labelize($request['document_type'] ?? 'Document')); ?></p>
+                    <p class="font-semibold"><?php echo dashboardEscape(documentTypeLabel($request['document_type'] ?? 'Document')); ?></p>
                     <p class="text-sm text-gray-500"><?php echo dashboardEscape(($request['first_name'] ?? '') . ' ' . ($request['last_name'] ?? '')); ?></p>
                     <p class="text-xs text-gray-400">Payment: <?php echo dashboardEscape(labelize($request['payment_status'] ?? 'unpaid')); ?></p>
                 </div>
@@ -413,7 +440,7 @@ adminHeader($dashboardTitle, 'dashboard');
             <?php foreach ($recentDocumentPayments as $payment): ?>
             <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div>
-                    <p class="font-semibold"><?php echo dashboardEscape(labelize($payment['document_type'] ?? 'Document')); ?></p>
+                    <p class="font-semibold"><?php echo dashboardEscape(documentTypeLabel($payment['document_type'] ?? 'Document')); ?></p>
                     <p class="text-sm text-gray-500"><?php echo dashboardEscape(($payment['first_name'] ?? '') . ' ' . ($payment['last_name'] ?? '')); ?></p>
                     <p class="text-xs text-gray-400">Reference: <?php echo dashboardEscape($payment['reference_number'] ?? 'N/A'); ?></p>
                 </div>
@@ -433,6 +460,10 @@ adminHeader($dashboardTitle, 'dashboard');
             <button onclick="location.href='finance.php'" class="bg-emerald-600 text-white p-4 rounded-lg hover:bg-emerald-700 transition flex items-center justify-center space-x-2">
                 <i class="fas fa-coins"></i>
                 <span>Open Payment Queue</span>
+            </button>
+            <button onclick="location.href='settings.php'" class="bg-slate-100 text-slate-800 p-4 rounded-lg hover:bg-slate-200 transition flex items-center justify-center space-x-2 border border-slate-200">
+                <i class="fas fa-cog"></i>
+                <span>Open Settings</span>
             </button>
             <button onclick="window.print()" class="bg-slate-700 text-white p-4 rounded-lg hover:bg-slate-800 transition flex items-center justify-center space-x-2">
                 <i class="fas fa-print"></i>
@@ -610,7 +641,7 @@ adminHeader($dashboardTitle, 'dashboard');
                 <?php foreach ($recentRequests as $request): ?>
                 <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                     <div>
-                        <p class="font-semibold"><?php echo str_replace('_', ' ', ucfirst($request['document_type'])); ?></p>
+                        <p class="font-semibold"><?php echo dashboardEscape(documentTypeLabel($request['document_type'] ?? 'Document')); ?></p>
                         <p class="text-sm text-gray-500"><?php echo $request['first_name'] . ' ' . $request['last_name']; ?></p>
                     </div>
                     <div>

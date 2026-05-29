@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2026 at 09:45 AM
+-- Generation Time: May 29, 2026 at 04:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,136 +63,403 @@ CREATE TABLE `activity_logs` (
 --
 
 INSERT INTO `activity_logs` (`log_id`, `user_id`, `action`, `entity_type`, `entity_id`, `ip_address`, `user_agent`, `details`, `created_at`) VALUES
-(1, 2, 'User logged in', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:44:26'),
-(2, 2, 'User logged out', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:44:30'),
+(1, NULL, 'User logged in', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:44:26'),
+(2, NULL, 'User logged out', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:44:30'),
 (3, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:44:48'),
 (4, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:45:20'),
 (5, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:45:26'),
 (6, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:53:10'),
-(7, 2, 'User logged in', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:53:23'),
-(8, 2, 'User logged out', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:59:57'),
+(7, NULL, 'User logged in', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:53:23'),
+(8, NULL, 'User logged out', 'auth', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 04:59:57'),
 (9, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:00:06'),
 (10, 1, 'Deleted Barangay Captain account', 'users', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Juan Dela Cruz', '2026-05-26 05:14:03'),
 (11, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:14:16'),
 (12, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:14:30'),
 (13, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:15:16'),
-(14, 4, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:15:26'),
-(15, 4, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:15:38'),
+(14, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:15:26'),
+(15, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:15:38'),
 (16, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:15:45'),
 (17, 1, 'Created staff account', 'users', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'barangay_captain', '2026-05-26 05:17:00'),
 (18, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:17:07'),
-(19, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:17:11'),
-(20, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:18:52'),
-(21, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:19:12'),
-(22, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:29:12'),
-(23, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:29:29'),
-(24, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:32:08'),
-(25, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:33:29'),
-(26, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:33:33'),
-(27, 8, 'Resident account registered', 'users', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:26:31'),
-(28, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:26:45'),
-(29, 8, 'Updated profile', 'users', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:27:57'),
-(30, 8, 'Generated resident QR ID', 'resident_profiles', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:43:21'),
-(31, 8, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:44:35'),
-(32, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:44:50'),
-(33, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:44:55'),
-(34, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:45:15'),
-(35, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:45:19'),
-(36, 7, 'Created staff account', 'users', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'barangay_secretary', '2026-05-26 07:46:18'),
-(37, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:46:26'),
-(38, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:46:29'),
-(39, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:49:41'),
-(40, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:50:01'),
-(41, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:50:20'),
-(42, 4, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:50:40'),
-(43, 4, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:52:37'),
-(44, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:52:42'),
-(45, 9, 'Updated document request', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:00'),
-(46, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:06'),
-(47, 4, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:14'),
-(48, 4, 'Recorded document payment', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260526-9417', '2026-05-26 08:54:38'),
-(49, 4, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:59'),
-(50, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:06'),
-(51, 9, 'Updated document request', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:13'),
-(52, 9, 'Updated document request', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:25'),
-(53, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:33'),
-(54, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:56:53'),
-(55, 8, 'Filed complaint', 'complaints', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:58:40'),
-(56, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:59:34'),
-(57, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:59:40'),
-(58, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:00:23'),
-(59, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:00:54'),
-(60, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:00'),
-(61, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:05'),
-(62, 8, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:17'),
-(63, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:21'),
-(64, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:25'),
-(65, 9, 'Updated document request', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:30'),
-(66, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:34'),
-(67, 4, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:42'),
-(68, 4, 'Recorded document payment', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260526-1788', '2026-05-26 09:02:04'),
-(69, 4, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:15'),
-(70, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:18'),
-(71, 9, 'Updated document request', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:29'),
-(72, 9, 'Updated document request', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:32'),
-(73, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:37'),
-(74, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:42'),
-(75, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:05:08'),
-(76, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:05:48'),
-(77, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:06:08'),
-(78, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:12:56'),
-(79, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:13:29'),
-(80, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:16:28'),
-(81, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:16:33'),
-(82, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:16:51'),
-(83, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:25:27'),
-(84, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:25:32'),
-(85, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:26:10'),
-(86, 4, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:26:19'),
-(87, 4, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:30:55'),
-(88, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:15:11'),
-(89, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:15:27'),
-(90, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:15:31'),
-(91, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:17:57'),
-(92, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:18:01'),
-(93, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:21:23'),
-(94, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:21:33'),
-(95, 9, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:21:48'),
-(96, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:43:14'),
-(97, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:49:50'),
-(98, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 23:04:13'),
-(99, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 00:49:47'),
-(100, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 01:53:56'),
-(101, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 01:54:19'),
-(102, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 01:55:50'),
-(103, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:12:00'),
-(104, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:12:03'),
-(105, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:32:35'),
-(106, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:32:38'),
-(107, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:56:07'),
-(108, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:56:12'),
-(109, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 03:02:41'),
-(110, 9, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 03:02:45'),
-(111, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 10:58:32'),
-(112, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 11:02:43'),
-(113, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 11:02:50'),
-(114, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 12:10:14'),
-(115, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 12:10:20'),
-(116, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 12:19:52'),
-(117, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 22:33:00'),
-(118, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 22:33:10'),
-(119, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 22:33:16'),
-(120, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:32:54'),
-(121, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:33:00'),
-(122, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:17'),
-(123, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:31'),
-(124, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:37'),
-(125, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:44'),
-(126, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 00:38:01'),
-(127, 7, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 06:43:18'),
-(128, 7, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 07:16:34'),
-(129, 8, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 07:17:24'),
-(130, 8, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 07:41:53');
+(19, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:17:11'),
+(20, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:18:52'),
+(21, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:19:12'),
+(22, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:29:12'),
+(23, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:29:29'),
+(24, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:32:08'),
+(25, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:33:29'),
+(26, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 05:33:33'),
+(27, NULL, 'Resident account registered', 'users', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:26:31'),
+(28, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:26:45'),
+(29, NULL, 'Updated profile', 'users', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:27:57'),
+(30, NULL, 'Generated resident QR ID', 'resident_profiles', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:43:21'),
+(31, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:44:35'),
+(32, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:44:50'),
+(33, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:44:55'),
+(34, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:45:15'),
+(35, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:45:19'),
+(36, NULL, 'Created staff account', 'users', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'barangay_secretary', '2026-05-26 07:46:18'),
+(37, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:46:26'),
+(38, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:46:29'),
+(39, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:49:41'),
+(40, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:50:01'),
+(41, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:50:20'),
+(42, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 07:50:40'),
+(43, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:52:37'),
+(44, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:52:42'),
+(45, NULL, 'Updated document request', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:00'),
+(46, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:06'),
+(47, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:14'),
+(48, NULL, 'Recorded document payment', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260526-9417', '2026-05-26 08:54:38'),
+(49, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:54:59'),
+(50, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:06'),
+(51, NULL, 'Updated document request', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:13'),
+(52, NULL, 'Updated document request', 'document_requests', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:25'),
+(53, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:55:33'),
+(54, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:56:53'),
+(55, NULL, 'Filed complaint', 'complaints', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:58:40'),
+(56, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:59:34'),
+(57, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 08:59:40'),
+(58, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:00:23'),
+(59, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:00:54'),
+(60, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:00'),
+(61, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:05'),
+(62, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:17'),
+(63, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:21'),
+(64, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:25'),
+(65, NULL, 'Updated document request', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:30'),
+(66, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:34'),
+(67, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:01:42'),
+(68, NULL, 'Recorded document payment', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260526-1788', '2026-05-26 09:02:04'),
+(69, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:15'),
+(70, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:18'),
+(71, NULL, 'Updated document request', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:29'),
+(72, NULL, 'Updated document request', 'document_requests', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:32'),
+(73, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:37'),
+(74, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:02:42'),
+(75, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:05:08'),
+(76, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:05:48'),
+(77, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:06:08'),
+(78, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:12:56'),
+(79, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:13:29'),
+(80, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:16:28'),
+(81, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:16:33'),
+(82, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:16:51'),
+(83, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:25:27'),
+(84, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:25:32'),
+(85, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:26:10'),
+(86, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:26:19'),
+(87, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 09:30:55'),
+(88, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:15:11'),
+(89, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:15:27'),
+(90, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:15:31'),
+(91, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:17:57'),
+(92, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:18:01'),
+(93, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:21:23'),
+(94, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:21:33'),
+(95, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:21:48'),
+(96, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:43:14'),
+(97, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 22:49:50'),
+(98, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-26 23:04:13'),
+(99, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 00:49:47'),
+(100, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 01:53:56'),
+(101, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 01:54:19'),
+(102, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 01:55:50'),
+(103, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:12:00'),
+(104, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:12:03'),
+(105, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:32:35'),
+(106, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:32:38'),
+(107, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:56:07'),
+(108, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 02:56:12'),
+(109, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 03:02:41'),
+(110, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 03:02:45'),
+(111, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 10:58:32'),
+(112, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 11:02:43'),
+(113, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 11:02:50'),
+(114, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 12:10:14'),
+(115, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 12:10:20'),
+(116, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 12:19:52'),
+(117, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 22:33:00'),
+(118, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 22:33:10'),
+(119, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 22:33:16'),
+(120, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:32:54'),
+(121, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:33:00'),
+(122, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:17'),
+(123, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:31'),
+(124, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:37'),
+(125, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-27 23:36:44'),
+(126, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 00:38:01'),
+(127, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 06:43:18'),
+(128, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 07:16:34'),
+(129, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 07:17:24'),
+(130, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 07:41:53'),
+(131, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:29:44'),
+(132, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:30:43'),
+(133, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:31:16'),
+(134, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:32:00'),
+(135, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:32:13'),
+(136, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:32:43'),
+(137, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:32:49'),
+(138, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:35:05'),
+(139, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:35:09'),
+(140, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:35:42'),
+(141, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:35:48'),
+(142, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:36:19'),
+(143, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:36:24'),
+(144, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:36:29'),
+(145, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:36:34'),
+(146, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:42:15'),
+(147, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:42:19'),
+(148, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:44:20'),
+(149, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:44:22'),
+(150, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:44:59'),
+(151, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:45:02'),
+(152, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:45:33'),
+(153, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:45:36'),
+(154, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:46:05'),
+(155, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:47:00'),
+(156, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:47:49'),
+(157, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:48:39'),
+(158, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:51:07'),
+(159, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:51:13'),
+(160, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:51:50'),
+(161, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:51:53'),
+(162, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:53:52'),
+(163, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:53:54'),
+(164, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:55:43'),
+(165, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:55:45'),
+(166, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:56:12'),
+(167, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:57:46'),
+(168, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 22:58:46'),
+(169, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:01:41'),
+(170, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:01:54'),
+(171, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:03:09'),
+(172, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:04:57'),
+(173, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:07:54'),
+(174, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:09:47'),
+(175, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:12:12'),
+(176, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:12:20'),
+(177, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:15:12'),
+(178, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:16:52'),
+(179, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:17:25'),
+(180, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:19:27'),
+(181, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:19:29'),
+(182, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:56:12'),
+(183, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:56:16'),
+(184, NULL, 'Announcement deleted', 'announcement', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DISCO', '2026-05-28 23:57:48'),
+(185, NULL, 'Announcement deleted', 'announcement', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DISCO', '2026-05-28 23:57:55'),
+(186, NULL, 'Announcement deleted', 'announcement', 2, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'PARADA', '2026-05-28 23:59:03'),
+(187, NULL, 'Announcement deleted', 'announcement', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DISCO', '2026-05-28 23:59:06'),
+(188, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:59:26'),
+(189, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:59:32'),
+(190, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:59:45'),
+(191, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-28 23:59:49'),
+(192, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:00:01'),
+(193, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:00:11'),
+(194, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:00:16'),
+(195, NULL, 'Updated document request', 'document_requests', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:00:35'),
+(196, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:00:40'),
+(197, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:00:43'),
+(198, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:01:15'),
+(199, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:01:25'),
+(200, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:06:06'),
+(201, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:06:11'),
+(202, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:18:53'),
+(203, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:19:02'),
+(204, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:19:21'),
+(205, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:19:26'),
+(206, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:19:56'),
+(207, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:20:05'),
+(208, NULL, 'Updated document request', 'document_requests', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:20:16'),
+(209, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:20:21'),
+(210, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:20:25'),
+(211, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:20:48'),
+(212, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:20:57'),
+(213, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:21:00'),
+(214, NULL, 'Updated document request', 'document_requests', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:21:07'),
+(215, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:21:11'),
+(216, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:21:17'),
+(217, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:25:14'),
+(218, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:25:17'),
+(219, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:28:01'),
+(220, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:28:15'),
+(221, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:28:31'),
+(222, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:28:36'),
+(223, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:29:00'),
+(224, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:29:06'),
+(225, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:29:27'),
+(226, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:29:30'),
+(227, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:29:38'),
+(228, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:29:44'),
+(229, NULL, 'Recorded document payment', 'document_requests', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260529-6599', '2026-05-29 00:30:02'),
+(230, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:30:07'),
+(231, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:30:11'),
+(232, NULL, 'Updated document request', 'document_requests', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:30:24'),
+(233, NULL, 'Updated document request', 'document_requests', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:30:26'),
+(234, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:30:30'),
+(235, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:30:33'),
+(236, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:03'),
+(237, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:10'),
+(238, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:14'),
+(239, NULL, 'Updated document request', 'document_requests', 5, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:19'),
+(240, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:23'),
+(241, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:29'),
+(242, NULL, 'Submitted payment proof', 'document_requests', 5, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'uploads/payment_proofs/proof_5_1780014700_35c53ca9.png', '2026-05-29 00:31:40'),
+(243, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:46'),
+(244, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:31:52'),
+(245, NULL, 'Verified payment proof', 'document_requests', 5, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DOC-20260529-7813', '2026-05-29 00:32:01'),
+(246, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:32:43'),
+(247, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:32:56'),
+(248, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:09'),
+(249, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:12'),
+(250, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:16'),
+(251, NULL, 'Updated document request', 'document_requests', 6, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:20'),
+(252, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:24'),
+(253, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:30'),
+(254, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:45'),
+(255, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:33:48');
+INSERT INTO `activity_logs` (`log_id`, `user_id`, `action`, `entity_type`, `entity_id`, `ip_address`, `user_agent`, `details`, `created_at`) VALUES
+(256, NULL, 'Submitted payment proof', 'document_requests', 6, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'uploads/payment_proofs/proof_6_1780014836_1f7ea589.png', '2026-05-29 00:33:56'),
+(257, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:34:00'),
+(258, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:34:08'),
+(259, NULL, 'Verified payment proof', 'document_requests', 6, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DOC-20260529-5048', '2026-05-29 00:37:25'),
+(260, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:41:44'),
+(261, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:41:47'),
+(262, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:00'),
+(263, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:05'),
+(264, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:09'),
+(265, NULL, 'Updated document request', 'document_requests', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:20'),
+(266, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:24'),
+(267, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:29'),
+(268, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:42'),
+(269, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:45'),
+(270, NULL, 'Submitted payment proof', 'document_requests', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'uploads/payment_proofs/proof_7_1780015374_30c68338.png', '2026-05-29 00:42:54'),
+(271, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:42:59'),
+(272, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:43:08'),
+(273, NULL, 'Verified payment proof', 'document_requests', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DOC-20260529-7492', '2026-05-29 00:43:18'),
+(274, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:44:28'),
+(275, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:44:32'),
+(276, NULL, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:50:58'),
+(277, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:02'),
+(278, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:06'),
+(279, NULL, 'Updated document request', 'document_requests', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:10'),
+(280, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:14'),
+(281, NULL, 'User logged in', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:41'),
+(282, NULL, 'User logged out', 'auth', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:45'),
+(283, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:51:50'),
+(284, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:52:11'),
+(285, NULL, 'User logged in', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:52:14'),
+(286, NULL, 'Submitted payment proof', 'document_requests', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'uploads/payment_proofs/proof_8_1780015951_22d341b8.png', '2026-05-29 00:52:31'),
+(287, NULL, 'User logged out', 'auth', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:52:34'),
+(288, NULL, 'User logged in', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:52:41'),
+(289, NULL, 'Verified payment proof', 'document_requests', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'DOC-20260529-3292', '2026-05-29 00:53:29'),
+(290, NULL, 'User logged out', 'auth', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:53:52'),
+(291, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:54:25'),
+(292, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:55:10'),
+(293, NULL, 'User logged in', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:55:14'),
+(294, NULL, 'Deleted Barangay Secretary account', 'users', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Celine Dion', '2026-05-29 00:55:31'),
+(295, NULL, 'User logged out', 'auth', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:56:04'),
+(296, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:56:25'),
+(297, 1, 'Deleted Barangay Captain account', 'users', 7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Jigy Jamago', '2026-05-29 00:56:35'),
+(298, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:57:23'),
+(299, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:57:26'),
+(300, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:57:32'),
+(301, 1, 'User logged in', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:58:08'),
+(302, 1, 'Created staff account', 'users', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'barangay_captain', '2026-05-29 00:59:43'),
+(303, 1, 'User logged out', 'auth', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:59:49'),
+(304, 10, 'User logged in', 'auth', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 00:59:54'),
+(305, 10, 'Deleted resident', 'users', 8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:00:03'),
+(306, 10, 'Created staff account', 'users', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'barangay_secretary', '2026-05-29 01:06:48'),
+(307, 10, 'Created staff account', 'users', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'barangay_treasurer', '2026-05-29 01:08:00'),
+(308, 10, 'Announcement deleted', 'announcement', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'ASSEMBLY MEETING', '2026-05-29 01:08:11'),
+(309, 10, 'User logged out', 'auth', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:08:16'),
+(310, 13, 'Resident account registered', 'users', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:13:28'),
+(311, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:13:35'),
+(312, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:13:49'),
+(313, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:13:53'),
+(314, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:14:03'),
+(315, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:14:08'),
+(316, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:14:40'),
+(317, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:14:48'),
+(318, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:14:54'),
+(319, 11, 'Updated document request', 'document_requests', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:15:00'),
+(320, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:15:04'),
+(321, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:15:06'),
+(322, 12, 'Recorded document payment', 'document_requests', 9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260529-5038', '2026-05-29 01:15:27'),
+(323, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:15:43'),
+(324, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:15:50'),
+(325, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:16:23'),
+(326, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:16:27'),
+(327, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:32:49'),
+(328, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:32:53'),
+(329, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:04'),
+(330, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:12'),
+(331, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:28'),
+(332, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:37'),
+(333, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:40'),
+(334, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:44'),
+(335, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:47'),
+(336, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:33:53'),
+(337, 11, 'Updated document request', 'document_requests', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:34:05'),
+(338, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:34:09'),
+(339, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:34:13'),
+(340, 12, 'Recorded document payment', 'document_requests', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260529-3399', '2026-05-29 01:34:34'),
+(341, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:34:45'),
+(342, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:34:52'),
+(343, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:35:26'),
+(344, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:35:30'),
+(345, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:35:42'),
+(346, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:35:46'),
+(347, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:35:50'),
+(348, 11, 'Updated document request', 'document_requests', 14, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:36:30'),
+(349, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:36:34'),
+(350, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:36:38'),
+(351, 12, 'Recorded document payment', 'document_requests', 14, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260529-1974', '2026-05-29 01:36:55'),
+(352, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:14'),
+(353, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:18'),
+(354, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:30'),
+(355, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:33'),
+(356, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:38'),
+(357, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:47'),
+(358, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:37:58'),
+(359, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:38:08'),
+(360, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:38:11'),
+(361, 11, 'Updated document request', 'document_requests', 15, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:38:15'),
+(362, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:38:25'),
+(363, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:38:33'),
+(364, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:42:37'),
+(365, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:42:49'),
+(366, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:42:52'),
+(367, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:46:00'),
+(368, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:46:04'),
+(369, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:46:15'),
+(370, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:46:19'),
+(371, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:46:23'),
+(372, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:48:37'),
+(373, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:48:43'),
+(374, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:48:48'),
+(375, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:48:51'),
+(376, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:49:02'),
+(377, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:55:10'),
+(378, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:55:28'),
+(379, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:55:47'),
+(380, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:55:52'),
+(381, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:57:46'),
+(382, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:58:06'),
+(383, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:58:12'),
+(384, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:58:16'),
+(385, 11, 'Updated document request', 'document_requests', 24, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:58:20'),
+(386, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:58:24'),
+(387, 12, 'User logged in', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 01:58:27'),
+(388, 12, 'Recorded document payment', 'document_requests', 24, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'Earl Gultia - DOC-20260529-1235', '2026-05-29 01:58:40'),
+(389, 12, 'User logged out', 'auth', 12, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:02:23'),
+(390, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:02:26'),
+(391, 13, 'Submitted document request', 'document_requests', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:02:34'),
+(392, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:02:41'),
+(393, 11, 'User logged in', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:02:47'),
+(394, 11, 'User logged out', 'auth', 11, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:03:18'),
+(395, 13, 'User logged in', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:04:30'),
+(396, 13, 'User logged out', 'auth', 13, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', NULL, '2026-05-29 02:04:37');
 
 -- --------------------------------------------------------
 
@@ -214,6 +481,31 @@ CREATE TABLE `announcements` (
   `attachment_url` varchar(500) DEFAULT NULL,
   `views_count` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement_views`
+--
+
+CREATE TABLE `announcement_views` (
+  `view_id` int(11) NOT NULL,
+  `announcement_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `viewed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `announcement_views`
+--
+
+INSERT INTO `announcement_views` (`view_id`, `announcement_id`, `user_id`, `viewed_at`) VALUES
+(1, 1, 8, '2026-05-28 22:42:19'),
+(2, 1, 7, '2026-05-28 22:45:02'),
+(3, 2, 8, '2026-05-28 22:45:36'),
+(4, 2, 7, '2026-05-28 22:51:13'),
+(5, 3, 8, '2026-05-28 22:51:53'),
+(6, 3, 7, '2026-05-28 23:01:41');
 
 -- --------------------------------------------------------
 
@@ -280,13 +572,6 @@ CREATE TABLE `complaints` (
   `resolved_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `complaints`
---
-
-INSERT INTO `complaints` (`complaint_id`, `complainant_id`, `respondent_name`, `respondent_address`, `complaint_type`, `incident_date`, `incident_time`, `incident_location`, `description`, `supporting_documents`, `status`, `blotter_entry_number`, `assigned_staff_id`, `resolution`, `mediation_date`, `mediation_time`, `created_at`, `resolved_at`) VALUES
-(1, 8, NULL, NULL, 'noise', '2026-05-26', NULL, NULL, 'Neighbors to loud', NULL, 'submitted', NULL, NULL, NULL, NULL, NULL, '2026-05-26 02:58:40', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -311,16 +596,14 @@ CREATE TABLE `document_requests` (
   `pickup_date` date DEFAULT NULL,
   `notes` text DEFAULT NULL,
   `amount` decimal(12,2) DEFAULT 0.00,
+  `payment_method` enum('cash','gcash') NOT NULL DEFAULT 'cash',
+  `payment_proof` varchar(500) DEFAULT NULL,
+  `payment_proof_status` enum('none','submitted','verified','rejected') NOT NULL DEFAULT 'none',
+  `payment_proof_submitted_at` timestamp NULL DEFAULT NULL,
+  `payment_proof_reviewed_at` timestamp NULL DEFAULT NULL,
+  `payment_proof_reviewed_by` int(11) DEFAULT NULL,
   `payment_status` enum('unpaid','paid','waived') DEFAULT 'unpaid'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `document_requests`
---
-
-INSERT INTO `document_requests` (`request_id`, `user_id`, `document_type`, `purpose`, `other_details`, `status`, `reference_number`, `qr_code`, `requested_at`, `processed_by`, `processed_at`, `approved_by`, `approved_at`, `rejection_reason`, `pickup_date`, `notes`, `amount`, `payment_status`) VALUES
-(1, 8, 'barangay_clearance', 'School', NULL, 'claimed', 'DOC-20260526-9417', NULL, '2026-05-26 01:44:35', 9, '2026-05-26 02:55:25', 9, '2026-05-26 02:54:00', NULL, '2026-05-26', '', 0.00, 'paid'),
-(2, 8, 'certificate_of_indigency', 'School', NULL, 'claimed', 'DOC-20260526-1788', NULL, '2026-05-26 03:01:16', 9, '2026-05-26 03:02:32', 9, '2026-05-26 03:01:30', NULL, '2026-05-26', '', 100.00, 'paid');
 
 -- --------------------------------------------------------
 
@@ -445,7 +728,7 @@ CREATE TABLE `resident_profiles` (
 --
 
 INSERT INTO `resident_profiles` (`profile_id`, `user_id`, `house_number`, `street_address`, `barangay`, `city_municipality`, `province`, `zip_code`, `birth_date`, `birth_place`, `gender`, `civil_status`, `occupation`, `monthly_income`, `voter_status`, `pwd_status`, `senior_citizen`, `four_ps_beneficiary`, `profile_photo`, `qr_code`, `emergency_contact_name`, `emergency_contact_number`, `emergency_contact_relationship`) VALUES
-(1, 8, '7072', 'Purok 3, Alejawan Lutao, Duero, Bohol', 'Alejawan Lutao', NULL, 'Bohol', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 'MBL-RID-8-F71FBA42940E27BF', '', '', NULL);
+(2, 13, NULL, 'Purok 3, Alejawan Lutao, Duero, Bohol', 'LATROBE', NULL, NULL, '6309', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -617,11 +900,13 @@ CREATE TABLE `system_settings` (
 --
 
 INSERT INTO `system_settings` (`setting_id`, `setting_key`, `setting_value`, `created_at`, `updated_at`) VALUES
-(1, 'barangay_name', 'MyBalai', '2026-05-26 16:49:33', NULL),
-(2, 'barangay_address', 'Alejawan Lutao, Duero, Bohol', '2026-05-26 16:49:33', NULL),
-(3, 'contact_email', '', '2026-05-26 16:49:33', NULL),
-(4, 'contact_phone', '', '2026-05-26 16:49:33', NULL),
-(5, 'monthly_fee', '', '2026-05-26 16:49:33', NULL);
+(1, 'barangay_name', 'MyBalai', '2026-05-26 16:49:33', '2026-05-28 18:52:07'),
+(2, 'barangay_address', 'Alejawan Lutao, Duero, Bohol', '2026-05-26 16:49:33', '2026-05-28 18:52:07'),
+(3, 'contact_email', '', '2026-05-26 16:49:33', '2026-05-28 18:52:07'),
+(4, 'contact_phone', '', '2026-05-26 16:49:33', '2026-05-28 18:52:07'),
+(5, 'monthly_fee', '', '2026-05-26 16:49:33', '2026-05-28 18:52:07'),
+(6, 'treasurer_availability', 'in_office', '2026-05-28 18:28:27', '2026-05-28 18:52:07'),
+(7, 'treasurer_gcash_phone', '09944462851', '2026-05-28 18:52:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -633,6 +918,7 @@ CREATE TABLE `transactions` (
   `transaction_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `transaction_type` enum('subscription','document_fee','clearance_fee','other') NOT NULL,
+  `document_type` varchar(100) DEFAULT NULL,
   `reference_id` int(11) DEFAULT NULL,
   `amount` decimal(12,2) NOT NULL,
   `payment_method` enum('cash','gcash','bank_transfer') NOT NULL,
@@ -643,14 +929,6 @@ CREATE TABLE `transactions` (
   `collected_by` int(11) DEFAULT NULL,
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`transaction_id`, `user_id`, `transaction_type`, `reference_id`, `amount`, `payment_method`, `payment_reference`, `or_number`, `status`, `transaction_date`, `collected_by`, `notes`) VALUES
-(1, 8, 'document_fee', 1, 0.00, 'cash', NULL, 'OR-20260526-5020', 'completed', '2026-05-26 08:54:38', 4, 'Payment for DOC-20260526-9417'),
-(2, 8, 'document_fee', 2, 100.00, 'cash', NULL, 'OR-20260526-5274', 'completed', '2026-05-26 09:02:04', 4, 'Payment for DOC-20260526-1788');
 
 -- --------------------------------------------------------
 
@@ -695,12 +973,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `primary_role_id`, `username`, `email`, `password_hash`, `first_name`, `last_name`, `middle_name`, `suffix`, `phone_number`, `mobile_number`, `profile_picture`, `is_active`, `is_locked`, `is_verified`, `email_verified`, `phone_verified`, `two_factor_enabled`, `two_factor_secret`, `password_reset_token`, `password_reset_expires`, `email_verification_token`, `last_login`, `last_ip`, `login_attempts`, `created_at`, `updated_at`, `created_by`, `deleted_at`) VALUES
-(1, 1, 'superadmin', 'superadmin@mybalai.com', '$2y$10$rsUcxCkZu/EFEWKxtksnLuY/Jx.3JfLVL4tLHU8SfoCjBweWIBc2O', 'System', 'Administrator', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-26 05:15:45', NULL, 0, '2026-05-25 14:48:13', '2026-05-26 05:15:45', NULL, NULL),
-(2, 2, 'captain.juan', 'captain@mybalai.com', '$2y$10$rsUcxCkZu/EFEWKxtksnLuY/Jx.3JfLVL4tLHU8SfoCjBweWIBc2O', 'Juan', 'Dela Cruz', NULL, NULL, '09123456789', NULL, NULL, 0, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-26 04:53:23', NULL, 0, '2026-05-25 14:48:13', '2026-05-26 05:14:03', NULL, '2026-05-26 05:14:03'),
-(4, 4, 'treasurer.ana', 'treasurer@mybalai.com', '$2y$10$rsUcxCkZu/EFEWKxtksnLuY/Jx.3JfLVL4tLHU8SfoCjBweWIBc2O', 'Ana', 'Reyes', NULL, NULL, '09123456781', NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-26 09:26:19', NULL, 0, '2026-05-25 14:48:13', '2026-05-26 09:26:19', NULL, NULL),
-(7, 2, 'Captain Jigy', 'jamago.captain@gmail.com', '$2y$10$1KhZUPdYRsJXPbKUiPHrMOcs3dd48896vcsEdCqtKHG8xwg5i8KNi', 'Jigy', 'Jamago', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-28 06:43:18', NULL, 0, '2026-05-26 05:17:00', '2026-05-28 06:43:18', 1, NULL),
-(8, 9, 'Earl Gultia', 'gultia98@gmail.com', '$2y$10$cbCtcQSpEUOM.NfI/gKvMurXIHogF/5W6yf/yYf3opKgJW6tYageK', 'Earl', 'Gultia', NULL, NULL, '09944462851', NULL, NULL, 1, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '2026-05-28 07:17:24', NULL, 0, '2026-05-26 07:26:31', '2026-05-28 07:17:24', NULL, NULL),
-(9, 3, 'Celine', 'celine.secretary@gmail.com', '$2y$10$DbEjAsTTq7QGHRnrLhnaWOb7haWxEzq6m9SlrL9z6J9QtXIkyODS.', 'Celine', 'Dion', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-27 03:02:45', NULL, 0, '2026-05-26 07:46:18', '2026-05-27 03:02:45', 7, NULL);
+(1, 1, 'superadmin', 'superadmin@mybalai.com', '$2y$10$rsUcxCkZu/EFEWKxtksnLuY/Jx.3JfLVL4tLHU8SfoCjBweWIBc2O', 'System', 'Administrator', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-29 00:58:08', NULL, 0, '2026-05-25 14:48:13', '2026-05-29 00:58:08', NULL, NULL),
+(10, 2, 'Barangay Captian', 'captain@mybalai.com', '$2y$10$07euAEr/yQbCgf5/IBMOve5xXKGK7l.Ce.Uxq8JLKeHFUQnuuGp4S', 'Erenio', 'Jamago', NULL, NULL, '09123456987', NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-29 00:59:54', NULL, 0, '2026-05-29 00:59:43', '2026-05-29 00:59:54', 1, NULL),
+(11, 3, 'Barangay Secretary', 'celine.secretary@gmail.com', '$2y$10$l1fmIE3txTn9IsX7JJRVZOdTWa49afevTsQ9jhgnKFUlNmL9ytWfi', 'Celine', 'Paredes', NULL, NULL, '09123456789', NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-29 02:02:47', NULL, 0, '2026-05-29 01:06:48', '2026-05-29 02:02:47', 10, NULL),
+(12, 4, 'Barangay Treasurer', 'arlene.treasurer@gmail.com', '$2y$10$UXiz7P0AmxXbvhHMjG.ufu4pr0EUsNVJ1rFmqBUp8FVpEhMAqCBaC', 'Arlene', 'Opena', NULL, NULL, '09944462851', NULL, NULL, 1, 0, 1, 1, 0, 0, NULL, NULL, NULL, NULL, '2026-05-29 01:58:27', NULL, 0, '2026-05-29 01:08:00', '2026-05-29 01:58:27', 10, NULL),
+(13, 9, 'Earl Gultia', 'gultia98@gmail.com', '$2y$10$ZF75NSVVYA1cMowNe10c4uL/ZqNU096wDvg5hDbGyAFpTKfaNXgU6', 'Earl', 'Gultia', NULL, NULL, '09944462851', NULL, NULL, 1, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '2026-05-29 02:04:30', NULL, 0, '2026-05-29 01:13:28', '2026-05-29 02:04:30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -740,14 +1017,13 @@ CREATE TABLE `user_role_assignments` (
 
 INSERT INTO `user_role_assignments` (`assignment_id`, `user_id`, `role_id`, `assigned_by`, `assigned_at`, `is_active`, `expires_at`) VALUES
 (1, 1, 1, 1, '2026-05-25 14:48:13', 1, NULL),
-(2, 2, 2, 1, '2026-05-25 14:48:13', 0, NULL),
-(4, 4, 4, 1, '2026-05-25 14:48:13', 1, NULL),
 (5, 5, 9, 1, '2026-05-25 14:48:13', 1, NULL),
 (6, 6, 9, 1, '2026-05-25 14:48:13', 1, NULL),
 (7, 6, 10, 1, '2026-05-25 14:48:13', 1, NULL),
-(8, 7, 2, 1, '2026-05-26 05:17:00', 1, NULL),
-(9, 8, 9, NULL, '2026-05-26 07:26:31', 1, NULL),
-(10, 9, 3, 7, '2026-05-26 07:46:18', 1, NULL);
+(11, 10, 2, 1, '2026-05-29 00:59:43', 1, NULL),
+(12, 11, 3, 10, '2026-05-29 01:06:48', 1, NULL),
+(13, 12, 4, 10, '2026-05-29 01:08:00', 1, NULL),
+(14, 13, 9, NULL, '2026-05-29 01:13:28', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -787,6 +1063,13 @@ ALTER TABLE `announcements`
   ADD KEY `created_by` (`created_by`),
   ADD KEY `idx_is_active` (`is_active`),
   ADD KEY `idx_published_date` (`published_date`);
+
+--
+-- Indexes for table `announcement_views`
+--
+ALTER TABLE `announcement_views`
+  ADD PRIMARY KEY (`view_id`),
+  ADD UNIQUE KEY `unique_view` (`announcement_id`,`user_id`);
 
 --
 -- Indexes for table `appointments`
@@ -949,13 +1232,19 @@ ALTER TABLE `user_role_assignments`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=397;
 
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `announcement_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `announcement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `announcement_views`
+--
+ALTER TABLE `announcement_views`
+  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `appointments`
@@ -979,7 +1268,7 @@ ALTER TABLE `complaints`
 -- AUTO_INCREMENT for table `document_requests`
 --
 ALTER TABLE `document_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `household_members`
@@ -1003,7 +1292,7 @@ ALTER TABLE `qr_logs`
 -- AUTO_INCREMENT for table `resident_profiles`
 --
 ALTER TABLE `resident_profiles`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1027,25 +1316,25 @@ ALTER TABLE `subscriptions`
 -- AUTO_INCREMENT for table `system_settings`
 --
 ALTER TABLE `system_settings`
-  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_role_assignments`
 --
 ALTER TABLE `user_role_assignments`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

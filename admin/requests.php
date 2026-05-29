@@ -5,6 +5,8 @@ if (!hasRole(['super_admin', 'barangay_captain', 'barangay_secretary'])) {
     redirect('dashboard.php');
 }
 
+ensureDocumentRequestPaymentColumns();
+
 $message = '';
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['request_id'])) {
@@ -16,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['request_id'])) {
     if (!in_array($status, $validStatuses, true)) {
         $error = 'Invalid request status selected.';
     } else {
-        $stmt = $pdo->prepare("SELECT request_id, status, payment_status FROM document_requests WHERE request_id = ? LIMIT 1");
+        $stmt = $pdo->prepare("SELECT request_id, status, payment_status, payment_method, payment_proof_status FROM document_requests WHERE request_id = ? LIMIT 1");
         $stmt->execute([$requestId]);
         $currentRequest = $stmt->fetch();
 
@@ -92,6 +94,8 @@ adminHeader('Document Requests', 'requests');
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Purpose</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Payment</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Method</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Proof</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Requested</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Update</th>
@@ -117,10 +121,17 @@ adminHeader('Document Requests', 'requests');
                         <div class="font-medium text-gray-900"><?php echo e($request['first_name'] . ' ' . $request['last_name']); ?></div>
                         <div class="text-sm text-gray-500"><?php echo e($request['email']); ?></div>
                     </td>
-                    <td class="px-6 py-4"><?php echo e(labelize($request['document_type'] ?? 'Document')); ?></td>
+                    <td class="px-6 py-4"><?php echo e(documentTypeLabel($request['document_type'] ?? 'Document')); ?></td>
                     <td class="px-6 py-4 text-sm text-gray-600 max-w-xs"><?php echo e($request['purpose'] ?? 'N/A'); ?></td>
                     <td class="px-6 py-4 font-semibold">₱<?php echo number_format((float)($request['amount'] ?? 0), 2); ?></td>
                     <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full <?php echo statusBadge($request['payment_status'] ?? 'unpaid'); ?>"><?php echo e(labelize($request['payment_status'] ?? 'unpaid')); ?></span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full <?php echo (($request['payment_method'] ?? 'cash') === 'gcash') ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'; ?>"><?php echo e(labelize($request['payment_method'] ?? 'cash')); ?></span></td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs rounded-full <?php echo (($request['payment_proof_status'] ?? 'none') === 'submitted') ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'; ?>"><?php echo e(labelize($request['payment_proof_status'] ?? 'none')); ?></span>
+                        <?php if (!empty($request['payment_proof'])): ?>
+                            <div class="mt-2"><a href="../<?php echo e($request['payment_proof']); ?>" target="_blank" class="text-xs text-blue-600 hover:underline">View proof</a></div>
+                        <?php endif; ?>
+                    </td>
                     <td class="px-6 py-4 text-sm"><?php echo !empty($request['requested_at']) ? date('M d, Y', strtotime($request['requested_at'])) : 'N/A'; ?></td>
                     <td class="px-6 py-4"><span class="px-2 py-1 text-xs rounded-full <?php echo statusBadge($request['status'] ?? 'pending'); ?>"><?php echo e(labelize($request['status'] ?? 'pending')); ?></span></td>
                     <td class="px-6 py-4">
@@ -138,7 +149,7 @@ adminHeader('Document Requests', 'requests');
                 </tr>
                 <?php endforeach; ?>
                 <?php if (empty($requests)): ?>
-                <tr><td colspan="8" class="text-center py-8 text-gray-500">No document requests found.</td></tr>
+                <tr><td colspan="10" class="text-center py-8 text-gray-500">No document requests found.</td></tr>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -168,9 +179,11 @@ adminHeader('Document Requests', 'requests');
                 <div>
                     <div class="font-medium text-gray-900"><?php echo e($request['first_name'] . ' ' . $request['last_name']); ?></div>
                     <div class="text-sm text-gray-500 mb-2"><?php echo e($request['email']); ?></div>
-                    <div class="text-sm text-gray-700"><strong>Document:</strong> <?php echo e(labelize($request['document_type'] ?? 'Document')); ?></div>
+                    <div class="text-sm text-gray-700"><strong>Document:</strong> <?php echo e(documentTypeLabel($request['document_type'] ?? 'Document')); ?></div>
                     <div class="text-sm text-gray-700"><strong>Purpose:</strong> <?php echo e($request['purpose'] ?? 'N/A'); ?></div>
                     <div class="text-sm text-gray-700"><strong>Amount:</strong> ₱<?php echo number_format((float)($request['amount'] ?? 0), 2); ?></div>
+                    <div class="text-sm text-gray-700"><strong>Method:</strong> <?php echo e(labelize($request['payment_method'] ?? 'cash')); ?></div>
+                    <div class="text-sm text-gray-700"><strong>Proof:</strong> <?php echo e(labelize($request['payment_proof_status'] ?? 'none')); ?></div>
                 </div>
                 <div class="text-right">
                     <div class="mb-2"><span class="px-2 py-1 text-xs rounded-full <?php echo statusBadge($request['payment_status'] ?? 'unpaid'); ?>"><?php echo e(labelize($request['payment_status'] ?? 'unpaid')); ?></span></div>

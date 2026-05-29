@@ -27,6 +27,19 @@ if (isset($_GET['toggle'])) {
     redirect('announcements.php');
 }
 
+if (isset($_GET['delete'])) {
+    $announcementId = (int)$_GET['delete'];
+    $stmt = $pdo->prepare("SELECT announcement_id, title FROM announcements WHERE announcement_id = ?");
+    $stmt->execute([$announcementId]);
+    $announcement = $stmt->fetch();
+    if ($announcement) {
+        $deleteStmt = $pdo->prepare("DELETE FROM announcements WHERE announcement_id = ?");
+        $deleteStmt->execute([$announcementId]);
+        logActivity($_SESSION['user_id'], 'Announcement deleted', 'announcement', $announcementId, $announcement['title']);
+    }
+    redirect('announcements.php');
+}
+
 $announcements = $pdo->query("SELECT * FROM announcements ORDER BY published_date DESC")->fetchAll();
 adminHeader('Announcements', 'announcements');
 ?>
@@ -67,7 +80,10 @@ adminHeader('Announcements', 'announcements');
                         <?php endif; ?>
                     </div>
                     <div class="sm:ml-4 mt-3 sm:mt-0 flex-shrink-0">
-                        <a href="announcements.php?toggle=<?php echo (int)$announcement['announcement_id']; ?>" class="block sm:inline-block w-full sm:w-auto text-center px-3 py-2 rounded-lg <?php echo !empty($announcement['is_active']) ? 'border border-red-600 text-red-600' : 'border border-green-600 text-green-600'; ?>"><?php echo !empty($announcement['is_active']) ? 'Deactivate' : 'Activate'; ?></a>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <a href="announcements.php?toggle=<?php echo (int)$announcement['announcement_id']; ?>" class="block sm:inline-block w-full sm:w-auto text-center px-3 py-2 rounded-lg <?php echo !empty($announcement['is_active']) ? 'border border-red-600 text-red-600' : 'border border-green-600 text-green-600'; ?>"><?php echo !empty($announcement['is_active']) ? 'Deactivate' : 'Activate'; ?></a>
+                            <a href="announcements.php?delete=<?php echo (int)$announcement['announcement_id']; ?>" onclick="return confirm('Delete this announcement? This will hide it from residents.');" class="block sm:inline-block w-full sm:w-auto text-center px-3 py-2 rounded-lg border border-red-700 text-red-700 hover:bg-red-50">Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>

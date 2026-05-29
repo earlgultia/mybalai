@@ -2,6 +2,7 @@
 require_once '_admin_common.php';
 
 $message = '';
+$isTreasurer = hasRole('barangay_treasurer');
 // Ensure `system_settings` table exists; if not, attempt to create it so settings can be saved.
 try {
     $cols = tableColumns('system_settings');
@@ -30,6 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'contact_phone' => sanitize($_POST['contact_phone'] ?? ''),
         'monthly_fee' => sanitize($_POST['monthly_fee'] ?? ''),
     ];
+    if ($isTreasurer) {
+        $settings['treasurer_availability'] = sanitize($_POST['treasurer_availability'] ?? 'in_office');
+        $settings['treasurer_gcash_phone'] = sanitize($_POST['treasurer_gcash_phone'] ?? '');
+    }
 
     $columns = tableColumns('system_settings');
     if (in_array('setting_key', $columns) && in_array('setting_value', $columns)) {
@@ -54,6 +59,8 @@ $values = [
     'contact_email' => '',
     'contact_phone' => '09944462851',
     'monthly_fee' => '',
+    'treasurer_availability' => 'in_office',
+    'treasurer_gcash_phone' => '',
 ];
 try {
     $columns = tableColumns('system_settings');
@@ -90,6 +97,19 @@ adminHeader('System Settings', 'settings');
                 <label class="block text-sm font-medium text-gray-700 mb-1">Contact Phone</label>
                 <input type="text" name="contact_phone" value="<?php echo e($values['contact_phone']); ?>" class="w-full border rounded-lg px-3 py-2">
             </div>
+            <?php if ($isTreasurer): ?>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Treasurer Availability</label>
+                <select name="treasurer_availability" class="w-full border rounded-lg px-3 py-2">
+                    <option value="in_office" <?php echo ($values['treasurer_availability'] ?? 'in_office') === 'in_office' ? 'selected' : ''; ?>>In office / available for cash</option>
+                    <option value="away" <?php echo ($values['treasurer_availability'] ?? 'in_office') === 'away' ? 'selected' : ''; ?>>Away / not available</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Treasurer GCash Phone Number</label>
+                <input type="text" name="treasurer_gcash_phone" value="<?php echo e($values['treasurer_gcash_phone']); ?>" placeholder="e.g. 09XXXXXXXXX" class="w-full border rounded-lg px-3 py-2">
+            </div>
+            <?php endif; ?>
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
