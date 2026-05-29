@@ -156,14 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_id'])) {
     }
 }
 
-$stmt = $pdo->query("
-    SELECT dr.request_id, dr.user_id, dr.reference_number, dr.document_type, dr.amount, dr.status, dr.payment_status, dr.approved_at,
-           u.first_name, u.last_name, u.email
-    FROM document_requests dr
-    JOIN users u ON u.user_id = dr.user_id
-    WHERE dr.status = 'approved' AND dr.payment_status = 'unpaid'
-    ORDER BY dr.approved_at ASC, dr.requested_at ASC
-");
+$stmt = $pdo->query("\n    SELECT dr.request_id, dr.user_id, dr.reference_number, dr.document_type, dr.amount, dr.status, dr.payment_status, dr.approved_at,\n           dr.payment_method, dr.payment_proof, dr.payment_proof_status,\n           u.first_name, u.last_name, u.email\n    FROM document_requests dr\n    JOIN users u ON u.user_id = dr.user_id\n    WHERE dr.status = 'approved' AND dr.payment_status = 'unpaid'\n    ORDER BY dr.approved_at ASC, dr.requested_at ASC\n");
 $paymentQueue = $stmt->fetchAll();
 
 $selectedRequest = null;
@@ -177,6 +170,7 @@ foreach ($paymentQueue as $queueRequest) {
 if ($selectedRequestId > 0 && !$selectedRequest) {
     $stmt = $pdo->prepare("
         SELECT dr.request_id, dr.user_id, dr.reference_number, dr.document_type, dr.amount, dr.status, dr.payment_status, dr.approved_at,
+               dr.payment_method, dr.payment_proof, dr.payment_proof_status,
                u.first_name, u.last_name, u.email
         FROM document_requests dr
         JOIN users u ON u.user_id = dr.user_id
@@ -319,6 +313,18 @@ adminHeader('Document Payments', 'finance');
             <p>Resident: <?php echo e($selectedRequest['first_name'] . ' ' . $selectedRequest['last_name']); ?></p>
             <p>Reference: <?php echo e($selectedRequest['reference_number'] ?? 'N/A'); ?></p>
             <p>Amount: <?php echo peso($selectedRequest['amount']); ?></p>
+            <?php if (($selectedRequest['payment_method'] ?? '') === 'gcash' && !empty($selectedRequest['payment_proof'])): ?>
+            <div class="mt-4 rounded-lg border border-white/70 bg-white p-3">
+                <div class="mb-2 flex items-center justify-between gap-3">
+                    <span class="font-semibold text-gray-800">GCash Payment Screenshot</span>
+                    <span class="rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-800"><?php echo e(labelize($selectedRequest['payment_proof_status'] ?? 'submitted')); ?></span>
+                </div>
+                <a href="../<?php echo e($selectedRequest['payment_proof']); ?>" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-lg border border-gray-200 bg-gray-50 hover:border-blue-300">
+                    <img src="../<?php echo e($selectedRequest['payment_proof']); ?>" alt="GCash payment screenshot" class="h-auto w-full max-w-full object-contain">
+                </a>
+                <p class="mt-2 text-xs text-gray-500">Tap the image to open the full screenshot.</p>
+            </div>
+            <?php endif; ?>
         </div>
         <?php endif; ?>
         <div>
