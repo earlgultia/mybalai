@@ -67,10 +67,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MyBalai">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Login - MyBalai Smart Barangay Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/app.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icons/appicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         * {
@@ -353,5 +360,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             })();
         </script>
     </div>
+    <script src="assets/js/pwa.js"></script>
 </body>
 </html>
