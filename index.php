@@ -40,7 +40,7 @@ if (isset($_SESSION['user_id'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MyBalai - Smart Barangay Services Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -56,6 +56,7 @@ if (isset($_SESSION['user_id'])) {
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
@@ -528,7 +529,7 @@ if (isset($_SESSION['user_id'])) {
             .brand-mark { width: 36px; height: 36px; }
             .brand-mark i { font-size: 16px; }
             .site-header .container > a > span:last-child > span:first-child { font-size: 0.88rem; line-height: 1.05; }
-            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; z-index: 90; }
+            .mobile-toggle-anchor { position: absolute; right: 0.2rem; top: 50%; transform: translateY(-50%); margin-left: 0; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; z-index: 90; }
             .mobile-toggle-anchor:hover { transform: translateY(-1px); }
             .mobile-toggle-anchor i { font-size: 16px; }
             .hero-gradient { padding-top: 20px; padding-bottom: 20px; }
