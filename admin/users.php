@@ -142,13 +142,59 @@ $staffStmt = $pdo->prepare("
 ");
 $staffStmt->execute([$managedRole]);
 $staffUsers = $staffStmt->fetchAll();
+$staffCount = count($staffUsers);
+$activeStaffCount = count(array_filter($staffUsers, fn($staff) => !empty($staff['is_active'])));
+$inactiveStaffCount = $staffCount - $activeStaffCount;
 
 adminHeader($managedLabel . ' Accounts', 'users');
 ?>
 <?php if ($message): ?><div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded mb-4"><?php echo e($message); ?></div><?php endif; ?>
 <?php if ($error): ?><div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded mb-4"><?php echo e($error); ?></div><?php endif; ?>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="space-y-4">
+    <div class="md:hidden bg-white rounded-[28px] border border-slate-200 p-5 shadow-lg">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs uppercase tracking-[0.24em] text-slate-500"><?php echo e($managedLabel); ?> Snapshot</p>
+                <h2 class="mt-2 text-2xl font-semibold text-slate-900">Admin account overview</h2>
+                <p class="mt-1 text-sm text-slate-500">Quick actions and status for mobile review.</p>
+            </div>
+            <div class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-sm font-semibold text-sky-700">
+                <?php echo $staffCount; ?> total
+            </div>
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+            <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Active</p>
+                <p class="mt-3 text-3xl font-semibold text-emerald-700"><?php echo $activeStaffCount; ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Inactive</p>
+                <p class="mt-3 text-3xl font-semibold text-rose-700"><?php echo $inactiveStaffCount; ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-4 col-span-2">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Managed Role</p>
+                <p class="mt-3 text-xl font-semibold text-slate-900"><?php echo e($managedLabel); ?></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden md:grid md:grid-cols-3 gap-6">
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Total Accounts</p>
+            <p class="mt-4 text-4xl font-semibold text-slate-900"><?php echo $staffCount; ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Active</p>
+            <p class="mt-4 text-4xl font-semibold text-emerald-700"><?php echo $activeStaffCount; ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Inactive</p>
+            <p class="mt-4 text-4xl font-semibold text-rose-600"><?php echo $inactiveStaffCount; ?></p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <form method="POST" class="lg:col-span-1 bg-white rounded-lg shadow p-6 space-y-4">
         <input type="hidden" name="action" value="create">
         <input type="hidden" name="role_name" value="<?php echo e($managedRole); ?>">
@@ -247,6 +293,34 @@ adminHeader($managedLabel . ' Accounts', 'users');
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="md:hidden p-4 space-y-4">
+        <?php if (empty($staffUsers)): ?>
+            <div class="text-center py-8 text-gray-500">No <?php echo e($managedLabel); ?> accounts yet.</div>
+        <?php endif; ?>
+        <?php foreach ($staffUsers as $staff): ?>
+        <div class="bg-white rounded-3xl shadow p-4">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="text-base font-semibold text-slate-900"><?php echo e($staff['first_name'] . ' ' . $staff['last_name']); ?></div>
+                    <div class="text-sm text-slate-500"><?php echo e($staff['email']); ?></div>
+                    <div class="text-sm text-slate-500"><?php echo e($staff['username']); ?></div>
+                </div>
+                <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold <?php echo !empty($staff['is_active']) ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'; ?>">
+                    <?php echo !empty($staff['is_active']) ? 'Active' : 'Inactive'; ?>
+                </span>
+            </div>
+            <div class="mt-3 text-sm text-slate-600">Role: <?php echo e(labelize($staff['role_name'])); ?></div>
+            <div class="mt-4 flex flex-col gap-2">
+                <form method="POST" onsubmit="return confirm('Delete this <?php echo e($managedLabel); ?> account?');">
+                    <input type="hidden" name="action" value="<?php echo e($deleteAction); ?>">
+                    <input type="hidden" name="user_id" value="<?php echo (int)$staff['user_id']; ?>">
+                    <button class="w-full bg-red-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-red-700">Delete</button>
+                </form>
+            </div>
+        </div>
+        <?php endforeach; ?>
     </div>
     </div>
 

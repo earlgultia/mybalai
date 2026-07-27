@@ -220,15 +220,30 @@ function adminHeader($title, $active) {
                 display: flex !important;
                 align-items: stretch !important;
             }
-            /* Sidebar layout: keep footer outside the scrollable nav so it always
-               remains visible and tappable on mobile. */
             .admin-sidebar {
+                width: 280px !important;
+                min-width: 280px !important;
+                max-width: 280px !important;
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                bottom: 0 !important;
                 display: flex !important;
                 flex-direction: column !important;
                 height: 100vh !important;
-                /* allow the footer to sit outside the scrolling region */
                 overflow: visible !important;
+                box-shadow: 4px 0 30px rgba(15, 23, 42, 0.16);
+                transform: translateX(0) !important;
+                transition: transform 280ms cubic-bezier(.22,.9,.35,1) !important;
             }
+            .admin-main {
+                margin-left: 280px !important;
+                min-width: 0 !important;
+                width: auto !important;
+                transition: margin-left 280ms ease !important;
+            }
+            /* Sidebar layout: keep footer outside the scrollable nav so it always
+               remains visible and tappable on mobile. */
             .admin-sidebar > .p-4 {
                 flex: 1 1 auto !important;
                 display: block !important;
@@ -539,7 +554,16 @@ function adminHeader($title, $active) {
                 max-width: 75vw !important;
                 display: flex !important;
                 flex-direction: column !important;
-                position: relative !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                z-index: 10000 !important;
+                transform: translateX(-100%) !important;
+                pointer-events: none !important;
+            }
+            .admin-sidebar.is-open {
+                transform: translateX(0) !important;
+                pointer-events: auto !important;
             }
             .admin-sidebar > .p-4 {
                 flex: 1 1 auto !important;
@@ -598,7 +622,7 @@ function adminHeader($title, $active) {
                     <?php endif; ?>
                     <?php endforeach; ?>
                     <!-- Mobile: Logout button added to nav menu -->
-                    <div class="sidebar-mobile-user hidden lg:hidden mt-4 pt-4 border-t border-blue-700">
+                    <div class="sidebar-mobile-user lg:hidden mt-4 pt-4 border-t border-blue-700">
                         <a href="../logout.php" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition hover:bg-blue-700 text-blue-300 hover:text-white">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Logout</span>

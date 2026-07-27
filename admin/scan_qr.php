@@ -66,32 +66,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 adminHeader('QR Scanner', 'residents');
 ?>
 
-<div class="bg-white rounded-lg shadow p-6">
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold">Admin QR Scanner</h2>
-        <p class="text-sm text-gray-500">Use your device camera to scan resident QR IDs. Scans are recorded in the system.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-            <div id="qr-reader" class="rounded-lg border border-dashed p-4" style="min-height:320px"></div>
-            <div class="mt-3">
-                <div id="qr-result" class="text-sm text-gray-700"></div>
+<div class="space-y-4">
+    <div class="md:hidden rounded-[28px] bg-slate-950 text-white p-5 shadow-lg border border-slate-800">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs uppercase tracking-[0.24em] text-slate-400">QR Scanner</p>
+                <h2 class="mt-2 text-2xl font-semibold">Scan resident IDs</h2>
+                <p class="mt-2 text-sm text-slate-300">Use the camera or enter a code manually when the device camera is unavailable.</p>
+            </div>
+            <div class="inline-flex items-center rounded-full bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-200">Ready</div>
+        </div>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-3xl bg-slate-900 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Quick tip</p>
+                <p class="mt-3 text-sm text-slate-300">Keep the QR code centered in the frame and ensure there is enough light.</p>
+            </div>
+            <div class="rounded-3xl bg-slate-900 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Scan mode</p>
+                <p class="mt-3 text-sm text-slate-300">Camera scanning is preferred. Manual input is available below.</p>
             </div>
         </div>
-        <div>
-            <div class="bg-slate-50 rounded-lg p-4">
-                <h3 class="font-semibold mb-2">Manual entry</h3>
-                <p class="text-sm text-gray-500 mb-3">If camera is unavailable, paste the QR token below and press Submit.</p>
-                <div class="flex gap-2">
-                    <input id="manualInput" class="flex-1 border rounded px-3 py-2" placeholder="Paste QR token here">
-                    <button id="manualSubmit" class="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-6">
+            <div class="hidden md:flex items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">Admin QR Scanner</h2>
+                    <p class="mt-1 text-sm text-slate-500">Use your device camera to scan resident QR IDs. Scans are recorded in the system.</p>
                 </div>
-                <div class="mt-3">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Scan location (optional)</label>
-                    <input id="scanLocation" class="w-full border rounded px-3 py-2" placeholder="e.g. Front Desk, Records, Admin Scanner" value="Admin Scanner">
+                <div class="rounded-full bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">Scanner ready</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="bg-slate-50 rounded-3xl border border-dashed border-slate-200 p-4">
+                        <div id="qr-reader" class="rounded-xl overflow-hidden" style="min-height:320px"></div>
+                        <div class="mt-3 text-sm text-slate-600">
+                            <div id="qr-result" class="min-h-[36px]"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-4 text-xs text-gray-500">Scans will be attributed to your admin account.</div>
+
+                <div class="space-y-4">
+                    <div class="bg-slate-50 rounded-3xl p-4 border border-slate-200">
+                        <h3 class="font-semibold text-slate-900 mb-2">Manual entry</h3>
+                        <p class="text-sm text-slate-500 mb-3">If camera is unavailable, paste the QR token below and press Submit.</p>
+                        <div class="flex gap-2 flex-col sm:flex-row">
+                            <input id="manualInput" class="flex-1 border rounded-xl px-3 py-2" placeholder="Paste QR token here">
+                            <button id="manualSubmit" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700">Submit</button>
+                        </div>
+                        <div class="mt-3">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Scan location (optional)</label>
+                            <input id="scanLocation" class="w-full border rounded-xl px-3 py-2" placeholder="e.g. Front Desk, Records, Admin Scanner" value="Admin Scanner">
+                        </div>
+                        <div class="mt-4 text-xs text-slate-500">Scans will be attributed to your admin account.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:hidden rounded-3xl bg-slate-50 border border-slate-200 p-4 mt-4">
+                <h3 class="font-semibold text-slate-900">Need help?</h3>
+                <p class="mt-2 text-sm text-slate-600">Point the camera at the QR code until the scanner recognizes it. Use manual entry for damaged QR codes.</p>
             </div>
         </div>
     </div>

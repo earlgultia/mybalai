@@ -178,6 +178,80 @@ $notificationCount = count($notificationItems);
 adminHeader($dashboardTitle, 'dashboard');
 ?>
 
+<div class="space-y-6 mb-6">
+    <div class="md:hidden rounded-[32px] bg-slate-950 text-white p-5 shadow-lg">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-sm uppercase tracking-[0.24em] text-slate-300"><?php echo htmlspecialchars($dashboardTitle, ENT_QUOTES, 'UTF-8'); ?></p>
+                <h1 class="mt-3 text-2xl font-semibold">Welcome back</h1>
+                <p class="mt-2 text-sm text-slate-300">Quickly scan your most important metrics and take action from the mobile dashboard.</p>
+            </div>
+            <div class="rounded-3xl bg-slate-800 px-4 py-3 text-center">
+                <p class="text-xs uppercase tracking-[0.24em] text-slate-400">Alerts</p>
+                <p class="mt-2 text-3xl font-semibold"><?php echo $notificationCount; ?></p>
+            </div>
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+            <div class="rounded-[28px] bg-white p-4 text-slate-900">
+                <div class="text-xs uppercase tracking-[0.24em] text-slate-500">Due Soon</div>
+                <div class="mt-2 text-2xl font-semibold"><?php echo max(0, $pendingRequests ?? 0); ?></div>
+            </div>
+            <div class="rounded-[28px] bg-white p-4 text-slate-900">
+                <div class="text-xs uppercase tracking-[0.24em] text-slate-500">Pending</div>
+                <div class="mt-2 text-2xl font-semibold"><?php echo max(0, $pendingComplaints ?? 0); ?></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden md:grid md:grid-cols-[1.6fr_0.9fr] gap-6">
+        <section class="rounded-[32px] bg-white border border-slate-200 p-6 shadow-sm">
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Dashboard overview</p>
+                    <h2 class="mt-3 text-3xl font-semibold text-slate-900"><?php echo htmlspecialchars($dashboardTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
+                </div>
+                <div class="rounded-3xl bg-blue-50 px-4 py-2 text-blue-700 text-sm font-semibold"><?php echo $notificationCount; ?> Alerts</div>
+            </div>
+            <div class="mt-6 grid grid-cols-2 gap-4">
+                <div class="rounded-[28px] bg-slate-50 p-5">
+                    <div class="text-sm text-slate-500">Pending Requests</div>
+                    <div class="mt-3 text-3xl font-semibold text-slate-900"><?php echo number_format($pendingRequests ?? 0); ?></div>
+                </div>
+                <div class="rounded-[28px] bg-slate-50 p-5">
+                    <div class="text-sm text-slate-500">Pending Complaints</div>
+                    <div class="mt-3 text-3xl font-semibold text-slate-900"><?php echo number_format($pendingComplaints ?? 0); ?></div>
+                </div>
+            </div>
+        </section>
+        <aside class="rounded-[32px] bg-white border border-slate-200 p-6 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Notifications</p>
+                    <h3 class="mt-2 text-xl font-semibold text-slate-900">Action items</h3>
+                </div>
+                <span class="text-sm text-slate-500"><?php echo $notificationCount; ?> total</span>
+            </div>
+            <div class="mt-5 space-y-4">
+                <?php if (!empty($notificationItems)): ?>
+                    <?php foreach ($notificationItems as $item): ?>
+                    <a href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>" class="block rounded-3xl border border-slate-200 bg-slate-50 p-4 hover:bg-slate-100 transition">
+                        <div class="flex items-center gap-3">
+                            <div class="rounded-2xl <?php echo $item['tone']; ?> p-3 text-base"><i class="fas <?php echo htmlspecialchars($item['icon'], ENT_QUOTES, 'UTF-8'); ?>"></i></div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-900"><?php echo htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8'); ?></p>
+                                <p class="text-sm text-slate-500"><?php echo htmlspecialchars($item['message'], ENT_QUOTES, 'UTF-8'); ?></p>
+                            </div>
+                        </div>
+                    </a>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="rounded-3xl bg-slate-50 p-4 text-sm text-slate-500">No alerts at this time.</div>
+                <?php endif; ?>
+            </div>
+        </aside>
+    </div>
+</div>
+
 <?php if ($isSuperAdmin): ?>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
     <div class="bg-white rounded-lg shadow p-4 md:p-6 hover:shadow-lg transition">

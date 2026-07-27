@@ -72,6 +72,28 @@ $stmt = $pdo->query("
 ");
 $requests = $stmt->fetchAll();
 
+$totalRequests = count($requests);
+$paidRequests = 0;
+$pendingRequests = 0;
+$readyForPickup = 0;
+$claimedRequests = 0;
+foreach ($requests as $request) {
+    if (($request['payment_status'] ?? 'unpaid') === 'paid') {
+        $paidRequests++;
+    }
+    switch ($request['status'] ?? 'pending') {
+        case 'pending':
+            $pendingRequests++;
+            break;
+        case 'ready_for_pickup':
+            $readyForPickup++;
+            break;
+        case 'claimed':
+            $claimedRequests++;
+            break;
+    }
+}
+
 adminHeader('Document Requests', 'requests');
 ?>
 <?php if ($message): ?>
@@ -81,10 +103,58 @@ adminHeader('Document Requests', 'requests');
 <div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded mb-4"><?php echo e($error); ?></div>
 <?php endif; ?>
 
-<div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="p-4 border-b">
-        <h3 class="text-lg font-semibold text-gray-800">Manage Resident Document Requests</h3>
+<div class="space-y-4">
+    <div class="bg-white rounded-lg shadow p-4 md:hidden">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900">Document Request Summary</h2>
+                <p class="text-sm text-gray-500 mt-1">Quick mobile overview of active requests.</p>
+            </div>
+            <span class="inline-flex items-center rounded-full bg-blue-50 text-blue-700 px-3 py-1 text-xs font-semibold">Total <?php echo (int)$totalRequests; ?></span>
+        </div>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-lg bg-gray-50 p-3">
+                <p class="text-xs uppercase tracking-wide text-gray-500">Paid</p>
+                <p class="mt-2 text-2xl font-semibold text-gray-900"><?php echo (int)$paidRequests; ?></p>
+            </div>
+            <div class="rounded-lg bg-gray-50 p-3">
+                <p class="text-xs uppercase tracking-wide text-gray-500">Pending</p>
+                <p class="mt-2 text-2xl font-semibold text-gray-900"><?php echo (int)$pendingRequests; ?></p>
+            </div>
+            <div class="rounded-lg bg-gray-50 p-3">
+                <p class="text-xs uppercase tracking-wide text-gray-500">Ready for pickup</p>
+                <p class="mt-2 text-2xl font-semibold text-gray-900"><?php echo (int)$readyForPickup; ?></p>
+            </div>
+            <div class="rounded-lg bg-gray-50 p-3">
+                <p class="text-xs uppercase tracking-wide text-gray-500">Claimed</p>
+                <p class="mt-2 text-2xl font-semibold text-gray-900"><?php echo (int)$claimedRequests; ?></p>
+            </div>
+        </div>
     </div>
+
+    <div class="hidden md:grid md:grid-cols-4 md:gap-4">
+        <div class="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+            <p class="text-sm text-gray-500 uppercase tracking-wide">Total Requests</p>
+            <p class="mt-3 text-3xl font-semibold text-gray-900"><?php echo (int)$totalRequests; ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+            <p class="text-sm text-gray-500 uppercase tracking-wide">Paid</p>
+            <p class="mt-3 text-3xl font-semibold text-gray-900"><?php echo (int)$paidRequests; ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+            <p class="text-sm text-gray-500 uppercase tracking-wide">Pending</p>
+            <p class="mt-3 text-3xl font-semibold text-gray-900"><?php echo (int)$pendingRequests; ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+            <p class="text-sm text-gray-500 uppercase tracking-wide">Ready / Claimed</p>
+            <p class="mt-3 text-3xl font-semibold text-gray-900"><?php echo (int)($readyForPickup + $claimedRequests); ?></p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-4 border-b">
+            <h3 class="text-lg font-semibold text-gray-800">Manage Resident Document Requests</h3>
+        </div>
     <div class="overflow-x-auto hidden md:block">
         <table class="w-full">
             <thead class="bg-gray-50">

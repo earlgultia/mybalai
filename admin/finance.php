@@ -219,6 +219,35 @@ adminHeader('Document Payments', 'finance');
 <?php if ($message): ?><div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded mb-4"><?php echo e($message); ?></div><?php endif; ?>
 <?php if ($error): ?><div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded mb-4"><?php echo e($error); ?></div><?php endif; ?>
 
+<div class="md:hidden rounded-[28px] bg-slate-950 text-white p-5 shadow-lg mb-6">
+    <div class="flex items-start justify-between gap-4">
+        <div>
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-400">Document Payments</p>
+            <h1 class="mt-2 text-2xl font-semibold">Finance quick view</h1>
+            <p class="mt-2 text-sm text-slate-300">Review pending payment requests and recent collections from your phone.</p>
+        </div>
+        <div class="rounded-3xl bg-blue-100 px-3 py-2 text-sm font-semibold text-blue-700"><?php echo number_format($awaitingPayments); ?> Queue</div>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-3">
+        <div class="rounded-3xl bg-slate-900/80 border border-slate-800 p-4">
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-400">Awaiting</p>
+            <p class="mt-3 text-2xl font-semibold text-white"><?php echo number_format($awaitingPayments); ?></p>
+        </div>
+        <div class="rounded-3xl bg-slate-900/80 border border-slate-800 p-4">
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-400">Paid</p>
+            <p class="mt-3 text-2xl font-semibold text-white"><?php echo number_format($documentPaymentsCount); ?></p>
+        </div>
+        <div class="rounded-3xl bg-slate-900/80 border border-slate-800 p-4">
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-400">Collected</p>
+            <p class="mt-3 text-2xl font-semibold text-white"><?php echo peso($documentPaymentTotal); ?></p>
+        </div>
+        <div class="rounded-3xl bg-slate-900/80 border border-slate-800 p-4">
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-400">Transactions</p>
+            <p class="mt-3 text-2xl font-semibold text-white"><?php echo number_format(count($recentPayments)); ?></p>
+        </div>
+    </div>
+</div>
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
     <div class="bg-white rounded-lg shadow p-6">
         <p class="text-sm text-gray-500">Awaiting Payment</p>

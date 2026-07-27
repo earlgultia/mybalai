@@ -48,98 +48,265 @@ if (isset($_SESSION['user_id'])) {
     <link href="assets/css/app.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
         * {
             font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
         }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
             overflow-x: hidden;
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.13), transparent 30%), linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+            color: #0f172a;
         }
+
         section {
             scroll-margin-top: 96px;
         }
+
         .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #7c3aed 100%);
         }
+
+        .hero-gradient::before,
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(8px);
+            opacity: 0.32;
+            pointer-events: none;
+        }
+
+        .hero-gradient::before {
+            width: 320px;
+            height: 320px;
+            background: rgba(255, 255, 255, 0.16);
+            top: -140px;
+            right: -110px;
+        }
+
+        .hero-gradient::after {
+            width: 240px;
+            height: 240px;
+            background: rgba(255, 255, 255, 0.12);
+            bottom: -120px;
+            left: -80px;
+        }
+
+        .hero-shell {
+            position: relative;
+            z-index: 1;
+            padding: 1.4rem;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.55rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 1rem;
+        }
+
+        .hero-visual-card {
+            position: relative;
+            width: 100%;
+            border-radius: 28px;
+            background: rgba(248, 250, 252, 0.9);
+            padding: 1rem;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+        }
+
+        .hero-visual-badge {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 10px 24px rgba(29, 78, 216, 0.25);
+        }
+
         .card-hover {
             transition: all 0.3s ease;
         }
+
         .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
         }
+
         .service-icon {
             transition: all 0.3s ease;
         }
+
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.07);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #8b5cf6);
+        }
+
         .service-card:hover .service-icon {
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
-        .btn-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s ease;
+
+        .section-title {
+            font-size: clamp(1.8rem, 2.3vw, 2.6rem);
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
         }
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: #475569;
+            line-height: 1.7;
+            max-width: 710px;
+            margin: 0 auto;
         }
+
+        .stat-card {
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 44px rgba(15, 23, 42, 0.10);
+        }
+
+        .feature-card {
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.05);
+            padding: 1.2rem;
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .cta-card {
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.95), rgba(124, 58, 237, 0.95));
+            box-shadow: 0 24px 60px rgba(29, 78, 216, 0.24);
+        }
+
         .site-header {
             background: rgba(255, 255, 255, 0.92);
             border-bottom: 1px solid rgba(219, 228, 239, 0.9);
             backdrop-filter: blur(16px);
         }
+
         .brand-mark {
             width: 44px;
             height: 44px;
             background: linear-gradient(135deg, #1e40af, #0f766e);
             box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22);
         }
+
         .nav-link {
             color: #475569;
             font-weight: 600;
             padding: 0.625rem 0.85rem;
             border-radius: 999px;
         }
+
         .nav-link:hover {
             color: #1e40af;
             background: #eff6ff;
         }
+
         .header-login {
             background: linear-gradient(135deg, #1e40af, #0f766e);
             box-shadow: 0 12px 24px rgba(15, 118, 110, 0.2);
         }
+
         .header-login:hover {
             transform: translateY(-1px);
             box-shadow: 0 16px 30px rgba(15, 118, 110, 0.28);
         }
+
         .mobile-toggle-anchor {
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-        }
-        .mobile-toggle-anchor:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 14px 24px rgba(15, 23, 42, 0.12);
-        }
-        .mobile-toggle-anchor {
-            width: 52px;
-            height: 52px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.10);
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
             backdrop-filter: blur(14px);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            flex-shrink: 0;
         }
+
+        .mobile-toggle-anchor:hover {
+            box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+        }
+
         .mobile-toggle-anchor.is-open {
             background: linear-gradient(135deg, #1e40af, #0f766e);
             border-color: transparent;
             color: #fff;
-            box-shadow: 0 16px 30px rgba(30, 64, 175, 0.28);
+            box-shadow: 0 14px 26px rgba(30, 64, 175, 0.24);
         }
+
         .header-cta-group {
             margin-left: auto;
             flex-shrink: 0;
         }
+
         .mobile-panel {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
             display: block;
             max-height: 0;
             opacity: 0;
@@ -147,16 +314,20 @@ if (isset($_SESSION['user_id'])) {
             transform: translateY(-8px);
             pointer-events: none;
             transition: max-height 0.28s ease, opacity 0.2s ease, transform 0.2s ease;
+            z-index: 45;
         }
+
         .mobile-panel.is-open {
-            max-height: 520px;
+            max-height: 640px;
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
         }
+
         .stats-number {
             animation: countUp 2s ease-out;
         }
+
         @keyframes countUp {
             from {
                 opacity: 0;
@@ -167,17 +338,92 @@ if (isset($_SESSION['user_id'])) {
                 transform: translateY(0);
             }
         }
-        /* Mobile specific tweaks */
+
         .site-header .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
+        @media (min-width: 1024px) {
+            .hero-shell {
+                display: grid;
+                grid-template-columns: 1.08fr 0.92fr;
+                gap: 2rem;
+                align-items: center;
+                padding: 2.2rem 2.3rem;
+            }
+
+            .hero-copy {
+                max-width: 620px;
+            }
+
+            .hero-visual {
+                display: flex;
+                justify-content: center;
+            }
+
+            .hero-visual-card {
+                padding: 1.2rem;
+            }
+
+            .hero-visual-card img {
+                max-width: 420px;
+                width: 100%;
+                margin: 0 auto;
+                filter: drop-shadow(0 20px 35px rgba(15, 23, 42, 0.18));
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .site-header { padding-top: 8px; padding-bottom: 8px; }
+            .site-header .container { align-items: center; position: relative; }
+            .header-cta-group {
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 90;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                margin-left: 0;
+            }
+            .header-cta-group a { height: 44px; display: inline-flex; align-items: center; gap: 0.5rem; padding-left: 0.9rem; padding-right: 0.9rem; }
+            .header-login { padding-left: 1rem; padding-right: 1rem; height: 44px; }
+            .brand-mark { margin-right: 0.5rem; }
+            .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; }
+        }
+
+        @media (max-width: 1023px) {
+            .hero-shell {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.35rem;
+            }
+
+            .hero-copy {
+                width: 100%;
+            }
+
+            .hero-visual-card img {
+                max-width: 320px;
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
 
         @media (max-width: 768px) {
             .site-header { position: sticky; top: 0; z-index: 60; padding-top: 8px; padding-bottom: 8px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
-            .site-header .container { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.5rem; padding-right: 0.5rem; }
+            .site-header .container { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.6rem; padding-right: 0; }
             .site-header .container > div { padding-top: 0; padding-bottom: 0; }
-            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 54px); gap: 0.65rem; overflow: hidden; }
+            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 58px); gap: 0.65rem; overflow: hidden; }
             .site-header .container > a > span { min-width: 0; }
             .site-header .container > a > span:last-child { min-width: 0; overflow: hidden; }
-            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 14px; z-index: 90; }
+            .mobile-toggle-anchor { position: absolute; right: 0.25rem; top: 50%; transform: translateY(-50%); margin-left: 0; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 14px; z-index: 90; }
             .mobile-toggle-anchor:hover { transform: translateY(-1px); }
             .mobile-toggle-anchor i { display: inline-flex; align-items: center; justify-content: center; width: 1em; line-height: 1; font-size: 16px; }
             .brand-mark { width: 38px; height: 38px; }
@@ -186,40 +432,28 @@ if (isset($_SESSION['user_id'])) {
             .site-header .container > a > span:last-child > span:last-child { display: none; }
             .header-cta-group { margin-left: 0; }
             .hero-gradient { padding-top: 22px; padding-bottom: 22px; }
-            .hero-gradient h1 { font-size: 1.75rem; line-height: 1.08; letter-spacing: -0.02em; }
+            .hero-gradient h1 { font-size: 1.9rem; line-height: 1.08; letter-spacing: -0.02em; }
             .hero-gradient p { font-size: 0.98rem; line-height: 1.65; opacity: 0.95; }
-            .hero-gradient .flex.space-x-4 { flex-direction: column; gap: 0.75rem; }
-            .hero-gradient .flex.space-x-4 a {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                border-radius: 16px;
-                padding-top: 0.9rem;
-                padding-bottom: 0.9rem;
-            }
+            .hero-actions { flex-direction: column; gap: 0.75rem; }
+            .hero-actions a { width: 100%; justify-content: center; border-radius: 16px; padding-top: 0.9rem; padding-bottom: 0.9rem; }
             .container { padding-left: 1rem; padding-right: 1rem; }
-            .service-card { padding: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 18px 34px rgba(15, 23, 42, 0.06); border-radius: 20px; }
+            .service-card { padding: 1rem; border-radius: 20px; }
             .service-card h3 { font-size: 1.05rem; }
             .service-card p, .service-card li { font-size: 0.94rem; line-height: 1.55; }
             .service-icon { width: 48px; height: 48px; border-radius: 16px; }
             .service-icon i { font-size: 18px; }
             .stats-number { font-size: 1.6rem; }
             .stats-number + div { font-size: 0.92rem; }
-            .bg-white.py-12 .grid { gap: 1rem; }
-            .bg-white.py-12 .grid > div {
-                padding: 0.9rem 0.75rem;
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
-                border-radius: 18px;
-            }
-            .bg-white.py-12 .grid,
-            #services .grid,
-            #features .grid,
-            footer .grid { grid-template-columns: 1fr; }
-            #mobileMenu { position: relative; left: auto; right: auto; top: auto; z-index: 65; width: 100%; }
+            .stat-card { padding: 1rem; }
+            .feature-card { padding: 1rem; }
+            .service-grid,
+            .feature-grid,
+            footer .grid,
+            .bg-white.py-12 .grid { grid-template-columns: 1fr; }
             .mobile-panel { width: 100%; }
             .mobile-panel .rounded-2xl {
-                border-radius: 18px;
+                width: 100%;
+                border-radius: 0 0 22px 22px;
                 background: rgba(255, 255, 255, 0.98);
                 box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
                 overflow: hidden;
@@ -276,90 +510,21 @@ if (isset($_SESSION['user_id'])) {
             .header-cta-group { display: none !important; }
             .header-login { padding: 0.75rem 0.9rem; }
             .hero-gradient img { max-width: 220px; width: 100%; margin-top: 0.5rem; filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.14)); }
-            .hero-gradient .lg\:w-1\/2 { margin-bottom: 0; }
-            .hero-gradient .lg\:w-1\/2:first-child { order: 2; }
-            .hero-gradient .lg\:w-1\/2:last-child { order: 1; }
-            .hero-gradient .container > .flex { align-items: flex-start; }
-            .hero-gradient .container > .flex > div { width: 100%; }
-            .hero-gradient .container > .flex > div:first-child { background: rgba(15, 23, 42, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 24px; padding: 1rem; backdrop-filter: blur(8px); }
-            .hero-gradient .container > .flex > div:last-child { display: flex; justify-content: center; }
-            #about .container { padding-top: 1rem; padding-bottom: 1rem; }
-            #about h2 { font-size: 1.65rem; line-height: 1.15; }
-            #about p { font-size: 0.98rem; }
-            footer .grid { grid-template-columns: 1fr; }
-            footer .container { padding-left: 1rem; padding-right: 1rem; }
-            .footer-contact li { display: flex; align-items: center; gap: 8px; }
-            .hero-gradient .lg\:w-1\/2 { width: 100%; }
-            .lg\:w-1\/2 img { margin-top: 12px; }
+            .section-title { font-size: 1.7rem; }
+            .section-subtitle { font-size: 0.95rem; }
         }
 
-        /* Tablet and wide-mobile layout */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .site-header { position: sticky; top: 0; z-index: 60; padding-top: 8px; padding-bottom: 8px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
-            .site-header .container { position: relative; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.5rem; padding-right: 0.75rem; }
-            .site-header .container > div { padding-top: 0; padding-bottom: 0; }
-            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 58px); }
-            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; z-index: 90; }
-            .mobile-toggle-anchor:hover { transform: translateY(-1px); }
-            .brand-mark { width: 40px; height: 40px; }
-            .brand-mark i { font-size: 18px; }
-            .nav-links,
-            .header-cta-group { display: none !important; }
-            .hero-gradient { padding-top: 28px; padding-bottom: 28px; }
-            .hero-gradient h1 { font-size: 2.05rem; line-height: 1.08; letter-spacing: -0.02em; }
-            .hero-gradient p { font-size: 1rem; line-height: 1.65; }
-            .hero-gradient .flex.space-x-4 { flex-direction: column; gap: 0.75rem; }
-            .hero-gradient .flex.space-x-4 a { width: 100%; text-align: center; justify-content: center; border-radius: 16px; padding-top: 0.9rem; padding-bottom: 0.9rem; }
-            .hero-gradient .container > .flex { align-items: flex-start; }
-            .hero-gradient .container > .flex > div { width: 100%; }
-            .hero-gradient .container > .flex > div:first-child { background: rgba(15, 23, 42, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 24px; padding: 1rem; backdrop-filter: blur(8px); }
-            .hero-gradient .container > .flex > div:last-child { display: flex; justify-content: center; }
-            .hero-gradient .lg\:w-1\/2 { margin-bottom: 0; width: 100%; }
-            .hero-gradient .lg\:w-1\/2:first-child { order: 2; }
-            .hero-gradient .lg\:w-1\/2:last-child { order: 1; }
-            .hero-gradient img { max-width: 260px; width: 100%; margin-top: 0.5rem; filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.14)); }
-            .container { padding-left: 1rem; padding-right: 1rem; }
-            .stats-number { font-size: 1.65rem; }
-            .bg-white.py-12 .grid,
-            footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            #services .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            #features .grid { grid-template-columns: 1fr; }
-            .service-card { padding: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 18px 34px rgba(15, 23, 42, 0.06); border-radius: 20px; }
-            .service-card h3 { font-size: 1.05rem; }
-            .service-card p, .service-card li { font-size: 0.94rem; line-height: 1.55; }
-            .service-icon { width: 48px; height: 48px; border-radius: 16px; }
-            .service-icon i { font-size: 18px; }
-            #mobileMenu { position: relative; left: auto; right: auto; top: auto; z-index: 65; width: 100%; }
-            .mobile-panel { width: 100%; }
-            .mobile-panel .rounded-2xl { border-radius: 18px; background: rgba(255, 255, 255, 0.98); box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12); overflow: hidden; }
-        }
-
-        /* Desktop header alignment tweaks */
-        @media (min-width: 1025px) {
-            .site-header { padding-top: 8px; padding-bottom: 8px; }
-            /* ensure container is positioned so we can absolutely place CTAs */
-            .site-header .container { align-items: center; position: relative; }
-            /* Pin CTAs to the far-right and vertically center them */
-            .header-cta-group { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); z-index: 90; display: flex; align-items: center; gap: 0.75rem; margin-left: 0; }
-            .header-cta-group a { height: 44px; display: inline-flex; align-items: center; gap: 0.5rem; padding-left: 0.9rem; padding-right: 0.9rem; }
-            .header-login { padding-left: 1rem; padding-right: 1rem; height: 44px; }
-            .brand-mark { margin-right: 0.5rem; }
-            /* center the main nav links horizontally in desktop view */
-            .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; }
-        }
-
-        /* Extra small devices - ensure no overlaps */
         @media (max-width: 420px) {
-            .site-header .container { align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.3rem; padding-right: 0.35rem; }
-            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 50px); }
+            .site-header .container { align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.35rem; padding-right: 0.35rem; }
+            .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 54px); }
             .brand-mark { width: 36px; height: 36px; }
             .brand-mark i { font-size: 16px; }
             .site-header .container > a > span:last-child > span:first-child { font-size: 0.88rem; line-height: 1.05; }
-            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; z-index: 90; }
+            .mobile-toggle-anchor { position: static; right: auto; top: auto; transform: none; margin-left: auto; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; z-index: 90; }
             .mobile-toggle-anchor:hover { transform: translateY(-1px); }
             .mobile-toggle-anchor i { font-size: 16px; }
             .hero-gradient { padding-top: 20px; padding-bottom: 20px; }
-            .hero-gradient h1 { font-size: 1.45rem; }
+            .hero-gradient h1 { font-size: 1.6rem; }
             .hero-gradient p { font-size: 0.92rem; }
             .service-card { padding: 0.85rem; }
             .service-icon { width: 44px; height: 44px; }
@@ -391,6 +556,10 @@ if (isset($_SESSION['user_id'])) {
                     <a href="#contact" class="nav-link">Contact</a>
                 </div>
 
+                <button type="button" id="mobileMenuButton" class="mobile-toggle-anchor md:hidden" aria-label="Open menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+
                 <div class="header-cta-group hidden items-center gap-3 md:flex">
                     <a href="register.php" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-700 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
                         <i class="fas fa-user-plus"></i>
@@ -401,15 +570,12 @@ if (isset($_SESSION['user_id'])) {
                         <span>Login</span>
                     </a>
                 </div>
-
-                <button type="button" id="mobileMenuButton" class="mobile-toggle-anchor shrink-0 flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 md:hidden" aria-label="Open menu" aria-expanded="false">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
+        </div>
 
-            <div id="mobileMenu" class="mobile-panel pb-4 md:hidden mt-2">
-                <div class="rounded-2xl border border-slate-200 bg-white p-3 shadow-lg">
-                    <div class="grid gap-2">
+        <div id="mobileMenu" class="mobile-panel pb-4 md:hidden">
+            <div class="rounded-2xl border border-slate-200 bg-white p-3 shadow-lg">
+                <div class="grid gap-2">
                         <a href="#home" class="nav-link mobile-menu-link">
                             <span class="menu-link-icon"><i class="fas fa-house"></i></span>
                             <span class="menu-link-label">Home</span>
@@ -447,52 +613,68 @@ if (isset($_SESSION['user_id'])) {
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient text-white pt-32 pb-20 sm:pt-36">
+    <section id="home" class="hero-gradient text-white pt-28 pb-20 sm:pt-36">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row items-center justify-between">
-                <div class="lg:w-1/2 mb-10 lg:mb-0" data-aos="fade-right">
-                    <h1 class="text-5xl lg:text-6xl font-bold mb-6">
-                        Smart Barangay <br>
-                        <span class="text-yellow-300">Services Portal</span>
+            <div class="hero-shell">
+                <div class="hero-copy" data-aos="fade-right">
+                    <div class="hero-pill">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Official barangay services, digitized</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5">
+                        Smart Barangay
+                        <span class="block text-yellow-300">Services Portal</span>
                     </h1>
-                    <p class="text-xl mb-8 opacity-90">
-                        Get your barangay documents online, file complaints, book appointments, 
-                        and stay connected with your community - all in one place.
+                    <p class="text-lg sm:text-xl mb-8 text-slate-100/95">
+                        Request documents, file complaints, book appointments, and stay connected with your community in one secure digital hub.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="register.php" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:shadow-xl transition transform hover:scale-105">
-                            Create Account <i class="fas fa-arrow-right ml-2"></i>
+                    <div class="hero-actions flex flex-col sm:flex-row gap-3">
+                        <a href="register.php" class="bg-white text-indigo-600 px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition transform hover:scale-105 inline-flex items-center justify-center gap-2">
+                            Create Account <i class="fas fa-arrow-right"></i>
                         </a>
-                        <a href="#services" class="border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition">
-                            Learn More
+                        <a href="#services" class="border-2 border-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-indigo-600 transition inline-flex items-center justify-center gap-2">
+                            Explore Services
                         </a>
                     </div>
                 </div>
-                <div class="lg:w-1/2" data-aos="fade-left">
-                    <img src="https://cdn-icons-png.flaticon.com/512/6191/6191682.png" alt="Hero Image" class="w-full max-w-md mx-auto">
+                <div class="hero-visual" data-aos="fade-left">
+                    <div class="hero-visual-card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/6191/6191682.png" alt="Hero Image" class="w-full max-w-md mx-auto">
+                        <div class="hero-visual-badge">Available 24/7</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="bg-white py-12">
+    <section class="py-12">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center" data-aos="fade-up">
-                    <div class="text-4xl font-bold text-indigo-600 stats-number" data-stat="active_residents"><?php echo number_format($homepageStats['active_residents']); ?></div>
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 rounded-full bg-indigo-100 px-3 py-1 text-sm font-semibold text-indigo-700 mb-3">
+                        <i class="fas fa-chart-line"></i>
+                        Community overview
+                    </div>
+                    <h2 class="section-title mb-2">Barangay activity at a glance</h2>
+                </div>
+                <p class="text-slate-600 max-w-xl">Live updates on how residents are using the platform to access services and stay informed.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="stat-card p-5 text-center" data-aos="fade-up">
+                    <div class="text-3xl md:text-4xl font-bold text-indigo-600 stats-number" data-stat="active_residents"><?php echo number_format($homepageStats['active_residents']); ?></div>
                     <div class="text-gray-600 mt-2">Active Residents</div>
                 </div>
-                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl font-bold text-indigo-600 stats-number" data-stat="document_requests"><?php echo number_format($homepageStats['document_requests']); ?></div>
+                <div class="stat-card p-5 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl md:text-4xl font-bold text-indigo-600 stats-number" data-stat="document_requests"><?php echo number_format($homepageStats['document_requests']); ?></div>
                     <div class="text-gray-600 mt-2">Document Requests</div>
                 </div>
-                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl font-bold text-indigo-600 stats-number" data-stat="open_complaints"><?php echo number_format($homepageStats['open_complaints']); ?></div>
+                <div class="stat-card p-5 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl md:text-4xl font-bold text-indigo-600 stats-number" data-stat="open_complaints"><?php echo number_format($homepageStats['open_complaints']); ?></div>
                     <div class="text-gray-600 mt-2">Open Complaints</div>
                 </div>
-                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl font-bold text-indigo-600 stats-number" data-stat="appointments"><?php echo number_format($homepageStats['appointments']); ?></div>
+                <div class="stat-card p-5 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-3xl md:text-4xl font-bold text-indigo-600 stats-number" data-stat="appointments"><?php echo number_format($homepageStats['appointments']); ?></div>
                     <div class="text-gray-600 mt-2">Appointments</div>
                 </div>
             </div>
@@ -500,13 +682,17 @@ if (isset($_SESSION['user_id'])) {
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-50">
+    <section id="services" class="py-20 bg-gray-50/70">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
-                <p class="text-xl text-gray-600">Access barangay services anytime, anywhere</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700 mb-3">
+                    <i class="fas fa-bolt"></i>
+                    Modern barangay support
+                </div>
+                <h2 class="section-title mb-4">Everything you need, simplified</h2>
+                <p class="section-subtitle">Access barangay services anytime, anywhere with a faster and more organized experience.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="service-grid grid gap-8">
                 <!-- Service 1 -->
                 <div class="bg-white rounded-xl shadow-lg p-8 card-hover service-card" data-aos="fade-up">
                     <div class="service-icon bg-gradient-to-r from-blue-500 to-indigo-600 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
@@ -597,64 +783,62 @@ if (isset($_SESSION['user_id'])) {
     <!-- Features Section -->
     <section id="features" class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Why Choose MyBalai?</h2>
-                <p class="text-xl text-gray-600">Revolutionizing barangay services through technology</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 rounded-full bg-violet-100 px-3 py-1 text-sm font-semibold text-violet-700 mb-3">
+                    <i class="fas fa-star"></i>
+                    Why residents love it
+                </div>
+                <h2 class="section-title mb-4">Why Choose MyBalai?</h2>
+                <p class="section-subtitle">Revolutionizing barangay services through thoughtful design, speed, and reliability.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="flex items-start space-x-4" data-aos="fade-right">
-                    <div class="bg-green-100 p-3 rounded-full">
-                        <i class="fas fa-clock text-green-600 text-2xl"></i>
+            <div class="feature-grid grid gap-6">
+                <div class="feature-card" data-aos="fade-right">
+                    <div class="feature-icon bg-green-500">
+                        <i class="fas fa-clock text-2xl"></i>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">24/7 Accessibility</h3>
-                        <p class="text-gray-600">Access barangay services anytime, anywhere without visiting the hall in person.</p>
-                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">24/7 Accessibility</h3>
+                    <p class="text-gray-600">Access barangay services anytime, anywhere without going through long queues or waiting in person.</p>
                 </div>
-                <div class="flex items-start space-x-4" data-aos="fade-left">
-                    <div class="bg-blue-100 p-3 rounded-full">
-                        <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                <div class="feature-card" data-aos="fade-left">
+                    <div class="feature-icon bg-blue-500">
+                        <i class="fas fa-chart-line text-2xl"></i>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Real-time Tracking</h3>
-                        <p class="text-gray-600">Track your document requests and complaints status in real-time.</p>
-                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Real-time Tracking</h3>
+                    <p class="text-gray-600">Track your document requests and complaints status in real-time so you always know what’s next.</p>
                 </div>
-                <div class="flex items-start space-x-4" data-aos="fade-right" data-aos-delay="100">
-                    <div class="bg-purple-100 p-3 rounded-full">
-                        <i class="fas fa-shield-alt text-purple-600 text-2xl"></i>
+                <div class="feature-card" data-aos="fade-right" data-aos-delay="100">
+                    <div class="feature-icon bg-purple-500">
+                        <i class="fas fa-shield-alt text-2xl"></i>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Secure & Verified</h3>
-                        <p class="text-gray-600">QR code verification ensures document authenticity and security.</p>
-                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Secure & Verified</h3>
+                    <p class="text-gray-600">QR code verification and profile checks keep every transaction authentic and protected.</p>
                 </div>
-                <div class="flex items-start space-x-4" data-aos="fade-left" data-aos-delay="100">
-                    <div class="bg-yellow-100 p-3 rounded-full">
-                        <i class="fas fa-bell text-yellow-600 text-2xl"></i>
+                <div class="feature-card" data-aos="fade-left" data-aos-delay="100">
+                    <div class="feature-icon bg-yellow-500">
+                        <i class="fas fa-bell text-2xl"></i>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Instant Notifications</h3>
-                        <p class="text-gray-600">Receive updates and reminders via email and SMS.</p>
-                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Instant Notifications</h3>
+                    <p class="text-gray-600">Receive updates and reminders quickly so you never miss a request, appointment, or important announcement.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section id="about" class="hero-gradient py-20">
-        <div class="container mx-auto px-6 text-center" data-aos="zoom-in">
-            <h2 class="text-4xl font-bold text-white mb-6">Ready to experience smart barangay services?</h2>
-            <p class="text-xl text-white opacity-90 mb-8">Join thousands of residents who already enjoy convenient online services.</p>
-            <a href="login.php" class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition inline-block">
-                Get Started Now <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6" data-aos="zoom-in">
+            <div class="cta-card px-8 py-12 text-center text-white">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready to experience smart barangay services?</h2>
+                <p class="text-lg text-white/90 mb-8 max-w-2xl mx-auto">Join the growing number of residents who already enjoy convenient online services with a smoother, faster experience.</p>
+                <a href="login.php" class="bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition inline-flex items-center gap-2">
+                    Get Started Now <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-gray-900 text-white py-12">
+    <footer id="contact" class="bg-slate-950 text-white py-12">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>

@@ -54,29 +54,64 @@ $stmt = $pdo->query("
 ");
 $residents = $stmt->fetchAll();
 
+$activeResidents = count(array_filter($residents, fn($resident) => !empty($resident['is_active'])));
+$inactiveResidents = count($residents) - $activeResidents;
+
 adminHeader('Residents', 'residents');
 ?>
 <?php if ($message): ?>
 <div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded mb-4"><?php echo e($message); ?></div>
 <?php endif; ?>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-    <div class="stat-card bg-white rounded-lg shadow p-6">
-        <p class="text-sm text-gray-500">Total Residents</p>
-        <p class="text-3xl font-bold text-gray-800 mt-2"><?php echo count($residents); ?></p>
+<div class="space-y-4">
+    <div class="md:hidden bg-white rounded-[28px] shadow-lg p-5 border border-slate-200">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Residents snapshot</p>
+                <h2 class="mt-2 text-2xl font-semibold text-slate-900">Community overview</h2>
+                <p class="mt-1 text-sm text-slate-500">Tap a resident to review their profile and activity.</p>
+            </div>
+            <div class="inline-flex h-10 min-w-[90px] items-center justify-center rounded-full bg-sky-50 px-4 text-sm font-semibold text-sky-700">
+                <?php echo count($residents); ?> total
+            </div>
+        </div>
+        <div class="mt-5 grid grid-cols-2 gap-3">
+            <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Active</p>
+                <p class="mt-3 text-3xl font-semibold text-emerald-700"><?php echo $activeResidents; ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Inactive</p>
+                <p class="mt-3 text-3xl font-semibold text-rose-700"><?php echo $inactiveResidents; ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Documents</p>
+                <p class="mt-3 text-3xl font-semibold text-slate-900"><?php echo array_sum(array_column($residents, 'total_requests')); ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Complaints</p>
+                <p class="mt-3 text-3xl font-semibold text-slate-900"><?php echo array_sum(array_column($residents, 'total_complaints')); ?></p>
+            </div>
+        </div>
     </div>
-    <div class="stat-card bg-white rounded-lg shadow p-6">
-        <p class="text-sm text-gray-500">Active Accounts</p>
-        <p class="text-3xl font-bold text-green-600 mt-2"><?php echo count(array_filter($residents, fn($resident) => !empty($resident['is_active']))); ?></p>
-    </div>
-    <div class="stat-card bg-white rounded-lg shadow p-6">
-        <p class="text-sm text-gray-500">Inactive Accounts</p>
-        <p class="text-3xl font-bold text-red-600 mt-2"><?php echo count(array_filter($residents, fn($resident) => empty($resident['is_active']))); ?></p>
-    </div>
-</div>
 
-<div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="p-4 border-b flex flex-wrap gap-3 justify-between items-center">
+    <div class="hidden md:grid md:grid-cols-3 gap-6 mb-6">
+        <div class="rounded-[28px] bg-white border border-slate-200 p-6 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Total Residents</p>
+            <p class="mt-4 text-4xl font-semibold text-slate-900"><?php echo count($residents); ?></p>
+        </div>
+        <div class="rounded-[28px] bg-white border border-slate-200 p-6 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Active Accounts</p>
+            <p class="mt-4 text-4xl font-semibold text-emerald-700"><?php echo $activeResidents; ?></p>
+        </div>
+        <div class="rounded-[28px] bg-white border border-slate-200 p-6 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Inactive Accounts</p>
+            <p class="mt-4 text-4xl font-semibold text-rose-600"><?php echo $inactiveResidents; ?></p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-4 border-b flex flex-wrap gap-3 justify-between items-center">
         <div>
             <h3 class="text-lg font-semibold text-gray-800">Resident Directory</h3>
             <p class="text-sm text-gray-500">Review profiles, requests, complaints, and appointment activity.</p>

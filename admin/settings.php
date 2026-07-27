@@ -77,7 +77,53 @@ adminHeader('System Settings', 'settings');
 ?>
 <?php if ($message): ?><div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded mb-4"><?php echo e($message); ?></div><?php endif; ?>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="space-y-4">
+    <div class="md:hidden rounded-[28px] bg-slate-950 text-white p-5 shadow-lg border border-slate-800">
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <p class="text-xs uppercase tracking-[0.24em] text-slate-400">System Settings</p>
+                <h2 class="mt-2 text-2xl font-semibold text-white">Barangay configuration</h2>
+                <p class="mt-2 text-sm text-slate-300">Update your barangay's contact details, fee info, and system contact settings.</p>
+            </div>
+            <span class="inline-flex items-center rounded-full bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-200">Admin</span>
+        </div>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-3xl bg-slate-900 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Barangay</p>
+                <p class="mt-3 text-sm font-semibold text-white"><?php echo e($values['barangay_name'] ?: 'Not set'); ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-900 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Contact email</p>
+                <p class="mt-3 text-sm font-semibold text-white"><?php echo e($values['contact_email'] ?: 'Not set'); ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-900 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Contact phone</p>
+                <p class="mt-3 text-sm font-semibold text-white"><?php echo e($values['contact_phone'] ?: 'Not set'); ?></p>
+            </div>
+            <div class="rounded-3xl bg-slate-900 p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500">Monthly fee</p>
+                <p class="mt-3 text-sm font-semibold text-white"><?php echo e($values['monthly_fee'] !== '' ? '₱' . e($values['monthly_fee']) : 'Not set'); ?></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden md:grid md:grid-cols-3 gap-6">
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Barangay</p>
+            <p class="mt-4 text-2xl font-semibold text-slate-900"><?php echo e($values['barangay_name'] ?: 'Not set'); ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Contact</p>
+            <p class="mt-4 text-lg font-semibold text-slate-900"><?php echo e($values['contact_phone'] ?: 'No phone'); ?></p>
+            <p class="mt-1 text-sm text-slate-500"><?php echo e($values['contact_email'] ?: 'No email'); ?></p>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+            <p class="text-sm text-slate-500 uppercase tracking-[0.24em]">Monthly fee</p>
+            <p class="mt-4 text-3xl font-semibold text-slate-900"><?php echo e($values['monthly_fee'] !== '' ? '₱' . e($values['monthly_fee']) : '—'); ?></p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <form method="POST" class="lg:col-span-2 bg-white rounded-lg shadow p-6 space-y-4">
         <h3 class="text-lg font-semibold">Barangay Settings</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

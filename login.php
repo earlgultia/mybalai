@@ -77,113 +77,252 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-family: 'Poppins', sans-serif;
         }
         .login-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.32), transparent 24%),
+                        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .login-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
+
+        .login-shell {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
         }
-        /* Mobile responsive tweaks */
-        @media (max-width: 768px) {
-            .max-w-6xl { max-width: 100%; padding-left: 0.75rem; padding-right: 0.75rem; }
-            .max-w-lg { max-width: 420px; margin: 0 auto; }
-            .login-card { border-radius: 18px; overflow: hidden; }
-            .login-card .bg-gradient-to-r { padding: 18px; }
-            .login-card .px-5 { padding-left: 1rem; padding-right: 1rem; }
-            .login-card .px-8 { padding-left: 1rem; padding-right: 1rem; }
-            .login-card input { font-size: 0.95rem; padding-top: 0.75rem; padding-bottom: 0.75rem; }
-            .login-card .rounded-xl { border-radius: 14px; }
-            .login-card .mx-auto.mb-3 { margin-bottom: 8px; }
-            .login-card img, .login-card i { max-width: 100%; }
-            #togglePassword { right: 10px; }
-            .login-card form { gap: 0.75rem; }
+
+        .login-sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 620px;
+            padding: 3rem;
+            border-radius: 36px;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(79, 70, 229, 0.96));
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.22);
+            color: #f8fafc;
+        }
+
+
+        .login-sidebar .brand-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-sidebar .brand-block span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.12);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+        }
+
+        .login-sidebar h1 {
+            font-size: clamp(2.2rem, 3.4vw, 3.6rem);
+            line-height: 1.03;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .login-sidebar p {
+            max-width: 520px;
+            line-height: 1.9;
+            color: rgba(248, 250, 252, 0.88);
+            margin-bottom: 2rem;
+        }
+
+        .login-feature-list {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            padding: 1rem 1.1rem;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .login-feature i {
+            font-size: 1.15rem;
+            color: #a5b4fc;
+            margin-top: 0.25rem;
+        }
+
+        .login-feature span {
+            display: block;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(248, 250, 252, 0.92);
+        }
+
+        .login-sidebar .help-note {
+            font-size: 0.95rem;
+            color: rgba(248, 250, 252, 0.76);
+            line-height: 1.7;
+        }
+
+        .login-panel {
+            background: rgba(255,255,255,0.96);
+            border-radius: 32px;
+            box-shadow: 0 24px 80px rgba(15,23,42,0.14);
+            overflow: hidden;
+        }
+
+        .login-panel .panel-header {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            padding: 2rem 2.2rem;
+            text-align: center;
+        }
+
+        .login-panel .panel-header h2 {
+            font-size: clamp(1.7rem, 2.2vw, 2.4rem);
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+
+        .login-panel .panel-header p {
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .login-panel .panel-body {
+            padding: 2rem 2.2rem 2.4rem;
+        }
+
+        .login-panel .form-label { color: #334155; }
+
+        .login-panel .form-input {
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .login-panel .form-input:focus { box-shadow: 0 0 0 4px rgba(99,102,241,0.14); }
+
+        .login-panel .submit-btn { transition: transform .2s ease, box-shadow .2s ease; }
+
+        .login-panel .submit-btn:hover { transform: translateY(-1px); }
+
+        .login-panel .back-link { color: #475569; }
+        .login-panel .back-link:hover { color: #4338ca; }
+
+        @media (max-width: 1023px) {
+            .login-shell { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.25rem 0.75rem; }
+            .login-sidebar { display: none; }
+            .login-panel { border-radius: 28px; }
+            .login-panel .panel-header { padding: 1.8rem 1.6rem; }
+            .login-panel .panel-body { padding: 1.8rem 1.6rem 2rem; }
         }
 
         @media (max-width: 420px) {
-            .login-card .bg-gradient-to-r h2 { font-size: 1.25rem; }
-            .login-card .bg-gradient-to-r p { font-size: 0.85rem; }
-            .login-card input { font-size: 0.9rem; }
-            .login-card .mx-auto { padding-left: 6px; padding-right: 6px; }
-            .login-card { margin: 0 6px; }
+            .login-shell { padding: 1rem 0.5rem; }
+            .login-panel .panel-header h2 { font-size: 1.6rem; }
+            .login-panel .panel-header p { font-size: 0.95rem; }
+            .login-panel .panel-body { padding: 1.6rem 1.25rem 1.8rem; }
+            .login-panel .submit-btn { padding-top: 0.9rem; padding-bottom: 0.9rem; }
+            .login-panel .form-input { padding-top: 0.75rem; padding-bottom: 0.75rem; }
         }
     </style>
 </head>
 <body class="login-bg min-h-screen">
-    <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-4 py-6 sm:px-6 sm:py-10">
-        <div class="w-full max-w-lg">
-            <div class="mb-6 flex justify-center sm:mb-8">
-                <a href="index.php" class="inline-flex max-w-full items-center gap-4 text-white">
-                    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm">
-                        <i class="fas fa-home text-2xl"></i>
-                    </span>
-                    <span class="text-left">
-                        <span class="block text-2xl font-bold leading-none">MyBalai</span>
-                        <span class="mt-1 block text-sm font-medium text-indigo-100">Smart Barangay Services Portal</span>
-                    </span>
-                </a>
-            </div>
-
-            <div class="login-card overflow-hidden rounded-[28px] shadow-[0_24px_80px_rgba(15,23,42,0.28)]">
-                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5 text-center text-white sm:px-8 sm:py-6">
-                    <div class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
-                        <i class="fas fa-sign-in-alt text-2xl"></i>
+    <div class="login-shell">
+        <aside class="login-sidebar">
+            <div>
+                <a href="index.php" class="brand-block">
+                    <span><i class="fas fa-home"></i></span>
+                    <div>
+                        <div class="text-xl font-semibold">MyBalai</div>
+                        <div class="text-sm text-indigo-100/85">Smart Barangay Services Portal</div>
                     </div>
-                    <h2 class="text-2xl font-bold sm:text-[1.7rem]">Welcome Back</h2>
-                    <p class="mt-1 text-sm text-indigo-100 sm:text-base">Login to your account</p>
+                </a>
+
+                <div>
+                    <h1>Secure citizen services, all in one place.</h1>
+                    <p>Sign in and manage document requests, appointments, complaints, and resident records from your community dashboard.</p>
                 </div>
 
-                <div class="px-5 py-6 sm:px-8 sm:py-8">
-                    <?php if ($error): ?>
-                        <div class="mb-6 rounded-xl border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-700">
-                            <i class="fas fa-exclamation-circle mr-2"></i>
-                            <?php echo $error; ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <form method="POST" action="" class="space-y-5">
-                        <div>
-                            <label class="mb-2 block text-sm font-semibold text-gray-700">
-                                <i class="fas fa-envelope mr-2 text-indigo-600"></i>Email or Username
-                            </label>
-                            <input type="text" name="email" required
-                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                                placeholder="Enter your email or username">
-                        </div>
-
-                        <div>
-                            <label class="mb-2 block text-sm font-semibold text-gray-700">
-                                <i class="fas fa-lock mr-2 text-indigo-600"></i>Password
-                            </label>
-                            <div class="relative">
-                                <input id="passwordInput" type="password" name="password" required
-                                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-12 text-sm text-slate-700 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                                    placeholder="Enter your password">
-                                <button type="button" id="togglePassword" class="absolute inset-y-0 right-3 flex items-center text-slate-500 transition hover:text-slate-800 focus:outline-none" aria-label="Toggle password visibility">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <button type="submit"
-                            class="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg transition duration-200 hover:from-indigo-700 hover:to-purple-700">
-                            <i class="fas fa-sign-in-alt mr-2"></i> Login
-                        </button>
-                    </form>
-
-                    <div class="mt-6 text-center text-sm text-slate-700">
-                        <span>Barangay resident?</span>
-                        <a href="register.php" class="ml-1 font-semibold text-indigo-600 hover:text-indigo-800">Create your account</a>
+                <div class="login-feature-list">
+                    <div class="login-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Protected access with online resident verification.</span>
+                    </div>
+                    <div class="login-feature">
+                        <i class="fas fa-bolt"></i>
+                        <span>Fast approval workflows for documents and appointments.</span>
+                    </div>
+                    <div class="login-feature">
+                        <i class="fas fa-users"></i>
+                        <span>Resident-first portal built for easy barangay access.</span>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-6 text-center">
-                <a href="index.php" class="inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-indigo-100">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Back to Home</span>
-                </a>
+            <div class="help-note">Need help? Contact your barangay office if your login is not recognized or you need account support.</div>
+        </aside>
+
+        <section class="login-panel">
+            <div class="panel-header">
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-indigo-100 text-indigo-700 shadow-inner shadow-indigo-200/40">
+                    <i class="fas fa-sign-in-alt text-2xl"></i>
+                </div>
+                <h2>Login to your account</h2>
+                <p>Access your digital barangay services with your email or username.</p>
             </div>
-        </div>
+
+            <div class="panel-body">
+                <?php if ($error): ?>
+                    <div class="mb-6 rounded-2xl border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <?php echo $error; ?>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST" action="" class="space-y-5">
+                    <div>
+                        <label class="form-label mb-2 block text-sm font-semibold">Email or Username</label>
+                        <input type="text" name="email" required
+                            class="form-input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none"
+                            placeholder="Enter your email or username">
+                    </div>
+
+                    <div>
+                        <label class="form-label mb-2 block text-sm font-semibold">Password</label>
+                        <div class="relative">
+                            <input id="passwordInput" type="password" name="password" required
+                                class="form-input w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-12 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none"
+                                placeholder="Enter your password">
+                            <button type="button" id="togglePassword" class="absolute inset-y-0 right-3 flex items-center text-slate-500 hover:text-slate-700 focus:outline-none" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/15 hover:shadow-indigo-600/20">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Login
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center text-sm text-slate-600">
+                    <span>Barangay resident?</span>
+                    <a href="register.php" class="ml-1 font-semibold text-indigo-600 hover:text-indigo-800">Create your account</a>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="index.php" class="back-link inline-flex items-center gap-2 text-sm font-semibold transition hover:text-indigo-800">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
         <script>
             (function(){
                 var passwordInput = document.getElementById('passwordInput');

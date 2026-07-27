@@ -115,124 +115,58 @@ function residentHeader($title, $active) {
     <style>
         /* Shared header styles for resident pages - normalize alignment */
         .resident-nav .mx-auto > div { display: flex; align-items: center; gap: 0.75rem; }
-        /* ensure the inner container can be a positioning context for the centered brand */
         .resident-nav .mx-auto { position: relative; }
         .resident-nav .brand-block p { margin: 0; }
         .resident-nav .brand-block .title { font-size: 1rem; font-weight: 600; }
         .resident-nav .brand-block .subtitle { font-size: 0.75rem; opacity: 0.9; }
-        .resident-nav .nav-links a { display: inline-flex; align-items: center; justify-content: center; height: 36px; line-height: 1; padding: 0 10px; border-radius: 999px; }
+        .resident-nav .nav-links a { display: inline-flex; align-items: center; justify-content: center; height: 36px; line-height: 1; padding: 0 12px; border-radius: 999px; transition: background-color .2s ease, color .2s ease; }
+        .resident-nav .nav-links a:hover { background: rgba(255,255,255,0.14); }
+        .resident-nav .nav-links .logout-link { background: rgba(248,113,113,0.16); color: #fee2e2; }
         .resident-nav .user-box { display: flex; align-items: center; }
         .resident-nav .user-box p { margin: 0; }
 
-        /* Make header compact on all sizes by default */
-        .resident-nav { padding-top: 6px; padding-bottom: 6px; }
+        .resident-nav { padding-top: 8px; padding-bottom: 8px; }
 
-        /* Shared mobile header styles for resident pages */
         @media (max-width: 768px) {
             .container { padding-left: 1rem; padding-right: 1rem; }
             .resident-nav { position: relative; }
-            /* Stack and center brand on mobile for better readability */
-            .resident-nav .mx-auto > .flex { flex-direction: column; gap: 0.5rem; align-items: stretch; padding-right: 6.25rem; }
+            .resident-nav .mx-auto > .flex { flex-direction: column; gap: 0.75rem; align-items: stretch; padding-right: 5rem; }
             .resident-nav .brand-block { width: 100%; text-align: center; }
             .resident-nav .brand-block .title { font-size: 1.05rem; font-weight: 700; }
-            .resident-nav .brand-block .subtitle { font-size: 0.8rem; opacity: 0.95; margin-top: 2px; }
-            /* Pin the mobile actions to the top-right so they're always reachable and never overlap the brand */
-            .mobile-actions {
-                position: absolute;
-                right: 0.75rem;
-                top: 8px;
-                z-index: 90;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            #mobileNavToggle {
-                z-index: 90;
-                width: 40px;
-                height: 40px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0.25rem;
-                border-radius: 8px;
-                background: rgba(255,255,255,0.06);
-                backdrop-filter: blur(4px);
-            }
-            #mobileNavToggle:focus { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,0.12); }
-            .resident-nav .nav-links { display: none; width: 100%; margin-top: 0.25rem; padding: 0.6rem; background: linear-gradient(180deg, rgba(15,23,42,0.98), rgba(10,16,26,0.98)); border-radius: 12px; box-shadow: 0 10px 30px rgba(2,6,23,0.20); z-index: 50; flex-direction: column; gap: 0.5rem; pointer-events: auto; }
+            .resident-nav .brand-block .subtitle { font-size: 0.8rem; opacity: 0.95; margin-top: 0.25rem; }
+            .mobile-actions { position: absolute; right: 0.85rem; top: 10px; z-index: 90; display: flex; align-items: center; gap: 0.5rem; }
+            #mobileNavToggle { z-index: 90; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 0.25rem; border-radius: 12px; background: rgba(255,255,255,0.08); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.12); }
+            #mobileNavToggle:focus { outline: none; box-shadow: 0 0 0 4px rgba(56,189,248,0.18); }
+            .resident-nav .nav-links { display: none; position: absolute; top: calc(100% + 0.75rem); right: 0.75rem; width: min(92vw, 330px); padding: 0.85rem; background: rgba(15,23,42,0.98); border-radius: 22px; box-shadow: 0 24px 50px rgba(2,6,23,0.24); z-index: 50; flex-direction: column; gap: 0.75rem; pointer-events: auto; }
             .resident-nav .nav-links.is-open { display: flex; animation: mb-slide-down .18s ease-out; }
-            .resident-nav .nav-links a { color: #c7d2fe; padding: 0.55rem 0.75rem; border-radius: 8px; }
-            .resident-nav .nav-links a:hover { background: rgba(255,255,255,0.03); }
-            .resident-nav .nav-links .mobile-logout-link {
-                width: auto;
-                align-self: flex-start;
-                padding: 0.45rem 0.85rem;
-                border-radius: 999px;
-                font-size: 0.8rem;
-                font-weight: 600;
-            }
+            .resident-nav .nav-links a { color: #e2e8f0; padding: 0.85rem 1rem; border-radius: 16px; width: 100%; justify-content: flex-start; }
+            .resident-nav .nav-links a:hover { background: rgba(255,255,255,0.08); }
+            .resident-nav .nav-links .mobile-logout-link { width: 100%; font-size: 0.9rem; font-weight: 600; }
             .resident-nav .user-box { display: none; }
-            /* ensure the toggle stays absolutely positioned; remove conflicting relative rule */
-            #residentNavLinks { width: 100%; }
+            #residentNavLinks { width: auto; }
         }
-        /* Keep desktop header elements in separate lanes so they never overlap */
+
         @media (min-width: 1024px) {
-            .resident-nav {
-                padding-top: 4px;
-                padding-bottom: 4px;
-            }
-            .resident-nav .mx-auto > .flex {
-                display: grid;
-                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-                grid-template-rows: auto auto;
-                align-items: center;
-                column-gap: 0.75rem;
-                row-gap: 0.1rem;
-            }
-            .resident-nav .mx-auto > .flex > :first-child {
-                grid-column: 1 / -1;
-                justify-self: center;
-            }
-            .resident-nav .brand-block {
-                position: static;
-                transform: none;
-                text-align: center;
-                pointer-events: auto;
-                justify-self: center;
-                min-width: 0;
-            }
-            .resident-nav .brand-block p {
-                white-space: nowrap;
-            }
-            .resident-nav .nav-links {
-                grid-column: 2;
-                grid-row: 2;
-                justify-self: center;
-                min-width: 0;
-                gap: 0.5rem;
-            }
-            .resident-nav .nav-links a {
-                height: 34px;
-                padding: 0 8px;
-            }
-            .resident-nav .user-box {
-                grid-column: 3;
-                grid-row: 2;
-                justify-self: end;
-            }
-            /* ensure brand text is readable and not too large on desktop */
+            .resident-nav { padding-top: 6px; padding-bottom: 6px; }
+            .resident-nav .mx-auto > .flex { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); grid-template-rows: auto auto; align-items: center; column-gap: 1rem; row-gap: 0.1rem; }
+            .resident-nav .mx-auto > .flex > :first-child { grid-column: 1 / -1; justify-self: center; }
+            .resident-nav .brand-block { position: static; transform: none; text-align: center; justify-self: center; min-width: 0; }
+            .resident-nav .brand-block p { white-space: nowrap; }
+            .resident-nav .nav-links { grid-column: 2; grid-row: 2; justify-self: center; min-width: 0; gap: 0.5rem; }
+            .resident-nav .nav-links a { height: 36px; padding: 0 12px; }
+            .resident-nav .user-box { grid-column: 3; grid-row: 2; justify-self: end; }
             .resident-nav .brand-block .title { font-size: 1rem; }
             .resident-nav .brand-block .subtitle { font-size: 0.75rem; }
         }
-        @keyframes mb-slide-down { from { transform: translateY(-6px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes mb-slide-down { from { transform: translateY(-8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body class="resident-page bg-gray-100">
     <nav class="resident-nav sticky top-0 z-30 border-b border-white/10 bg-gradient-to-r from-blue-700 via-indigo-700 to-slate-800 text-white shadow-lg">
         <div class="mx-auto max-w-7xl px-4 sm:px-6">
                 <div class="flex flex-col gap-2 py-3 lg:flex-row lg:items-center lg:justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="brand-block">
+                    <div class="flex w-full items-center justify-center">
+                        <div class="brand-block text-center">
                             <p class="title text-base font-semibold leading-tight">MyBalai Resident Portal</p>
                             <p class="subtitle text-xs text-blue-100">Your barangay services in one place</p>
                         </div>
