@@ -51,7 +51,7 @@ if (isset($_SESSION['user_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="assets/css/app.css" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json?v=20260727">
     <link rel="apple-touch-icon" href="assets/icons/appicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -1033,6 +1033,6 @@ if (isset($_SESSION['user_id'])) {
 
         setInterval(refreshStats, 10000);
     </script>
-    <script src="assets/js/pwa.js"></script>
+    <script src="assets/js/pwa.js?v=20260727"></script>
 </body>
 </html>

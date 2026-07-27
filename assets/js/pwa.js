@@ -1,5 +1,6 @@
 (function () {
   const themeColor = '#2563eb';
+  const pwaVersion = '20260727';
   const sessionKey = 'mybalai-pwa-prompt-session';
   let deferredPrompt = null;
   let modalShown = false;
@@ -248,13 +249,13 @@
   ensureMeta('apple-mobile-web-app-status-bar-style', 'black-translucent');
   ensureMeta('apple-mobile-web-app-title', 'MyBalai');
   ensureMeta('mobile-web-app-capable', 'yes');
-  ensureLink('manifest', resolveAppUrl('manifest.json'));
-  ensureLink('apple-touch-icon', resolveAppUrl('assets/icons/appicon.png'));
+  ensureLink('manifest', resolveAppUrl('manifest.json?v=' + pwaVersion));
+  ensureLink('apple-touch-icon', resolveAppUrl('assets/icons/appicon.png?v=' + pwaVersion));
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
       navigator.serviceWorker
-        .register(resolveAppUrl('service-worker.js'), { scope: getAppRootUrl().pathname })
+        .register(resolveAppUrl('service-worker.js?v=' + pwaVersion), { scope: getAppRootUrl().pathname })
         .then(function () {
           console.log('✓ Service Worker registered successfully');
         })

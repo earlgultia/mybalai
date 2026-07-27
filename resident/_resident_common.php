@@ -117,7 +117,7 @@ function residentHeader($title, $active) {
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/app.css" rel="stylesheet">
-    <link rel="manifest" href="../manifest.json">
+    <link rel="manifest" href="../manifest.json?v=20260727">
     <link rel="apple-touch-icon" href="../assets/icons/appicon.png">
     <style>
         /* Shared header styles for resident pages - normalize alignment */
@@ -273,7 +273,7 @@ function residentHeader($title, $active) {
 function residentFooter() {
     ?>
     </main>
-    <script src="../assets/js/pwa.js"></script>
+    <script src="../assets/js/pwa.js?v=20260727"></script>
 </body>
 </html>
 <?php

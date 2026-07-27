@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'mybalai-pwa-v2';
+﻿const CACHE_NAME = 'mybalai-pwa-v4';
 const APP_SHELL = [
   'index.php',
   'login.php',
