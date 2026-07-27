@@ -93,7 +93,7 @@
         inset: 0;
         z-index: 2147483647;
         display: none;
-        align-items: flex-end;
+        align-items: center;
         justify-content: center;
         padding: 20px;
         background: rgba(15, 23, 42, 0.55);
