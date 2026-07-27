@@ -1,5 +1,9 @@
 (function () {
   const themeColor = '#2563eb';
+  const sessionKey = 'mybalai-pwa-prompt-session';
+  let deferredPrompt = null;
+  let modalShown = false;
+  let installModal = null;
 
   function ensureMeta(name, value) {
     let meta = document.querySelector('meta[name="' + name + '"]');
@@ -51,12 +55,11 @@
     if (isInstalled()) return false;
 
     try {
-      const currentSession = sessionStorage.getItem('mybalai-pwa-prompt-session');
-      if (currentSession === '1') {
+      if (sessionStorage.getItem(sessionKey) === '1') {
         return false;
       }
     } catch (error) {
-      console.warn('Install prompt session storage unavailable', error);
+      console.warn('Install prompt storage unavailable', error);
     }
 
     return true;
@@ -64,7 +67,7 @@
 
   function markInstallPromptSeen() {
     try {
-      sessionStorage.setItem('mybalai-pwa-prompt-session', '1');
+      sessionStorage.setItem(sessionKey, '1');
     } catch (error) {
       console.warn('Could not save install prompt session state', error);
     }
@@ -72,60 +75,139 @@
 
   function markInstallPromptDismissed() {
     try {
-      sessionStorage.removeItem('mybalai-pwa-prompt-session');
+      sessionStorage.removeItem(sessionKey);
     } catch (error) {
       console.warn('Could not clear install prompt session state', error);
     }
   }
 
-  function injectSweetAlertStyles() {
-    if (document.getElementById('pwa-swal-styles')) return;
+  function injectModalStyles() {
+    if (document.getElementById('mybalai-pwa-styles')) return;
 
     const style = document.createElement('style');
-    style.id = 'pwa-swal-styles';
+    style.id = 'mybalai-pwa-styles';
     style.textContent = `
-      .pwa-swal-popup {
-        border-radius: 20px;
+      #mybalai-pwa-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(15, 23, 42, 0.55);
       }
-      .pwa-swal-confirm,
-      .pwa-swal-cancel {
+      #mybalai-pwa-modal.show {
+        display: flex;
+      }
+      #mybalai-pwa-modal .pwa-card {
+        width: min(100%, 480px);
+        background: white;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+      #mybalai-pwa-modal .pwa-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #2563eb, #4f46e5);
+        color: white;
+        font-size: 32px;
+      }
+      #mybalai-pwa-modal h3 {
+        margin: 0 0 10px;
+        font-size: 22px;
+        color: #0f172a;
+      }
+      #mybalai-pwa-modal p {
+        margin: 0 0 18px;
+        line-height: 1.6;
+        color: #475569;
+      }
+      #mybalai-pwa-modal .pwa-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+      #mybalai-pwa-modal .pwa-btn {
+        border: 0;
         border-radius: 999px;
-        padding: 0.7rem 1.2rem;
-        font-weight: 600;
+        padding: 10px 18px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      #mybalai-pwa-modal .pwa-btn-later {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      #mybalai-pwa-modal .pwa-btn-install {
+        background: #2563eb;
+        color: white;
+      }
+      @media (max-width: 480px) {
+        #mybalai-pwa-modal {
+          padding: 12px;
+        }
+        #mybalai-pwa-modal .pwa-actions {
+          flex-direction: column;
+        }
       }
     `;
     document.head.appendChild(style);
   }
 
-  function loadSweetAlert() {
-    if (window.Swal) {
-      return Promise.resolve();
-    }
+  function createInstallModal() {
+    if (installModal) return installModal;
 
-    return new Promise(function (resolve) {
-      const existingScript = document.querySelector('script[src*="sweetalert2"]');
-      if (existingScript) {
-        existingScript.addEventListener('load', function () {
-          resolve();
-        }, { once: true });
-        return;
-      }
+    injectModalStyles();
 
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-      script.async = true;
-      script.onload = function () {
-        resolve();
-      };
-      script.onerror = function () {
-        resolve();
-      };
-      document.head.appendChild(script);
+    installModal = document.createElement('div');
+    installModal.id = 'mybalai-pwa-modal';
+    installModal.innerHTML = `
+      <div class="pwa-card">
+        <div class="pwa-icon">⬇</div>
+        <h3>Install MyBalai</h3>
+        <p>Add it to your home screen for faster access and offline support.</p>
+        <div class="pwa-actions">
+          <button class="pwa-btn pwa-btn-later" id="mybalai-pwa-later">Maybe later</button>
+          <button class="pwa-btn pwa-btn-install" id="mybalai-pwa-install">Install</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(installModal);
+
+    installModal.querySelector('#mybalai-pwa-later').addEventListener('click', function () {
+      markInstallPromptDismissed();
+      hideInstallModal();
     });
+
+    installModal.querySelector('#mybalai-pwa-install').addEventListener('click', function () {
+      installApp();
+    });
+
+    return installModal;
   }
 
-  let deferredPrompt = null;
-  let hasShownPrompt = false;
+  function showInstallModal() {
+    if (!installModal) {
+      createInstallModal();
+    }
+
+    installModal.classList.add('show');
+  }
+
+  function hideInstallModal() {
+    if (installModal) {
+      installModal.classList.remove('show');
+    }
+  }
 
   async function installApp() {
     if (deferredPrompt) {
@@ -135,71 +217,30 @@
 
         if (choiceResult.outcome === 'accepted') {
           console.log('✓ User accepted install');
-          markInstallPromptDismissed();
         } else {
           console.log('✗ User dismissed install');
         }
 
         deferredPrompt = null;
+        hideInstallModal();
       } catch (error) {
         console.error('Install error:', error);
-        Swal.fire({
-          title: 'Unable to install',
-          text: 'Please try again from your browser menu.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
+        hideInstallModal();
+        alert('Unable to install right now. Please use your browser menu to install this app.');
       }
       return;
     }
 
-    Swal.fire({
-      title: 'Install is not ready yet',
-      text: 'Your browser may be blocking the install prompt. Please try again from the browser menu or refresh the page later.',
-      icon: 'info',
-      confirmButtonText: 'Okay',
-      confirmButtonColor: '#2563eb'
-    });
+    hideInstallModal();
+    alert('The install prompt is not ready yet. Please try again in a moment or use your browser menu to install the app.');
   }
 
-  async function showInstallPrompt() {
-    if (hasShownPrompt || !shouldShowInstallPrompt()) return;
-    hasShownPrompt = true;
+  function showInstallPrompt() {
+    if (modalShown || !shouldShowInstallPrompt()) return;
+
+    modalShown = true;
     markInstallPromptSeen();
-
-    injectSweetAlertStyles();
-    await loadSweetAlert();
-
-    if (!window.Swal) {
-      console.warn('SweetAlert2 unavailable; falling back to browser alert');
-      window.alert('Install MyBalai for quicker access and offline support.');
-      return;
-    }
-
-    Swal.fire({
-      title: 'Install MyBalai?',
-      text: 'Add it to your home screen for faster access and offline support.',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonText: 'Install',
-      cancelButtonText: 'Maybe later',
-      confirmButtonColor: '#2563eb',
-      cancelButtonColor: '#64748b',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      customClass: {
-        popup: 'pwa-swal-popup',
-        confirmButton: 'pwa-swal-confirm',
-        cancelButton: 'pwa-swal-cancel'
-      }
-    }).then(function (result) {
-      if (!result.isConfirmed) {
-        markInstallPromptDismissed();
-        return;
-      }
-
-      installApp();
-    });
+    showInstallModal();
   }
 
   ensureMeta('theme-color', themeColor);
@@ -212,9 +253,8 @@
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      const serviceWorkerUrl = resolveAppUrl('service-worker.js');
       navigator.serviceWorker
-        .register(serviceWorkerUrl, { scope: getAppRootUrl().pathname })
+        .register(resolveAppUrl('service-worker.js'), { scope: getAppRootUrl().pathname })
         .then(function () {
           console.log('✓ Service Worker registered successfully');
         })
@@ -228,22 +268,21 @@
     event.preventDefault();
     deferredPrompt = event;
     console.log('✓ Install prompt available');
-    setTimeout(function () {
-      showInstallPrompt();
-    }, 1200);
+    showInstallPrompt();
   });
 
   window.addEventListener('appinstalled', function () {
     console.log('✓ App installed');
     deferredPrompt = null;
+    hideInstallModal();
     markInstallPromptDismissed();
   });
 
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(showInstallPrompt, 800);
+  });
+
   window.addEventListener('load', function () {
-    if (!isInstalled()) {
-      setTimeout(function () {
-        showInstallPrompt();
-      }, 1500);
-    }
+    setTimeout(showInstallPrompt, 800);
   });
 })();
