@@ -76,6 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         * {
             font-family: 'Poppins', sans-serif;
         }
+        body {
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
         .login-bg {
             background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.32), transparent 24%),
                         linear-gradient(135deg, #667eea 0%, #764ba2 100%);

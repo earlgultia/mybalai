@@ -64,6 +64,13 @@ if (isset($_SESSION['user_id'])) {
             color: #0f172a;
         }
 
+        body.mobile-menu-open {
+            overflow: hidden;
+            touch-action: none;
+            position: relative;
+            width: 100%;
+        }
+
         section {
             scroll-margin-top: 96px;
         }
@@ -417,7 +424,8 @@ if (isset($_SESSION['user_id'])) {
         }
 
         @media (max-width: 768px) {
-            .site-header { position: sticky; top: 0; z-index: 60; padding-top: 8px; padding-bottom: 8px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
+            body { padding-top: 76px; }
+            .site-header { position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 60; padding-top: 8px; padding-bottom: 8px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
             .site-header .container { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 0.6rem; padding-right: 0; }
             .site-header .container > div { padding-top: 0; padding-bottom: 0; }
             .site-header .container > a { min-width: 0; flex: 1 1 auto; max-width: calc(100% - 58px); gap: 0.65rem; overflow: hidden; }
@@ -914,6 +922,7 @@ if (isset($_SESSION['user_id'])) {
             mobileMenuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             mobileMenuButton.classList.toggle('is-open', isOpen);
             mobileMenuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+            document.body.classList.toggle('mobile-menu-open', isOpen);
         });
 
         document.querySelectorAll('.mobile-menu-link').forEach(link => {
@@ -922,6 +931,7 @@ if (isset($_SESSION['user_id'])) {
                 mobileMenu.classList.remove('is-open');
                 mobileMenuButton?.setAttribute('aria-expanded', 'false');
                 mobileMenuButton?.classList.remove('is-open');
+                document.body.classList.remove('mobile-menu-open');
                 if (mobileMenuIcon) {
                     mobileMenuIcon.className = 'fas fa-bars';
                 }
@@ -970,6 +980,7 @@ if (isset($_SESSION['user_id'])) {
                 mobileMenu.classList.remove('is-open');
                 mobileMenuButton?.setAttribute('aria-expanded', 'false');
                 mobileMenuButton?.classList.remove('is-open');
+                document.body.classList.remove('mobile-menu-open');
                 if (mobileMenuIcon) {
                     mobileMenuIcon.className = 'fas fa-bars';
                 }
