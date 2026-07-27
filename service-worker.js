@@ -1,15 +1,23 @@
-const CACHE_NAME = 'mybalai-pwa-v1';
+﻿const CACHE_NAME = 'mybalai-pwa-v2';
 const APP_SHELL = [
-  '/',
-  '/index.php',
-  '/login.php',
-  '/register.php',
-  '/manifest.json',
-  '/offline.html',
-  '/assets/css/app.css',
-  '/assets/js/pwa.js',
-  '/assets/icons/appicon.png'
+  'index.php',
+  'login.php',
+  'register.php',
+  'manifest.json',
+  'offline.html',
+  'assets/css/app.css',
+  'assets/js/pwa.js',
+  'assets/icons/appicon.png'
 ];
+
+function getScopeUrl() {
+  return new URL('./', self.registration.scope || self.location.href);
+}
+
+function getAppShellUrls() {
+  const scopeUrl = getScopeUrl();
+  return APP_SHELL.map((path) => new URL(path, scopeUrl).toString());
+}
 
 self.addEventListener('install', (event) => {
   console.log('Service Worker: Installing...');
@@ -17,9 +25,8 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Service Worker: Caching app shell');
-        return cache.addAll(APP_SHELL).catch((error) => {
+        return cache.addAll(getAppShellUrls()).catch((error) => {
           console.warn('Service Worker: Some cache items failed to add', error);
-          // Continue even if some items fail
           return Promise.resolve();
         });
       })
@@ -49,38 +56,32 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const { method, url } = request;
 
-  // Skip non-GET requests
   if (method !== 'GET') {
     return;
   }
 
-  // Skip protocol check for local development
   if (!url.startsWith('http:') && !url.startsWith('https:')) {
     return;
   }
 
   const urlObj = new URL(url);
+  const scopeUrl = getScopeUrl();
 
-  // Don't cache cross-origin requests
   if (urlObj.origin !== self.location.origin) {
     return;
   }
 
-  // Don't cache offline.html fetch
-  if (urlObj.pathname === '/offline.html') {
+  if (urlObj.pathname === new URL('./offline.html', scopeUrl).pathname) {
     return;
   }
 
-  // Network first strategy with cache fallback
   event.respondWith(
     fetch(request)
       .then((response) => {
-        // Don't cache error responses
         if (!response || response.status !== 200 || response.type === 'error') {
           return response;
         }
 
-        // Clone the response before caching
         const responseToCache = response.clone();
         caches.open(CACHE_NAME)
           .then((cache) => {
@@ -92,18 +93,15 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        // Network request failed, try cache
         return caches.match(request)
           .then((cachedResponse) => {
             if (cachedResponse) {
               return cachedResponse;
             }
 
-            // No cache, show offline page
-            return caches.match('/offline.html');
+            return caches.match(new URL('./offline.html', scopeUrl).toString());
           })
           .catch(() => {
-            // Fallback if offline.html is not cached
             return new Response('You are offline', {
               status: 503,
               statusText: 'Service Unavailable',
