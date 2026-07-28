@@ -204,6 +204,24 @@
     installModal.classList.add('show');
   }
 
+  function getInstallInstructions() {
+    const userAgent = navigator.userAgent || '';
+
+    if (/iPhone|iPad|iPod/i.test(userAgent)) {
+      return 'On Safari, tap the Share button and choose Add to Home Screen.';
+    }
+
+    if (/Android/i.test(userAgent)) {
+      return 'On Chrome or Edge, tap the menu (⋮) and choose Install app or Add to Home Screen.';
+    }
+
+    if (/Macintosh|Mac OS/i.test(userAgent)) {
+      return 'On Safari, open the Share menu and choose Add to Dock or Add to Home Screen.';
+    }
+
+    return 'Use your browser menu and choose Install app or Add to Home Screen.';
+  }
+
   function hideInstallModal() {
     if (installModal) {
       installModal.classList.remove('show');
@@ -227,13 +245,13 @@
       } catch (error) {
         console.error('Install error:', error);
         hideInstallModal();
-        alert('Unable to install right now. Please use your browser menu to install this app.');
+        alert('Unable to install right now. Please use your browser menu and choose Install app or Add to Home Screen.');
       }
       return;
     }
 
     hideInstallModal();
-    alert('The install prompt is not ready yet. Please try again in a moment or use your browser menu to install the app.');
+    alert('Install is not available in this browser yet. ' + getInstallInstructions());
   }
 
   function showInstallPrompt() {
