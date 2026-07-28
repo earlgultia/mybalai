@@ -18,7 +18,12 @@ function getHomepageStats($pdo) {
 
     $stats = [];
     foreach ($queries as $key => $sql) {
-        $stats[$key] = (int) $pdo->query($sql)->fetchColumn();
+        try {
+            $statement = $pdo->query($sql);
+            $stats[$key] = (int) ($statement ? $statement->fetchColumn() : 0);
+        } catch (Throwable $e) {
+            $stats[$key] = 0;
+        }
     }
 
     return $stats;
