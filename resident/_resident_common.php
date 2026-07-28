@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../config/database.php';
 
 if (!isLoggedIn() || $_SESSION['user_type'] != 'resident') {
-    redirect('../index.php');
+    redirect('/index.php');
 }
 
 function e($value) {
