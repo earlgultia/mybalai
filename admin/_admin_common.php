@@ -553,6 +553,37 @@ function adminHeader($title, $active) {
                 visibility: visible;
                 pointer-events: auto;
             }
+            .admin-nav-loading {
+                position: fixed;
+                inset: 0;
+                z-index: 13000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(15, 23, 42, 0.24);
+                backdrop-filter: blur(2px);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 180ms ease, visibility 180ms ease;
+            }
+            .admin-nav-loading.is-visible {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+            .admin-nav-loading__spinner {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 56px;
+                height: 56px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.95);
+                color: #2563eb;
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
+                font-size: 1.25rem;
+            }
         }
         /* Final admin mobile fix: adjust sidebar width, remove footer, add user info to nav */
         @media (max-width: 900px) {
@@ -746,6 +777,12 @@ function adminFooter() {
                 const sidebar = document.getElementById('adminSidebar');
                 const backdrop = document.getElementById('adminBackdrop');
                 const toggle = document.getElementById('adminSidebarToggle');
+                const content = document.querySelector('.admin-content');
+                const pageTitle = document.querySelector('.page-title');
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'admin-nav-loading';
+                loadingOverlay.innerHTML = '<div class="admin-nav-loading__spinner"><i class="fas fa-spinner fa-spin"></i></div>';
+                document.body.appendChild(loadingOverlay);
 
                 if (!sidebar || !backdrop || !toggle) {
                     return;
@@ -768,6 +805,96 @@ function adminFooter() {
                     toggle.setAttribute('aria-expanded', 'false');
                     document.body.classList.remove('overflow-hidden');
                     document.body.classList.remove('sidebar-open');
+                }
+
+                function showLoading() {
+                    loadingOverlay.classList.add('is-visible');
+                }
+
+                function hideLoading() {
+                    loadingOverlay.classList.remove('is-visible');
+                }
+
+                function updateActiveLink(pathname) {
+                    var currentPath = pathname || window.location.pathname;
+                    sidebar.querySelectorAll('a').forEach(function (link) {
+                        var href = link.getAttribute('href') || '';
+                        if (!href || href.startsWith('#') || href.indexOf('logout') !== -1 || href.indexOf('javascript:') === 0) {
+                            return;
+                        }
+                        var targetPath = new URL(href, window.location.href).pathname;
+                        var isActive = targetPath === currentPath || targetPath.endsWith('/' + currentPath.split('/').pop());
+                        link.classList.toggle('bg-blue-700', isActive);
+                        link.classList.toggle('text-white', isActive);
+                    });
+                }
+
+                function navigateTo(url) {
+                    if (!url || url.startsWith('#') || url.indexOf('javascript:') === 0) {
+                        return false;
+                    }
+
+                    var targetUrl = new URL(url, window.location.href);
+                    if (targetUrl.origin !== window.location.origin) {
+                        window.location.href = url;
+                        return false;
+                    }
+
+                    if (targetUrl.pathname === window.location.pathname && targetUrl.search === window.location.search) {
+                        closeSidebar();
+                        return false;
+                    }
+
+                    showLoading();
+                    fetch(targetUrl.pathname + targetUrl.search, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'text/html'
+                        }
+                    })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Navigation failed');
+                        }
+                        return response.text();
+                    })
+                    .then(function (html) {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+                        var newContent = doc.querySelector('.admin-content');
+                        var newTitle = doc.querySelector('title');
+                        var newPageTitle = doc.querySelector('.page-title');
+
+                        if (!newContent || !content) {
+                            window.location.href = targetUrl.href;
+                            return;
+                        }
+
+                        content.style.opacity = '0.72';
+                        content.innerHTML = newContent.innerHTML;
+                        if (newPageTitle && pageTitle) {
+                            pageTitle.textContent = newPageTitle.textContent;
+                        } else if (newTitle && pageTitle) {
+                            pageTitle.textContent = newTitle.textContent.replace(' - MyBalai', '');
+                        }
+                        if (newTitle) {
+                            document.title = newTitle.textContent;
+                        }
+                        updateActiveLink(targetUrl.pathname);
+                        window.history.pushState({ path: targetUrl.pathname + targetUrl.search }, '', targetUrl.pathname + targetUrl.search);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    })
+                    .catch(function () {
+                        window.location.href = targetUrl.href;
+                    })
+                    .finally(function () {
+                        hideLoading();
+                        if (content) {
+                            content.style.opacity = '1';
+                        }
+                    });
+
+                    return true;
                 }
 
                 toggle.addEventListener('click', function (event) {
@@ -822,6 +949,13 @@ function adminFooter() {
                             shouldClose = false;
                         }
                         if (window.innerWidth < 1024 && shouldClose) {
+                            if (element.tagName === 'A' && element.getAttribute('href') && !element.getAttribute('href').startsWith('#') && element.getAttribute('href').indexOf('javascript:') !== 0) {
+                                ev.preventDefault();
+                                if (navigateTo(element.getAttribute('href'))) {
+                                    closeSidebar();
+                                }
+                                return;
+                            }
                             closeSidebar();
                         }
                     });
@@ -852,6 +986,8 @@ function adminFooter() {
                         touchStartX = touchCurrentX = 0;
                     });
                 })();
+
+                updateActiveLink(window.location.pathname);
             })();
         </script>
         <script>

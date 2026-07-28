@@ -303,10 +303,13 @@ if (isset($_SESSION['user_id'])) {
             justify-content: center;
             padding: 0;
             flex-shrink: 0;
+            transition: none;
         }
 
-        .mobile-toggle-anchor:hover {
-            box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+        .mobile-toggle-anchor:hover,
+        .mobile-toggle-anchor:focus-visible {
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+            transform: translateY(0);
         }
 
         .mobile-toggle-anchor.is-open {
@@ -445,7 +448,8 @@ if (isset($_SESSION['user_id'])) {
             .site-header .container > a > span { min-width: 0; }
             .site-header .container > a > span:last-child { min-width: 0; overflow: hidden; }
             .mobile-toggle-anchor { position: absolute; right: 0.25rem; top: 50%; transform: translateY(-50%); margin-left: 0; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 14px; z-index: 90; }
-            .mobile-toggle-anchor:hover { transform: translateY(-1px); }
+            .mobile-toggle-anchor:hover,
+            .mobile-toggle-anchor:focus-visible { transform: translateY(-50%); }
             .mobile-toggle-anchor i { display: inline-flex; align-items: center; justify-content: center; width: 1em; line-height: 1; font-size: 16px; }
             .brand-mark { width: 38px; height: 38px; }
             .brand-mark i { font-size: 17px; }
@@ -542,7 +546,8 @@ if (isset($_SESSION['user_id'])) {
             .brand-mark i { font-size: 16px; }
             .site-header .container > a > span:last-child > span:first-child { font-size: 0.88rem; line-height: 1.05; }
             .mobile-toggle-anchor { position: absolute; right: 0.2rem; top: 50%; transform: translateY(-50%); margin-left: 0; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; z-index: 90; }
-            .mobile-toggle-anchor:hover { transform: translateY(-1px); }
+            .mobile-toggle-anchor:hover,
+            .mobile-toggle-anchor:focus-visible { transform: translateY(-50%); }
             .mobile-toggle-anchor i { font-size: 16px; }
             .hero-gradient { padding-top: 20px; padding-bottom: 20px; }
             .hero-gradient h1 { font-size: 1.6rem; }

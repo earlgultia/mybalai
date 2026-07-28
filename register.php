@@ -328,6 +328,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             .panel-body { padding: 2rem 2rem 2.4rem; }
         }
 
+        @media (min-width: 1025px) {
+            .register-aside {
+                display: none;
+            }
+
+            .register-shell {
+                grid-template-columns: 1fr;
+                max-width: 760px;
+            }
+        }
+
         @media (max-width: 768px) {
             .page-shell { padding: 1.4rem 0.85rem; }
             .page-header { text-align: left; }

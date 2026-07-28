@@ -232,6 +232,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             .login-panel .panel-body { padding: 1.8rem 1.6rem 2rem; }
         }
 
+        @media (min-width: 1024px) {
+            .login-sidebar {
+                display: none;
+            }
+
+            .login-shell {
+                grid-template-columns: 1fr;
+                max-width: 560px;
+            }
+
+            .login-panel {
+                width: 100%;
+            }
+        }
+
         @media (max-width: 420px) {
             .login-shell { padding: 1rem 0.5rem; }
             .login-panel .panel-header h2 { font-size: 1.6rem; }

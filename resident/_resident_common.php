@@ -211,6 +211,12 @@ function residentHeader($title, $active) {
             var navLinks = document.getElementById('residentNavLinks') || document.querySelector('.resident-nav .nav-links');
             var icon = document.getElementById('mobileNavIcon');
             var nav = document.querySelector('.resident-nav');
+            var mainContent = document.querySelector('main');
+            var loadingOverlay = document.createElement('div');
+            loadingOverlay.className = 'resident-nav-loading';
+            loadingOverlay.innerHTML = '<div class="resident-nav-loading__spinner"><i class="fas fa-spinner fa-spin"></i></div>';
+            document.body.appendChild(loadingOverlay);
+
             if(!toggle || !navLinks || !nav) return;
 
             function openNav(){
@@ -225,6 +231,82 @@ function residentHeader($title, $active) {
                 nav.classList.remove('nav-open');
                 toggle.setAttribute('aria-expanded','false');
                 if(icon){ icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+            }
+
+            function setActiveLink(pathname){
+                var currentPath = pathname || window.location.pathname;
+                Array.from(navLinks.querySelectorAll('a')).forEach(function(link){
+                    var href = link.getAttribute('href') || '';
+                    if (!href || href.startsWith('#') || href.indexOf('logout') !== -1) return;
+                    var targetPath = new URL(href, window.location.href).pathname;
+                    var isActive = targetPath === currentPath || targetPath.endsWith('/' + currentPath.split('/').pop());
+                    link.classList.toggle('bg-white/15', isActive);
+                    link.classList.toggle('text-white', isActive);
+                    link.classList.toggle('text-blue-100', !isActive);
+                });
+            }
+
+            function showLoading(){
+                loadingOverlay.classList.add('is-visible');
+            }
+
+            function hideLoading(){
+                loadingOverlay.classList.remove('is-visible');
+            }
+
+            function navigateTo(url){
+                if (!url || url.startsWith('#')) return false;
+                var targetUrl = new URL(url, window.location.href);
+                if (targetUrl.origin !== window.location.origin) {
+                    window.location.href = url;
+                    return false;
+                }
+                if (targetUrl.pathname === window.location.pathname && targetUrl.search === window.location.search) {
+                    closeNav();
+                    return false;
+                }
+
+                showLoading();
+                fetch(targetUrl.pathname + targetUrl.search, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'text/html'
+                    }
+                })
+                .then(function(response){
+                    if (!response.ok) throw new Error('Navigation failed');
+                    return response.text();
+                })
+                .then(function(html){
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(html, 'text/html');
+                    var newMain = doc.querySelector('main');
+                    var newTitle = doc.querySelector('title');
+                    if (!newMain || !mainContent) {
+                        window.location.href = targetUrl.href;
+                        return;
+                    }
+
+                    mainContent.style.opacity = '0.72';
+                    mainContent.innerHTML = newMain.innerHTML;
+                    if (newTitle) {
+                        document.title = newTitle.textContent;
+                    }
+                    setActiveLink(targetUrl.pathname);
+                    window.history.pushState({ path: targetUrl.pathname + targetUrl.search }, '', targetUrl.pathname + targetUrl.search);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                })
+                .catch(function(){
+                    window.location.href = targetUrl.href;
+                })
+                .finally(function(){
+                    hideLoading();
+                    if (mainContent) {
+                        mainContent.style.opacity = '1';
+                    }
+                });
+
+                return true;
             }
 
             toggle.addEventListener('click', function(){
@@ -246,7 +328,10 @@ function residentHeader($title, $active) {
                 var target = event.target;
                 while (target && target !== navLinks) {
                     if (target.tagName === 'A') {
-                        closeNav();
+                        event.preventDefault();
+                        if (navigateTo(target.getAttribute('href'))) {
+                            closeNav();
+                        }
                         return;
                     }
                     target = target.parentNode;
@@ -264,6 +349,13 @@ function residentHeader($title, $active) {
                     closeNav();
                 }
             });
+            window.addEventListener('popstate', function(event){
+                if (event.state && event.state.path) {
+                    navigateTo(event.state.path);
+                }
+            });
+
+            setActiveLink(window.location.pathname);
         })();
     </script>
     <main class="container max-w-screen-2xl mx-auto px-6 py-8">
