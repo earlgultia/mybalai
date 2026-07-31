@@ -87,16 +87,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($password !== $confirmPassword) {
         $error = 'Passwords do not match.';
     } else {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00') AND (email = ? OR username = ?)");
-        $stmt->execute([$email, $username]);
-        if ($stmt->fetchColumn() > 0) {
-            $error = 'Email or username is already registered.';
-        } else {
-            $roleId = getRoleId($roleName);
-            if (!$roleId) {
-                $error = 'Selected role was not found.';
+        try {
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00') AND (email = ? OR username = ?)");
+            $stmt->execute([$email, $username]);
+            if ($stmt->fetchColumn() > 0) {
+                $error = 'Email or username is already registered.';
             } else {
-                try {
+                $roleId = getRoleId($roleName);
+                if (!$roleId) {
+                    $error = 'Selected role was not found.';
+                } else {
                     $pdo->beginTransaction();
                     $stmt = $pdo->prepare("
                         INSERT INTO users (primary_role_id, username, email, password_hash, first_name, last_name, phone_number, is_active, is_verified, email_verified, created_by)
@@ -117,15 +117,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $pdo->prepare("INSERT INTO user_role_assignments (user_id, role_id, assigned_by, is_active) VALUES (?, ?, ?, 1)");
                     $stmt->execute([$userId, $roleId, $_SESSION['user_id']]);
 
-                    logActivity($_SESSION['user_id'], 'Created staff account', 'users', $userId, $roleName);
+                    try {
+                        logActivity($_SESSION['user_id'], 'Created staff account', 'users', $userId, $roleName);
+                    } catch (Throwable $e) {
+                        // Audit logging must not prevent account creation.
+                    }
                     $pdo->commit();
                     $message = $managedLabel . ' account created successfully.';
-                } catch (Exception $e) {
-                    if ($pdo->inTransaction()) {
-                        $pdo->rollBack();
-                    }
-                    $error = 'Account could not be created. Please try again.';
                 }
+            }
+        } catch (Throwable $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            if (empty($error)) {
+                $error = 'Account could not be created. Please check the database configuration and try again.';
             }
         }
     }
