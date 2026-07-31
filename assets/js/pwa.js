@@ -1,6 +1,6 @@
 (function () {
   const themeColor = '#2563eb';
-  const pwaVersion = '20260727';
+  const pwaVersion = '20260731';
   const sessionKey = 'mybalai-pwa-prompt-session';
   let deferredPrompt = null;
   let modalShown = false;

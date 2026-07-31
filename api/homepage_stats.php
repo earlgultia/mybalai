@@ -19,7 +19,13 @@ $queries = [
 
 $stats = [];
 foreach ($queries as $key => $sql) {
-    $stats[$key] = (int) $pdo->query($sql)->fetchColumn();
+    try {
+        $statement = $pdo->query($sql);
+        $stats[$key] = (int) ($statement ? $statement->fetchColumn() : 0);
+    } catch (Throwable $e) {
+        // Optional statistics must not prevent the homepage from rendering.
+        $stats[$key] = 0;
+    }
 }
 
 echo json_encode($stats);

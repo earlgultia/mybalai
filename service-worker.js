@@ -1,8 +1,5 @@
-﻿const CACHE_NAME = 'mybalai-pwa-v4';
+﻿const CACHE_NAME = 'mybalai-pwa-v5';
 const APP_SHELL = [
-  'index.php',
-  'login.php',
-  'register.php',
   'manifest.json',
   'offline.html',
   'assets/css/app.css',
@@ -68,6 +65,12 @@ self.addEventListener('fetch', (event) => {
   const scopeUrl = getScopeUrl();
 
   if (urlObj.origin !== self.location.origin) {
+    return;
+  }
+
+  // PHP pages and API responses must always reflect the current server state.
+  // Caching them can preserve an old blank/error response after a deployment.
+  if (request.mode === 'navigate' || urlObj.pathname.endsWith('.php')) {
     return;
   }
 
