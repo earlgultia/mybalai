@@ -132,16 +132,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$staffStmt = $pdo->prepare("
+$staffUsers = dbFetchAll("
     SELECT u.user_id, u.first_name, u.last_name, u.email, u.username, u.is_active, u.created_at, r.role_name
     FROM users u
     JOIN user_role_assignments ura ON ura.user_id = u.user_id AND ura.is_active = 1
     JOIN roles r ON r.role_id = ura.role_id
     WHERE r.role_name = ? AND (u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00')
     ORDER BY u.created_at DESC
-");
-$staffStmt->execute([$managedRole]);
-$staffUsers = $staffStmt->fetchAll();
+", [$managedRole]);
 $staffCount = count($staffUsers);
 $activeStaffCount = count(array_filter($staffUsers, fn($staff) => !empty($staff['is_active'])));
 $inactiveStaffCount = $staffCount - $activeStaffCount;
