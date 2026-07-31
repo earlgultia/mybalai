@@ -35,7 +35,7 @@ $roleCounts = [
 foreach (dbFetchAll("SELECT r.role_name, COUNT(DISTINCT u.user_id) AS total
     FROM roles r
     LEFT JOIN user_role_assignments ura ON ura.role_id = r.role_id AND ura.is_active = 1
-    LEFT JOIN users u ON u.user_id = ura.user_id AND u.is_active = 1 AND (u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00')
+    LEFT JOIN users u ON u.user_id = ura.user_id AND u.is_active = 1
     WHERE r.role_name IN ('super_admin', 'barangay_captain', 'barangay_secretary', 'barangay_treasurer', 'resident')
     GROUP BY r.role_name") as $row) {
     $roleCounts[$row['role_name']] = (int)$row['total'];
