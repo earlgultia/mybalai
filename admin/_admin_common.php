@@ -661,7 +661,7 @@ function adminHeader($title, $active) {
                     <?php endforeach; ?>
                     <!-- Mobile: Logout button added to nav menu -->
                     <div class="sidebar-mobile-user lg:hidden mt-4 pt-4 border-t border-blue-700">
-                        <a href="../logout.php" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition hover:bg-blue-700 text-blue-300 hover:text-white">
+                        <a href="../logout.php" data-logout="true" class="flex items-center space-x-2 px-4 py-2 rounded-lg transition hover:bg-blue-700 text-blue-300 hover:text-white">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Logout</span>
                         </a>
@@ -675,7 +675,7 @@ function adminHeader($title, $active) {
                             <p class="text-sm font-semibold"><?php echo e($_SESSION['user_name']); ?></p>
                             <p class="text-xs text-blue-300"><?php echo e(labelize($_SESSION['primary_role'] ?? $_SESSION['user_type'])); ?></p>
                         </div>
-                        <a href="../logout.php" class="text-blue-300 hover:text-white"><i class="fas fa-sign-out-alt"></i></a>
+                        <a href="../logout.php" data-logout="true" class="text-blue-300 hover:text-white"><i class="fas fa-sign-out-alt"></i></a>
                     </div>
                 </div>
         </div>
@@ -942,6 +942,10 @@ function adminFooter() {
 
                 sidebar.querySelectorAll('a, button').forEach(function (element) {
                     element.addEventListener('click', function (ev) {
+                        if (element.hasAttribute('data-logout')) {
+                            closeSidebar();
+                            return;
+                        }
                         // keep clicks inside dropdowns or non-navigation buttons from closing immediately
                         var shouldClose = true;
                         // If element has data-no-close attribute, skip closing
