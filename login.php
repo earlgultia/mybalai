@@ -11,8 +11,8 @@ if (isLoggedIn()) {
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = sanitize($_POST['email']);
-    $password = $_POST['password'];
+    $email = trim((string)($_POST['email'] ?? ''));
+    $password = (string)($_POST['password'] ?? '');
     
     $stmt = $pdo->prepare("
         SELECT u.*,
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     JOIN roles r ON r.role_id = ura.role_id
                     WHERE ura.user_id = u.user_id
                         AND ura.is_active = 1
-                        AND r.role_name = 'resident'
+                        AND r.role_name IN ('resident', 'senior_citizen', 'pwd', 'business_owner')
                 ) THEN 'resident'
                 ELSE 'admin'
             END AS user_type
@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $stmt->fetch();
     
     if ($user && password_verify($password, $user['password_hash'])) {
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['user_type'] = $user['user_type'];
         $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
@@ -41,11 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         refreshUserSessionRoles($user['user_id']);
         
         // Update last login
-        $updateStmt = $pdo->prepare("UPDATE users SET last_login = NOW(), login_attempts = 0 WHERE user_id = ?");
-        $updateStmt->execute([$user['user_id']]);
+        try {
+            $updateStmt = $pdo->prepare("UPDATE users SET last_login = CURRENT_TIMESTAMP, login_attempts = 0 WHERE user_id = ?");
+            $updateStmt->execute([$user['user_id']]);
+        } catch (Throwable $e) {
+            // Login remains successful when optional account metadata is unavailable.
+        }
         
         // Log activity
-        logActivity($user['user_id'], 'User logged in', 'auth', $user['user_id']);
+        try {
+            logActivity($user['user_id'], 'User logged in', 'auth', $user['user_id']);
+        } catch (Throwable $e) {
+            // Audit logging must not block authentication.
+        }
         
         if ($user['user_type'] == 'resident') {
             redirect('resident/dashboard.php');
@@ -56,8 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'Invalid email/username or password';
         // Log failed attempt
         if ($user) {
-            $stmt = $pdo->prepare("UPDATE users SET login_attempts = login_attempts + 1 WHERE user_id = ?");
-            $stmt->execute([$user['user_id']]);
+            try {
+                $stmt = $pdo->prepare("UPDATE users SET login_attempts = login_attempts + 1 WHERE user_id = ?");
+                $stmt->execute([$user['user_id']]);
+            } catch (Throwable $e) {
+                // Do not reveal account metadata errors to unauthenticated users.
+            }
         }
     }
 }

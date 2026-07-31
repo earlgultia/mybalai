@@ -5,6 +5,10 @@ if (!isLoggedIn() || $_SESSION['user_type'] == 'resident') {
     redirect('../../index.php');
 }
 
+// This legacy duplicate is kept as a compatibility route. The maintained
+// admin page owns resident management and its navigation targets.
+redirect('../../admin/residents.php');
+
 // Handle resident deletion
 if (isset($_GET['delete']) && hasPermission('delete_residents')) {
     $user_id = $_GET['delete'];

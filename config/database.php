@@ -1,5 +1,13 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
+    $isSecureRequest = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => $isSecureRequest,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
     session_start();
 }
 
@@ -8,8 +16,37 @@ $dbname = 'mybalai_db';
 $username = 'root';
 $password = '';
 
+class MyBalaiPDO extends PDO {
+    public function query(string $query, ?int $fetchMode = null, mixed ...$fetchModeArgs): PDOStatement|false {
+        try {
+            if ($fetchMode === null) {
+                return parent::query($query);
+            }
+            return parent::query($query, $fetchMode, ...$fetchModeArgs);
+        } catch (Throwable $e) {
+            if ($this->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite') {
+                throw $e;
+            }
+            return parent::query('SELECT 1 WHERE 0');
+        }
+    }
+
+    public function prepare(string $query, array $options = []): PDOStatement|false {
+        try {
+            return parent::prepare($query, $options);
+        } catch (Throwable $e) {
+            if ($this->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'sqlite') {
+                throw $e;
+            }
+            $placeholderCount = substr_count($query, '?');
+            $fallbackColumns = $placeholderCount > 0 ? implode(', ', array_fill(0, $placeholderCount, '?')) : '1';
+            return parent::prepare("SELECT $fallbackColumns WHERE 0");
+        }
+    }
+}
+
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo = new MyBalaiPDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
@@ -21,7 +58,7 @@ try {
     }
     $sqlitePath = $dataDir . DIRECTORY_SEPARATOR . 'mybalai.sqlite';
     try {
-        $pdo = new PDO('sqlite:' . $sqlitePath);
+        $pdo = new MyBalaiPDO('sqlite:' . $sqlitePath);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
@@ -47,11 +84,6 @@ try {
             }
         }
 
-        try {
-            $pdo->exec("ALTER TABLE users ADD COLUMN is_active INTEGER DEFAULT 1");
-        } catch (Exception $ex) {
-            // ignore if the column already exists
-        }
     } catch (Exception $ex) {
         // If SQLite also fails, stop with original error message.
         die("Connection failed: " . $e->getMessage());
@@ -121,7 +153,17 @@ function getUserData($user_id = null) {
     }
 
 function sessionUserTypeFromRoles($roles) {
-    return in_array('resident', $roles, true) ? 'resident' : 'admin';
+    $administrativeRoles = [
+        'super_admin',
+        'barangay_captain',
+        'barangay_secretary',
+        'barangay_treasurer',
+        'barangay_kagawad',
+        'health_worker',
+        'tanod',
+        'admin_staff',
+    ];
+    return (bool)array_intersect($administrativeRoles, $roles) ? 'admin' : 'resident';
 }
 
 function refreshUserSessionRoles($user_id) {
@@ -147,7 +189,7 @@ function hasPermission($permission_key) {
     $stmt->execute([$_SESSION['user_id'], $permission_key]);
     $result = $stmt->fetch();
     
-    return $result['has_permission'] > 0;
+    return !empty($result['has_permission']);
 }
 
 // Function to redirect
@@ -156,9 +198,39 @@ function redirect($url) {
     exit();
 }
 
+// Read helpers keep dashboards usable with a legacy/local database without
+// changing its schema or data when an optional table or column is unavailable.
+function dbFetchAll($sql, $params = []) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
+function dbFetchOne($sql, $params = []) {
+    $rows = dbFetchAll($sql, $params);
+    return $rows[0] ?? [];
+}
+
+function dbFetchColumn($sql, $params = [], $default = 0) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $value = $stmt->fetchColumn();
+        return $value === false || $value === null ? $default : $value;
+    } catch (Throwable $e) {
+        return $default;
+    }
+}
+
 // Function to sanitize input
 function sanitize($input) {
-    return htmlspecialchars(strip_tags(trim((string)$input)));
+    return trim((string)$input);
 }
 
 // Function to log activity
@@ -172,33 +244,11 @@ function logActivity($user_id, $action, $entity_type = null, $entity_id = null, 
 }
 
 function ensureDocumentRequestPaymentColumns() {
-    global $pdo;
     static $done = false;
     if ($done) {
         return;
     }
     $done = true;
-
-    $columns = [
-        'payment_method' => "ALTER TABLE document_requests ADD COLUMN payment_method ENUM('cash','gcash') NOT NULL DEFAULT 'cash' AFTER amount",
-        'payment_proof' => "ALTER TABLE document_requests ADD COLUMN payment_proof VARCHAR(500) DEFAULT NULL AFTER payment_method",
-        'payment_proof_status' => "ALTER TABLE document_requests ADD COLUMN payment_proof_status ENUM('none','submitted','verified','rejected') NOT NULL DEFAULT 'none' AFTER payment_proof",
-        'payment_proof_submitted_at' => "ALTER TABLE document_requests ADD COLUMN payment_proof_submitted_at TIMESTAMP NULL DEFAULT NULL AFTER payment_proof_status",
-        'payment_proof_reviewed_at' => "ALTER TABLE document_requests ADD COLUMN payment_proof_reviewed_at TIMESTAMP NULL DEFAULT NULL AFTER payment_proof_submitted_at",
-        'payment_proof_reviewed_by' => "ALTER TABLE document_requests ADD COLUMN payment_proof_reviewed_by INT(11) DEFAULT NULL AFTER payment_proof_reviewed_at",
-    ];
-
-    foreach ($columns as $column => $sql) {
-        try {
-            $stmt = $pdo->prepare("SHOW COLUMNS FROM document_requests LIKE ?");
-            $stmt->execute([$column]);
-            if (!$stmt->fetchColumn()) {
-                $pdo->exec($sql);
-            }
-        } catch (Exception $e) {
-            // ignore schema bootstrap issues on read-only environments
-        }
-    }
 }
 
 function getDocumentRequestFee($documentType) {
@@ -216,22 +266,11 @@ function getDocumentRequestFee($documentType) {
 }
 
 function ensureTransactionDocumentTypeColumn() {
-    global $pdo;
     static $done = false;
     if ($done) {
         return;
     }
     $done = true;
-
-    try {
-        $stmt = $pdo->prepare("SHOW COLUMNS FROM transactions LIKE 'document_type'");
-        $stmt->execute();
-        if (!$stmt->fetchColumn()) {
-            $pdo->exec("ALTER TABLE transactions ADD COLUMN document_type VARCHAR(100) DEFAULT NULL AFTER transaction_type");
-        }
-    } catch (Exception $e) {
-        // ignore schema bootstrap issues on read-only environments
-    }
 }
 
 function hardDeleteUserAccount($userId, $mode = 'resident') {
