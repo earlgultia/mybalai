@@ -40,9 +40,16 @@ function tableColumns($table) {
     if (!isset($cache[$table])) {
         $cache[$table] = [];
         try {
-            $stmt = $pdo->query("SHOW COLUMNS FROM `$table`");
-            foreach ($stmt->fetchAll() as $column) {
-                $cache[$table][] = $column['Field'];
+            if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
+                $stmt = $pdo->query("PRAGMA table_info(`$table`)");
+                foreach ($stmt->fetchAll() as $column) {
+                    $cache[$table][] = $column['name'];
+                }
+            } else {
+                $stmt = $pdo->query("SHOW COLUMNS FROM `$table`");
+                foreach ($stmt->fetchAll() as $column) {
+                    $cache[$table][] = $column['Field'];
+                }
             }
         } catch (Exception $e) {
             $cache[$table] = [];

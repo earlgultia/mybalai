@@ -84,6 +84,36 @@ try {
             }
         }
 
+        // Upgrade an existing minimal fallback database without destroying local data.
+        $sqliteMigrations = [
+            "ALTER TABLE users ADD COLUMN primary_role_id INTEGER",
+            "ALTER TABLE users ADD COLUMN email TEXT",
+            "ALTER TABLE users ADD COLUMN password_hash TEXT",
+            "ALTER TABLE users ADD COLUMN first_name TEXT",
+            "ALTER TABLE users ADD COLUMN last_name TEXT",
+            "ALTER TABLE users ADD COLUMN phone_number TEXT",
+            "ALTER TABLE users ADD COLUMN is_verified INTEGER DEFAULT 0",
+            "ALTER TABLE users ADD COLUMN email_verified INTEGER DEFAULT 0",
+            "ALTER TABLE users ADD COLUMN created_by INTEGER",
+            "ALTER TABLE users ADD COLUMN created_at DATETIME DEFAULT CURRENT_TIMESTAMP",
+            "ALTER TABLE users ADD COLUMN deleted_at DATETIME",
+            "ALTER TABLE user_role_assignments ADD COLUMN assigned_by INTEGER",
+        ];
+        foreach ($sqliteMigrations as $migration) {
+            try {
+                $pdo->exec($migration);
+            } catch (Exception $ex) {
+                // The column may already exist; continue with the remaining migrations.
+            }
+        }
+
+        $pdo->exec("INSERT OR IGNORE INTO roles (role_id, role_name, role_level) VALUES
+            (1, 'super_admin', 100),
+            (2, 'barangay_captain', 90),
+            (3, 'barangay_secretary', 80),
+            (4, 'barangay_treasurer', 80),
+            (9, 'resident', 10)");
+
     } catch (Exception $ex) {
         // If SQLite also fails, stop with original error message.
         die("Connection failed: " . $e->getMessage());
