@@ -88,9 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'Passwords do not match.';
     } else {
         try {
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00') AND (email = ? OR username = ?)");
-            $stmt->execute([$email, $username]);
-            if ($stmt->fetchColumn() > 0) {
+            if ((int)dbFetchColumn("SELECT COUNT(*) FROM users WHERE email = ? OR username = ?", [$email, $username]) > 0) {
                 $error = 'Email or username is already registered.';
             } else {
                 $roleId = getRoleId($roleName);
@@ -98,24 +96,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $error = 'Selected role was not found.';
                 } else {
                     $pdo->beginTransaction();
-                    $stmt = $pdo->prepare("
-                        INSERT INTO users (primary_role_id, username, email, password_hash, first_name, last_name, phone_number, is_active, is_verified, email_verified, created_by)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, 1, 1, 1, ?)
-                    ");
-                    $stmt->execute([
-                        $roleId,
-                        $username,
-                        $email,
-                        password_hash($password, PASSWORD_DEFAULT),
-                        $firstName,
-                        $lastName,
-                        $phone ?: null,
-                        $_SESSION['user_id'],
-                    ]);
+                    $userData = [
+                        'primary_role_id' => $roleId,
+                        'username' => $username,
+                        'email' => $email,
+                        'password_hash' => password_hash($password, PASSWORD_DEFAULT),
+                        'first_name' => $firstName,
+                        'last_name' => $lastName,
+                        'phone_number' => $phone ?: null,
+                        'is_active' => 1,
+                        'is_verified' => 1,
+                        'email_verified' => 1,
+                        'created_by' => $_SESSION['user_id'],
+                    ];
+                    $userColumns = array_values(array_intersect(array_keys($userData), tableColumns('users')));
+                    if (count($userColumns) < 6) {
+                        throw new RuntimeException('The live users table is missing required account columns.');
+                    }
+                    $userFields = '`' . implode('`, `', $userColumns) . '`';
+                    $userValues = array_map(fn($column) => $userData[$column], $userColumns);
+                    $stmt = $pdo->prepare("INSERT INTO `users` ($userFields) VALUES (" . implode(', ', array_fill(0, count($userColumns), '?')) . ")");
+                    $stmt->execute($userValues);
                     $userId = (int)$pdo->lastInsertId();
 
-                    $stmt = $pdo->prepare("INSERT INTO user_role_assignments (user_id, role_id, assigned_by, is_active) VALUES (?, ?, ?, 1)");
-                    $stmt->execute([$userId, $roleId, $_SESSION['user_id']]);
+                    $roleAssigned = insertSubset('user_role_assignments', [
+                        'user_id' => $userId,
+                        'role_id' => $roleId,
+                        'assigned_by' => $_SESSION['user_id'],
+                        'is_active' => 1,
+                    ]);
+                    if (!$roleAssigned) {
+                        throw new RuntimeException('The live role assignment table is missing required account columns.');
+                    }
 
                     try {
                         logActivity($_SESSION['user_id'], 'Created staff account', 'users', $userId, $roleName);
@@ -130,8 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
+            error_log('Staff account creation failed: ' . $e->getMessage());
             if (empty($error)) {
-                $error = 'Account could not be created. Please check the database configuration and try again.';
+                $error = 'Account could not be created. Please verify the database schema and try again.';
             }
         }
     }
