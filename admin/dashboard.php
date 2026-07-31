@@ -23,10 +23,8 @@ function dashboardEscape($value) {
 ensureDocumentRequestPaymentColumns();
 
 // Super Admin dashboard statistics
-$stmt = $pdo->query("SELECT COUNT(*) FROM users WHERE is_active = 1 AND (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00')");
-$totalActiveUsers = (int)$stmt->fetchColumn();
+$totalActiveUsers = (int)dbFetchColumn("SELECT COUNT(*) FROM users WHERE is_active = 1 AND (deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00')");
 
-$stmt = $pdo->query("\n    SELECT r.role_name, COUNT(DISTINCT u.user_id) AS total\n    FROM roles r\n    LEFT JOIN user_role_assignments ura ON ura.role_id = r.role_id AND ura.is_active = 1\n    LEFT JOIN users u ON u.user_id = ura.user_id AND u.is_active = 1 AND (u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00')\n    WHERE r.role_name IN ('super_admin', 'barangay_captain', 'barangay_secretary', 'barangay_treasurer', 'resident')\n    GROUP BY r.role_name\n");
 $roleCounts = [
     'super_admin' => 0,
     'barangay_captain' => 0,
@@ -34,96 +32,80 @@ $roleCounts = [
     'barangay_treasurer' => 0,
     'resident' => 0,
 ];
-foreach ($stmt->fetchAll() as $row) {
+foreach (dbFetchAll("SELECT r.role_name, COUNT(DISTINCT u.user_id) AS total
+    FROM roles r
+    LEFT JOIN user_role_assignments ura ON ura.role_id = r.role_id AND ura.is_active = 1
+    LEFT JOIN users u ON u.user_id = ura.user_id AND u.is_active = 1 AND (u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00')
+    WHERE r.role_name IN ('super_admin', 'barangay_captain', 'barangay_secretary', 'barangay_treasurer', 'resident')
+    GROUP BY r.role_name") as $row) {
     $roleCounts[$row['role_name']] = (int)$row['total'];
 }
 
-$stmt = $pdo->query("SELECT COUNT(*) FROM users WHERE is_locked = 1 OR is_active = 0 OR deleted_at IS NOT NULL");
-$attentionAccounts = (int)$stmt->fetchColumn();
+$attentionAccounts = (int)dbFetchColumn("SELECT COUNT(*) FROM users WHERE is_locked = 1 OR is_active = 0 OR deleted_at IS NOT NULL");
 
-$stmt = $pdo->query("\n    SELECT u.user_id, u.first_name, u.last_name, u.email, u.username, u.is_active, u.created_at, r.role_name\n    FROM users u\n    LEFT JOIN user_role_assignments ura ON ura.user_id = u.user_id AND ura.is_active = 1\n    LEFT JOIN roles r ON r.role_id = ura.role_id\n    WHERE u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00'\n    ORDER BY u.created_at DESC\n    LIMIT 6\n");
-$recentAccounts = $stmt->fetchAll();
+    $recentAccounts = dbFetchAll("\n    SELECT u.user_id, u.first_name, u.last_name, u.email, u.username, u.is_active, u.created_at, r.role_name\n    FROM users u\n    LEFT JOIN user_role_assignments ura ON ura.user_id = u.user_id AND ura.is_active = 1\n    LEFT JOIN roles r ON r.role_id = ura.role_id\n    WHERE u.deleted_at IS NULL OR u.deleted_at = '0000-00-00 00:00:00'\n    ORDER BY u.created_at DESC\n    LIMIT 6\n");
 
-$stmt = $pdo->query("\n    SELECT al.*, u.first_name, u.last_name\n    FROM activity_logs al\n    LEFT JOIN users u ON u.user_id = al.user_id\n    ORDER BY al.created_at DESC\n    LIMIT 6\n");
-$recentActivity = $stmt->fetchAll();
+    $recentActivity = dbFetchAll("\n    SELECT al.*, u.first_name, u.last_name\n    FROM activity_logs al\n    LEFT JOIN users u ON u.user_id = al.user_id\n    ORDER BY al.created_at DESC\n    LIMIT 6\n");
 
 // Get dashboard statistics
-$stmt = $pdo->query("SELECT COUNT(DISTINCT u.user_id) as active_units \n    FROM users u \n    JOIN resident_profiles rp ON u.user_id = rp.user_id \n    WHERE u.is_active = 1");
-$activeUnits = $stmt->fetch()['active_units'];
+$activeUnits = dbFetchColumn("SELECT COUNT(DISTINCT u.user_id) as active_units \n    FROM users u \n    JOIN resident_profiles rp ON u.user_id = rp.user_id \n    WHERE u.is_active = 1");
 
 // This month charges
-$stmt = $pdo->query("SELECT COALESCE(SUM(amount), 0) as total \n    FROM subscriptions \n    WHERE MONTH(due_date) = MONTH(CURRENT_DATE) AND YEAR(due_date) = YEAR(CURRENT_DATE)");
-$thisMonthCharges = $stmt->fetch()['total'];
+$thisMonthCharges = dbFetchColumn("SELECT COALESCE(SUM(amount), 0) as total \n    FROM subscriptions \n    WHERE MONTH(due_date) = MONTH(CURRENT_DATE) AND YEAR(due_date) = YEAR(CURRENT_DATE)");
 
 // This month paid
-$stmt = $pdo->query("SELECT COALESCE(SUM(amount), 0) as total \n    FROM transactions \n    WHERE MONTH(transaction_date) = MONTH(CURRENT_DATE) \n    AND YEAR(transaction_date) = YEAR(CURRENT_DATE) \n    AND status = 'completed'");
-$thisMonthPaid = $stmt->fetch()['total'];
+$thisMonthPaid = dbFetchColumn("SELECT COALESCE(SUM(amount), 0) as total \n    FROM transactions \n    WHERE MONTH(transaction_date) = MONTH(CURRENT_DATE) \n    AND YEAR(transaction_date) = YEAR(CURRENT_DATE) \n    AND status = 'completed'");
 
 // This month outstanding
 $thisMonthOutstanding = $thisMonthCharges - $thisMonthPaid;
 
 // Total outstanding
-$stmt = $pdo->query("SELECT COALESCE(SUM(amount), 0) as total \n    FROM subscriptions WHERE status IN ('pending', 'overdue')");
-$totalOutstanding = $stmt->fetch()['total'];
+$totalOutstanding = dbFetchColumn("SELECT COALESCE(SUM(amount), 0) as total \n    FROM subscriptions WHERE status IN ('pending', 'overdue')");
 
 // Delinquent units
-$stmt = $pdo->query("SELECT COUNT(DISTINCT user_id) as delinquent \n    FROM subscriptions WHERE due_date < CURDATE() AND status = 'pending'");
-$delinquentUnits = $stmt->fetch()['delinquent'];
+$delinquentUnits = dbFetchColumn("SELECT COUNT(DISTINCT user_id) as delinquent \n    FROM subscriptions WHERE due_date < CURDATE() AND status = 'pending'");
 
 // Total funds
-$stmt = $pdo->query("SELECT \n    COALESCE(SUM(CASE WHEN payment_method = 'cash' AND status = 'completed' THEN amount ELSE 0 END), 0) as cash_total,\n    COALESCE(SUM(CASE WHEN payment_method = 'gcash' AND status = 'completed' THEN amount ELSE 0 END), 0) as gcash_total\n    FROM transactions");
-$funds = $stmt->fetch();
+$funds = dbFetchOne("SELECT \n    COALESCE(SUM(CASE WHEN payment_method = 'cash' AND status = 'completed' THEN amount ELSE 0 END), 0) as cash_total,\n    COALESCE(SUM(CASE WHEN payment_method = 'gcash' AND status = 'completed' THEN amount ELSE 0 END), 0) as gcash_total\n    FROM transactions");
+$funds += ['cash_total' => 0, 'gcash_total' => 0];
 $totalFunds = $funds['cash_total'] + $funds['gcash_total'];
 
 // Pending requests
-$stmt = $pdo->query("SELECT COUNT(*) as pending FROM document_requests WHERE status = 'pending'");
-$pendingRequests = $stmt->fetch()['pending'];
+$pendingRequests = dbFetchColumn("SELECT COUNT(*) as pending FROM document_requests WHERE status = 'pending'");
 
-$stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid' AND payment_method = 'cash'");
-$cashPaymentsAwaiting = (int)$stmt->fetchColumn();
+$cashPaymentsAwaiting = (int)dbFetchColumn("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid' AND payment_method = 'cash'");
 
-$stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid' AND payment_method = 'gcash' AND payment_proof_status = 'submitted'");
-$gcashProofsAwaiting = (int)$stmt->fetchColumn();
+$gcashProofsAwaiting = (int)dbFetchColumn("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid' AND payment_method = 'gcash' AND payment_proof_status = 'submitted'");
 
 // Pending complaints
-$stmt = $pdo->query("SELECT COUNT(*) as pending FROM complaints WHERE status = 'submitted'");
-$pendingComplaints = $stmt->fetch()['pending'];
+$pendingComplaints = dbFetchColumn("SELECT COUNT(*) as pending FROM complaints WHERE status = 'submitted'");
 
 // Recent transactions
-$stmt = $pdo->query("SELECT t.*, u.first_name, u.last_name \n    FROM transactions t \n    JOIN users u ON t.user_id = u.user_id \n    ORDER BY t.transaction_date DESC LIMIT 10");
-$recentTransactions = $stmt->fetchAll();
+$recentTransactions = dbFetchAll("SELECT t.*, u.first_name, u.last_name \n    FROM transactions t \n    JOIN users u ON t.user_id = u.user_id \n    ORDER BY t.transaction_date DESC LIMIT 10");
 
 // Recent document requests
-$stmt = $pdo->query("SELECT dr.*, u.first_name, u.last_name \n    FROM document_requests dr \n    JOIN users u ON dr.user_id = u.user_id \n    ORDER BY dr.requested_at DESC LIMIT 5");
-$recentRequests = $stmt->fetchAll();
+$recentRequests = dbFetchAll("SELECT dr.*, u.first_name, u.last_name \n    FROM document_requests dr \n    JOIN users u ON dr.user_id = u.user_id \n    ORDER BY dr.requested_at DESC LIMIT 5");
 
 // Document request approvals waiting for payment
-$stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid'");
-$awaitingDocumentPayments = (int)$stmt->fetchColumn();
+$awaitingDocumentPayments = (int)dbFetchColumn("SELECT COUNT(*) FROM document_requests WHERE status = 'approved' AND payment_status = 'unpaid'");
 
 // Ready for pickup requests
-$stmt = $pdo->query("SELECT COUNT(*) FROM document_requests WHERE status = 'ready_for_pickup'");
-$readyForPickupRequests = (int)$stmt->fetchColumn();
+$readyForPickupRequests = (int)dbFetchColumn("SELECT COUNT(*) FROM document_requests WHERE status = 'ready_for_pickup'");
 
 // Recent document payment records
-$stmt = $pdo->query("\n    SELECT t.*, u.first_name, u.last_name, dr.reference_number, COALESCE(t.document_type, dr.document_type) AS document_type\n    FROM transactions t\n    JOIN users u ON t.user_id = u.user_id\n    LEFT JOIN document_requests dr ON dr.request_id = t.reference_id AND t.transaction_type = 'document_fee'\n    WHERE t.transaction_type = 'document_fee'\n    ORDER BY t.transaction_date DESC\n    LIMIT 5\n");
-$recentDocumentPayments = $stmt->fetchAll();
+$recentDocumentPayments = dbFetchAll("\n    SELECT t.*, u.first_name, u.last_name, dr.reference_number, COALESCE(t.document_type, dr.document_type) AS document_type\n    FROM transactions t\n    JOIN users u ON t.user_id = u.user_id\n    LEFT JOIN document_requests dr ON dr.request_id = t.reference_id AND t.transaction_type = 'document_fee'\n    WHERE t.transaction_type = 'document_fee'\n    ORDER BY t.transaction_date DESC\n    LIMIT 5\n");
 
 // Total document payments collected
-$stmt = $pdo->query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'document_fee' AND status = 'completed'");
-$documentPaymentTotal = (float)$stmt->fetchColumn();
+$documentPaymentTotal = (float)dbFetchColumn("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE transaction_type = 'document_fee' AND status = 'completed'");
 
 // Recent complaints
-$stmt = $pdo->query("SELECT c.*, u.first_name, u.last_name \n    FROM complaints c \n    JOIN users u ON c.complainant_id = u.user_id \n    ORDER BY c.created_at DESC LIMIT 5");
-$recentComplaints = $stmt->fetchAll();
+$recentComplaints = dbFetchAll("SELECT c.*, u.first_name, u.last_name \n    FROM complaints c \n    JOIN users u ON c.complainant_id = u.user_id \n    ORDER BY c.created_at DESC LIMIT 5");
 
 // Upcoming appointments
-$stmt = $pdo->query("SELECT a.*, u.first_name, u.last_name \n    FROM appointments a \n    JOIN users u ON a.user_id = u.user_id \n    WHERE a.preferred_date >= CURDATE() AND a.status = 'pending'\n    ORDER BY a.preferred_date ASC LIMIT 5");
-$upcomingAppointments = $stmt->fetchAll();
+$upcomingAppointments = dbFetchAll("SELECT a.*, u.first_name, u.last_name \n    FROM appointments a \n    JOIN users u ON a.user_id = u.user_id \n    WHERE a.preferred_date >= CURDATE() AND a.status = 'pending'\n    ORDER BY a.preferred_date ASC LIMIT 5");
 
 // Get subscription due reminder
-$stmt = $pdo->query("SELECT * FROM subscriptions WHERE due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 10 DAY) AND status = 'pending' LIMIT 1");
-$dueReminder = $stmt->fetch();
+$dueReminder = dbFetchOne("SELECT * FROM subscriptions WHERE due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 10 DAY) AND status = 'pending' LIMIT 1");
 
 $notificationItems = [];
 if ($pendingRequests > 0) {
