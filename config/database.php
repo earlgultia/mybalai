@@ -106,6 +106,28 @@ function hasRole($roles) {
     return (bool)array_intersect($roles, array_merge($userRoles, [$_SESSION['user_type'] ?? '']));
 }
 
+function isAdminSession() {
+    if (!isLoggedIn()) return false;
+    if (($_SESSION['user_type'] ?? '') === 'admin') return true;
+
+    $administrativeRoles = [
+        'super_admin',
+        'barangay_captain',
+        'barangay_secretary',
+        'barangay_treasurer',
+        'barangay_kagawad',
+        'health_worker',
+        'tanod',
+        'admin_staff',
+    ];
+    $userRoles = $_SESSION['user_roles'] ?? [];
+    if (!is_array($userRoles)) {
+        $userRoles = array_filter(array_map('trim', explode(',', (string)$userRoles)));
+    }
+
+    return (bool)array_intersect($administrativeRoles, array_merge($userRoles, [$_SESSION['user_type'] ?? '']));
+}
+
 function getUserRoleNames($user_id) {
     global $pdo;
     $stmt = $pdo->prepare("

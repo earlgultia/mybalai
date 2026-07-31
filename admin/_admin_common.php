@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
 
-if (!isLoggedIn() || $_SESSION['user_type'] !== 'admin') {
+if (!isAdminSession()) {
     redirect('../index.php');
 }
 

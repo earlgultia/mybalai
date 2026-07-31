@@ -1,0 +1,25 @@
+[Fri Jul 31 10:49:10 2026] PHP 8.2.13 Development Server (http://127.0.0.1:8091) started
+[Fri Jul 31 10:49:16 2026] 127.0.0.1:53941 Accepted
+[Fri Jul 31 10:49:20 2026] 127.0.0.1:53941 [200]: GET /index.php
+[Fri Jul 31 10:49:20 2026] 127.0.0.1:53941 Closing
+[Fri Jul 31 10:49:20 2026] 127.0.0.1:53946 Accepted
+[Fri Jul 31 10:49:24 2026] 127.0.0.1:53946 [200]: GET /login.php
+[Fri Jul 31 10:49:24 2026] 127.0.0.1:53946 Closing
+[Fri Jul 31 10:49:24 2026] 127.0.0.1:53952 Accepted
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53952 [200]: GET /register.php
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53952 Closing
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53955 Accepted
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53955 [200]: GET /offline.html
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53955 Closing
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53956 Accepted
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53956 [200]: GET /manifest.json
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53956 Closing
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53957 Accepted
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53957 [200]: GET /service-worker.js
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53957 Closing
+[Fri Jul 31 10:49:28 2026] 127.0.0.1:53958 Accepted
+[Fri Jul 31 10:49:32 2026] 127.0.0.1:53958 [302]: GET /admin/dashboard.php
+[Fri Jul 31 10:49:32 2026] 127.0.0.1:53958 Closing
+[Fri Jul 31 10:49:32 2026] 127.0.0.1:53961 Accepted
+[Fri Jul 31 10:49:36 2026] 127.0.0.1:53961 [302]: GET /resident/dashboard.php
+[Fri Jul 31 10:49:36 2026] 127.0.0.1:53961 Closing
